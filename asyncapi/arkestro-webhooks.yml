@@ -1,0 +1,82 @@
+generated: '2026-08-06'
+method: searched
+source: https://api.arkestro.com/api-docs/v2/openapi.yaml
+spec_type: Webhooks
+asyncapi: null
+asyncapi_note: >-
+  Arkestro publishes no AsyncAPI document and no top-level OpenAPI 3.1 `webhooks` object.
+  The entire outbound event contract is carried in prose, as an `x-traitTag` tag named
+  "Webhooks" inside the REST OpenAPI. That is a real, detailed, machine-fetchable webhook
+  specification — signing, replay window, retry schedule and delivery semantics are all
+  precisely stated — but the event catalog itself (which events fire, and their payload
+  schemas) is NOT in the public spec, so no channel or message schema can be recorded here
+  without fabricating it.
+transport: HTTP POST to a subscriber-supplied endpoint
+security:
+  signing:
+    algorithm: HMAC-SHA256
+    header: X-Arkestro-Signature
+    format: sha256=<lowercase hex digest>
+    multiple_signatures: >-
+      One or more signatures, comma-joined with no whitespace. Multiple values appear during
+      secret rotation, so verifiers must accept a match against any candidate.
+    signed_payload: '{X-Arkestro-Timestamp}.{raw_request_body}'
+    raw_body_required: true
+    comparison: constant-time
+  replay_protection:
+    header: X-Arkestro-Timestamp
+    format: Unix epoch seconds, as a string
+    in_signed_payload: true
+    recommended_tolerance_seconds: 300
+  verification_examples_published:
+  - node.js
+  - python
+  - ruby
+delivery:
+  idempotency:
+    header: X-Arkestro-Idempotency-Key
+    value: UUID identifying the delivery event
+    stable_across_retries: true
+    in_signed_payload: false
+    purpose: >-
+      Consumer-side deduplication of retried deliveries. Generated once when the event fires
+      and constant across every retry attempt of that delivery, unlike `request_id` in the
+      body which changes on every attempt.
+    scope: inbound-webhook-delivery-only
+    not_request_idempotency: >-
+      IMPORTANT: this is delivery dedupe for Arkestro's outbound webhooks. It is NOT an
+      idempotency-key contract for the REST API's own POST/PATCH writes, which have none.
+  acknowledgement:
+    success: any 2xx (200, 201, 202, 204 treated identically); response body ignored
+    timeout_seconds: 10
+    guidance: enqueue slow processing and return 2xx immediately
+  retry:
+    retried_on:
+    - '429'
+    - 5xx
+    - transport errors (timeouts, connection failures)
+    not_retried_on:
+    - 4xx except 429 (treated as permanent failure, delivery discarded)
+    max_attempts: 10
+    strategy: exponential backoff
+    final_attempt_after: approximately 4-5 hours after the initial attempt
+    on_exhaustion: delivery permanently abandoned
+events:
+  catalog_published: false
+  note: >-
+    No event-type list, no payload schemas and no subscription-management endpoints appear
+    in the public OpenAPI. Subscription is presumably configured in the tenant application
+    behind app.arkestro.com. Nothing is asserted here about which events exist.
+payload_fields_referenced:
+- field: request_id
+  location: body
+  note: changes on every delivery attempt (contrast with X-Arkestro-Idempotency-Key)
+gaps:
+- No AsyncAPI document, so the event surface is not machine-readable as an event contract.
+- No published event-type catalog or payload schemas.
+- No webhook subscription/management operations in the public REST API.
+x-evidence:
+- url: https://api.arkestro.com/api-docs/v2/openapi.yaml
+  http_status: 200
+  fetched: '2026-08-06'
+  locator: 'tags[] entry name="Webhooks", x-traitTag: true'

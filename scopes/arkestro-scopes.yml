@@ -1,0 +1,54 @@
+generated: '2026-08-06'
+method: probed
+source: https://api.arkestro.com/.well-known/oauth-authorization-server
+note: >-
+  These scopes are not derivable from the OpenAPI — the published spec declares only an
+  apiKey scheme. They come from Arkestro's live RFC 8414 authorization-server metadata and
+  govern the remote MCP server at https://api.arkestro.com/api/v2/mcp, not the REST API V2.
+  Arkestro publishes no scope reference page; descriptions below are the plain reading of
+  the scope names and are marked as such rather than quoted from documentation.
+schemes:
+- name: OAuth2
+  source: well-known/arkestro-oauth-authorization-server.json
+  issuer: https://api.arkestro.com
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.arkestro.com/oauth/authorize
+    tokenUrl: https://api.arkestro.com/oauth/token
+    pkce_required: true
+    code_challenge_methods:
+    - S256
+scopes:
+- scope: mcp:read
+  description: Read access through the MCP server.
+  description_source: inferred-from-scope-name
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/arkestro-oauth-authorization-server.json
+- scope: mcp:write
+  description: Write access through the MCP server.
+  description_source: inferred-from-scope-name
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/arkestro-oauth-authorization-server.json
+- scope: offline_access
+  description: Issue a refresh token so the client can act without the user present.
+  description_source: standard-oidc-scope
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/arkestro-oauth-authorization-server.json
+coverage:
+  scopes_published: 3
+  granularity: coarse
+  note: >-
+    Two functional scopes for an entire procurement platform. A read/write split alone
+    cannot express least privilege across events, awards, purchase orders, supplier
+    organizations and analytics — an agent granted mcp:write to schedule an event also
+    holds whatever write reach the server exposes over awards and purchase orders.
+x-evidence:
+- url: https://api.arkestro.com/.well-known/oauth-authorization-server
+  http_status: 200
+  fetched: '2026-08-06'

@@ -1,0 +1,484 @@
+generated: '2026-08-06'
+method: derived
+source: openapi/arkestro-api-v2-openapi.yml
+note: >-
+  Derived by walking the 200-response schemas of all 46 operations in the published OpenAPI
+  and reading embedded objects and *_id reference fields as relationships. Arkestro's spec
+  inlines every schema into its path files — components.schemas is empty — so entity names
+  below are taken from the response envelope keys and path segments, not from named schema
+  components. No id-prefix scheme is published; ids are plain integers.
+id_convention:
+  type: integer
+  prefixed: false
+  external_id:
+    present_on:
+    - Event
+    - SupplierOrganization
+    - SupplierContact
+    - PurchaseOrder
+    - Item
+    - Document
+    - DocumentSubmission
+    - QuoteSubmission
+    - Award
+    type: string, nullable
+    purpose: >-
+      Correlation key for the customer's own system of record. Queryable as a filter on the
+      collection endpoints, which is the only duplicate-detection mechanism the API offers
+      given there is no request idempotency.
+core_domain: >-
+  A sourcing Event is the spine. Everything else either configures an event (schedule, lots,
+  line items, documents), participates in it (supplier organizations and their contacts,
+  quote submissions, document submissions), resolves it (award), or reports on it (the
+  analytics data marts). Corporate categories, items and purchase orders form a separate
+  reference/spend catalog that events draw on.
+entities:
+- name: BusinessUnit
+  collection: /api/v2/business_units
+  operations:
+  - GET /api/v2/business_units
+  fields:
+  - id
+  - name
+  - unique_name
+  writable: false
+  note: Read-only reference data; no create/update/delete operations are exposed.
+- name: Category
+  collection: /api/v2/corporate/categories
+  member: /api/v2/corporate/categories/{id}
+  crud:
+  - list
+  - create
+  - show
+  - update
+  - delete
+  fields:
+  - id
+  - name
+  - code
+  - description
+  domain: corporate spend catalog
+- name: Item
+  collection: /api/v2/corporate/items
+  member: /api/v2/corporate/items/{id}
+  crud:
+  - list
+  - create
+  - show
+  - update
+  - delete
+  fields:
+  - id
+  - name
+  - code
+  - sku
+  - description
+  - category
+  domain: corporate spend catalog
+- name: PurchaseOrder
+  collection: /api/v2/corporate/purchase_orders
+  member: /api/v2/corporate/purchase_orders/{id}
+  crud:
+  - list
+  - create
+  - show
+  - update
+  - delete
+  fields:
+  - id
+  - name
+  - title
+  - code
+  - currency
+  - description
+  - external_id
+  - external_division_id
+  - purchasing_org_id
+  - purchased_on
+  - price_per_unit
+  - quantity_of_items
+  - items_per_unit
+  - spend_category
+  - status
+  - order_items
+  domain: corporate spend catalog
+- name: SupplierOrganization
+  collection: /api/v2/supplier_organizations
+  member: /api/v2/supplier_organizations/{id}
+  crud:
+  - list
+  - create
+  - show
+  - update
+  fields:
+  - id
+  - name
+  - firm
+  - domain
+  - status
+  - external_id
+  - address
+  - line_one
+  - line_two
+  - city
+  - state
+  - postal_code
+  - country
+  - created_at
+  - updated_at
+  note: No delete operation — supplier organizations cannot be removed through the API.
+- name: SupplierContact
+  collection: /api/v2/supplier_contacts
+  member: /api/v2/supplier_contacts/{id}
+  crud:
+  - list
+  - create
+  - show
+  - update
+  - delete
+  fields:
+  - id
+  - first_name
+  - last_name
+  - name
+  - email
+  - phone
+  - title
+  - status
+  - domain
+  - firm
+  - external_id
+  - supplier_organization
+  - address
+- name: Event
+  collection: /api/v2/events
+  member: /api/v2/events/{id}
+  crud:
+  - list
+  - create
+  - show
+  - update
+  - delete
+  fields:
+  - id
+  - name
+  - unique_name
+  - number
+  - description
+  - external_id
+  - status
+  - currency
+  - event_currency
+  - quoting_currency
+  - conversion_rate
+  - exchange_rates
+  - event_format
+  - multi_round
+  - has_price_guidance_round
+  - created_at
+  - tags
+  - config
+  - business_unit
+  - creator
+  - lots
+  - line_items
+  - custom_column_headers
+  - custom_column_items
+  - custom_value_fields
+  - descriptive_attributes
+  states:
+  - draft
+  - open_for_bidding
+  - open_for_questions
+  - closed
+  - ready_to_award
+  - awarded
+  - unawarded
+  extensibility: >-
+    Events carry customer-defined custom_column_headers / custom_column_items and
+    custom_value_fields, so the event schema is tenant-extensible.
+- name: Schedule
+  member: /api/v2/events/{id}/schedule
+  crud:
+  - show
+  fields:
+  - id
+  - name
+  - number
+  - description
+  - event_format
+  - start_at
+  - end_at
+  - start_time
+  - end_time
+  - started
+  - ended
+  - multi_round
+  - round_count
+  - round_length
+  - round_type
+  - round_unit
+  - rounds
+  - length_unit
+  - length_value
+  - should_skip_weekends
+  - has_price_guidance_round
+  note: >-
+    Read-only through the API. Rounds are nested inside the schedule rather than exposed as
+    their own resource.
+- name: Award
+  member: /api/v2/events/{id}/award
+  crud:
+  - show
+  fields:
+  - id
+  - name
+  - awarded_at
+  - awarded_line_items
+  - currency
+  - quoting_currency
+  - quantity
+  - units
+  - total_price
+  - quoted_price_per_unit
+  - quoted_quantity
+  - supplier_provided_price
+  - supplier_provided_discount
+  - external_id
+  - external_contact_id
+  - business_unit
+  - event
+  - supplier
+  - custom_fields
+  - descriptive_attributes
+  note: >-
+    Read-only. There is no award operation in the public API — an event can be created and
+    run over the API, but the award itself is made in the application and only read back here.
+- name: Document
+  collection: /api/v2/events/{event_id}/documents
+  member: /api/v2/events/{event_id}/documents/{id}
+  crud:
+  - list
+  - create
+  - show
+  - update
+  - delete
+  fields:
+  - id
+  - name
+  - filename
+  - description
+  - external_id
+  - approval_required
+  - submission_required
+  - consent_required
+  - blocks_access
+  - will_accept_submissions
+  upload:
+    style: presigned-url
+    note: >-
+      Create returns a document_with_upload_url payload; the client PUTs the bytes to the
+      returned URL rather than posting multipart to Arkestro.
+- name: DocumentSubmission
+  collection: /api/v2/events/{event_id}/document_submissions
+  crud:
+  - list
+  fields:
+  - id
+  - name
+  - filename
+  - download_url
+  - approved
+  - rejection_reason
+  - submitted_at
+  - external_id
+  - document
+  - supplier_contact
+  - supplier_organization
+  - first_name
+  - last_name
+  - email
+- name: QuoteSubmission
+  collection: /api/v2/quote_submissions
+  member: /api/v2/quote_submissions/{id}
+  crud:
+  - list
+  - show
+  fields:
+  - id
+  - name
+  - status
+  - round_number
+  - submitted_at
+  - archived
+  - total
+  - currency
+  - quoting_currency
+  - price
+  - discount
+  - quantity
+  - quoted_quantity
+  - no_quote
+  - unit_of_measure
+  - external_id
+  - event
+  - supplier_contact
+  - supplier_organization
+  - quote_submission_lots
+  - quote_submission_line_items
+  - adder_custom_column_items
+  note: >-
+    Read-only. Suppliers submit quotes through the Arkestro application; the API exposes them
+    for retrieval and analysis only.
+- name: EventAnalyticsRecord
+  collection: /api/v2/event_analytics/*
+  variants:
+  - buyer_leaderboards
+  - quotes
+  - supplier_invitation_statuses
+  - survey_results
+  export_tasks:
+  - POST /api/v2/event_analytics/metrics/export_task
+  - POST /api/v2/event_analytics/rounds/export_task
+  envelope_key: data
+  fields_sample:
+  - company_id
+  - business_unit_id
+  - event_id
+  - event_name
+  - event_state
+  - event_currency
+  - creator_user_full_name
+  - baseline_total
+  - baseline_total_28d
+  - baseline_total_90d
+  - baseline_trend_28d
+  - event_count_28d
+  - event_count_90d
+  - is_awarded_quote
+  - is_buyer_side_quote
+  - is_included_in_reporting
+  - dbt_run_id
+  - dbt_run_ts
+  note: >-
+    A denormalized reporting layer, not a normalized resource. The presence of dbt_run_id and
+    dbt_run_ts on every record shows these are dbt-built marts surfaced directly, and
+    refreshed_after is provided as a filter so a consumer can poll for newly rebuilt rows.
+relationships:
+- from: Event
+  to: BusinessUnit
+  kind: belongs_to
+  via: business_unit
+- from: Event
+  to: Schedule
+  kind: has_one
+  via: /api/v2/events/{id}/schedule
+- from: Event
+  to: Award
+  kind: has_one
+  via: /api/v2/events/{id}/award
+- from: Event
+  to: Document
+  kind: has_many
+  via: /api/v2/events/{event_id}/documents
+- from: Event
+  to: DocumentSubmission
+  kind: has_many
+  via: /api/v2/events/{event_id}/document_submissions
+- from: Event
+  to: QuoteSubmission
+  kind: has_many
+  via: event
+- from: Event
+  to: Lot
+  kind: has_many
+  via: lots
+  embedded: true
+- from: Event
+  to: LineItem
+  kind: has_many
+  via: line_items
+  embedded: true
+- from: Schedule
+  to: Round
+  kind: has_many
+  via: rounds
+  embedded: true
+- from: SupplierContact
+  to: SupplierOrganization
+  kind: belongs_to
+  via: supplier_organization
+- from: QuoteSubmission
+  to: SupplierContact
+  kind: belongs_to
+  via: supplier_contact
+- from: QuoteSubmission
+  to: SupplierOrganization
+  kind: belongs_to
+  via: supplier_organization
+- from: QuoteSubmission
+  to: QuoteSubmissionLot
+  kind: has_many
+  via: quote_submission_lots
+  embedded: true
+- from: QuoteSubmission
+  to: QuoteSubmissionLineItem
+  kind: has_many
+  via: quote_submission_line_items
+  embedded: true
+- from: DocumentSubmission
+  to: Document
+  kind: belongs_to
+  via: document
+- from: DocumentSubmission
+  to: SupplierContact
+  kind: belongs_to
+  via: supplier_contact
+- from: DocumentSubmission
+  to: SupplierOrganization
+  kind: belongs_to
+  via: supplier_organization
+- from: Award
+  to: Event
+  kind: belongs_to
+  via: event
+- from: Award
+  to: SupplierOrganization
+  kind: belongs_to
+  via: supplier
+- from: Award
+  to: BusinessUnit
+  kind: belongs_to
+  via: business_unit
+- from: Item
+  to: Category
+  kind: belongs_to
+  via: category
+- from: PurchaseOrder
+  to: Category
+  kind: belongs_to
+  via: category
+- from: PurchaseOrder
+  to: Item
+  kind: belongs_to
+  via: item
+- from: EventAnalyticsRecord
+  to: Event
+  kind: belongs_to
+  via: event_id
+- from: EventAnalyticsRecord
+  to: BusinessUnit
+  kind: belongs_to
+  via: business_unit_id
+write_boundary:
+  note: >-
+    The read/write split is the most telling thing in this model. Fully writable: Category,
+    Item, PurchaseOrder, SupplierContact, Document, Event. Create/update but no delete:
+    SupplierOrganization. Read-only: BusinessUnit, Schedule, Award, DocumentSubmission,
+    QuoteSubmission, all analytics. An integrator can set up and launch a sourcing event over
+    the API, but cannot schedule it, cannot receive quotes through it, and cannot award
+    through it — those remain application-side actions.
+x-evidence:
+- url: https://api.arkestro.com/api-docs/v2/openapi.yaml
+  http_status: 200
+  fetched: '2026-08-06'

@@ -1,0 +1,117 @@
+# Arkestro
+
+> Predictive procurement orchestration platform for enterprise sourcing teams. Arkestro runs
+> competitive sourcing events at scale — supplier discovery and invitation, multi-round quoting,
+> document collection, and award — across automotive, oil and gas, high-tech manufacturing,
+> construction, financial services and food and beverage buyers.
+>
+> This file is generated and maintained by API Evangelist, not by Arkestro. Arkestro publishes no
+> llms.txt of its own (/llms.txt returns 404 on arkestro.com, api.arkestro.com and
+> docs.arkestro.com). Everything below was fetched from Arkestro's public surface on 2026-08-06.
+
+## What is actually callable
+
+Arkestro has two live public API surfaces and one wall.
+
+- **API V2 (REST)** — public OpenAPI 3.1.1, 46 operations across 26 paths, served at
+  https://api.arkestro.com/api-docs/v2/openapi.yaml. Fully readable without credentials.
+- **MCP server** — live at https://api.arkestro.com/api/v2/mcp, OAuth 2.1 with mandatory PKCE.
+  Undocumented anywhere public; tools/list returns 401, so its tool set is not enumerable.
+- **Developer docs** — docs.arkestro.com and developer.arkestro.com both redirect to a sign-in
+  wall. The Swagger UI at https://api.arkestro.com/api-docs is the only open reference.
+
+## APIs
+
+- [Arkestro API V2 reference](https://api.arkestro.com/api-docs): Swagger UI over the public spec.
+- [Arkestro API V2 OpenAPI](https://api.arkestro.com/api-docs/v2/openapi.yaml): OpenAPI 3.1.1,
+  served as a multi-file $ref bundle (paths/ and components/ are separate documents).
+- [OAuth authorization server metadata](https://api.arkestro.com/.well-known/oauth-authorization-server):
+  RFC 8414. The only public evidence that the MCP server exists.
+
+## Authentication
+
+- **REST API V2**: API key in an `X-Token` header. The token is a Personal Access Token created at
+  User Settings -> Personal Access Tokens. The user must be an admin AND the API feature must be
+  enabled for the tenant on request — it is off by default.
+- **MCP**: OAuth 2.1 authorization code + PKCE S256 (enforced, not optional). Scopes are
+  `mcp:read`, `mcp:write`, `offline_access`. Endpoints: /oauth/authorize, /oauth/token,
+  /oauth/revoke, /oauth/introspect. No OIDC — there is no userinfo endpoint.
+- The two credentials are not interchangeable.
+
+## Resource surface
+
+- **Events** — list, create, show, update, delete. The spine of the model. States: draft,
+  open_for_bidding, open_for_questions, closed, ready_to_award, awarded, unawarded.
+- **Schedules** — read-only, per event. Rounds are nested inside the schedule.
+- **Awards** — read-only, per event.
+- **Event documents** — list, create, show, update, delete. Upload is presigned-URL style.
+- **Document submissions** — read-only, per event.
+- **Quote submissions** — list and show only.
+- **Supplier organizations** — list, create, show, update (no delete).
+- **Supplier contacts** — full CRUD.
+- **Corporate categories / items / purchase orders** — full CRUD; the spend catalog.
+- **Business units** — read-only reference data.
+- **Event analytics** — buyer leaderboards, quotes, supplier invitation statuses, survey results,
+  plus metrics and rounds export tasks. These are dbt-built marts (records carry dbt_run_id and
+  dbt_run_ts) with a `refreshed_after` filter for incremental polling.
+
+## Conventions an agent must know
+
+- **Pagination**: `limit` / `offset` query params; responses carry a `pagination` object with
+  limit, offset, total and returned_count, alongside a named data key (e.g. `events`).
+- **Sorting**: `sort_by` and `sort_order`.
+- **Errors**: every 4xx/5xx returns a flat `{"error": "<message>"}` object with
+  additionalProperties false. No RFC 9457, no error codes, no field-level validation detail.
+  You can only branch on HTTP status.
+- **No request idempotency.** There is no Idempotency-Key on any write operation. A retried POST
+  can create a duplicate. Use the `external_id` field and its collection filter to check for an
+  existing record before retrying.
+- **No rate-limit contract.** No 429 is declared on any operation and no rate-limit headers are
+  documented. Back off conservatively.
+- **No operationIds.** Not one of the 46 operations declares an operationId. Address operations by
+  method and path.
+- **Correlation**: responses carry an `x-request-id` header (observed, undocumented).
+
+## Webhooks
+
+Arkestro signs every outbound webhook with HMAC-SHA256.
+
+- `X-Arkestro-Signature`: one or more `sha256=<hex>` values, comma-joined without whitespace.
+  Multiple values appear during secret rotation — accept a match against any candidate.
+- `X-Arkestro-Timestamp`: Unix epoch seconds as a string; part of the signed payload.
+- Signed payload is `"{timestamp}.{raw_request_body}"` — use the exact raw bytes received.
+- `X-Arkestro-Idempotency-Key`: a UUID stable across all retries of one delivery. Use it to
+  deduplicate. This is delivery dedupe only — it is not request idempotency for the REST API.
+- Acknowledge with any 2xx within 10 seconds. 4xx (except 429) is a permanent failure and is not
+  retried. 429, 5xx and transport errors are retried up to 10 times with exponential backoff, with
+  the final attempt roughly 4-5 hours after the first.
+- No event-type catalog or payload schemas are published.
+
+## Operations and trust
+
+- [Status page](https://www.arkestrostatus.com/): Atlassian Statuspage, machine-readable at
+  /api/v2/status.json. Publishes no per-service components.
+- [Security](https://arkestro.com/security/): ISO 27001:2022 certified ISMS, SOC 2 Type II audits
+  passed without exceptions, AES at rest, annual penetration testing, AWS hosting.
+- [Trust center](https://trust.arkestro.com/): hosted on Drata.
+- No public changelog, no SLA, no versioning or deprecation policy, no security.txt, and no
+  vulnerability disclosure policy.
+
+## Not present
+
+Checked and absent as of 2026-08-06: no A2A agent card (/.well-known/agent-card.json and
+/.well-known/agent.json are 404 on every Arkestro host), no AsyncAPI document, no GraphQL
+endpoint, no /.well-known/oauth-protected-resource, no /.well-known/api-catalog, no OIDC
+discovery, no client SDK in any package registry, no CLI, no public sandbox or test credentials,
+and no public Postman collection.
+
+## Site
+
+- [Arkestro](https://arkestro.com/)
+- [Blog](https://arkestro.com/blog/)
+- [Integrations](https://arkestro.com/integrations/)
+- [Application login](https://app.arkestro.com/login)
+- [Contact](https://arkestro.com/contact-us/)
+- [Terms of use](https://arkestro.com/terms-of-use/)
+- [Privacy policy](https://arkestro.com/privacy-policy/)
+- [GitHub organization](https://github.com/bid-ops-development) (no SDK repositories)

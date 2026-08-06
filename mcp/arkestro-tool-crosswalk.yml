@@ -1,0 +1,158 @@
+generated: '2026-08-06'
+method: derived
+source: openapi/arkestro-api-v2-openapi.yml
+note: 'Arkestro operates BOTH a public REST API V2 and a remote MCP server, which is exactly the condition
+  this artifact exists for. It cannot be completed. The MCP tools/list is OAuth-gated (HTTP 401) and Arkestro
+  publishes no MCP documentation, no llms.txt and no tool list anywhere public, so not one real tool name
+  is known. crosswalk[] is therefore EMPTY BY EVIDENCE, not by absence of tools -- the mcp:read/mcp:write
+  scopes prove tools exist. No tool names have been guessed from the REST surface; the REST operations
+  below are recorded as rest_only, which is the honest state: 46 public operations, zero of them confirmed
+  to have an MCP tool.'
+surfaces:
+  openapi:
+    file: openapi/arkestro-api-v2-openapi.yml
+    url: https://api.arkestro.com/api-docs/v2/openapi.yaml
+    gated: false
+    operations: 46
+  mcp:
+    url: https://api.arkestro.com/api/v2/mcp
+    gated: true
+    gate: OAuth 2.1 authorization_code + PKCE S256
+    tools_list_status: 401
+  graphql: null
+crosswalk: []
+mcp_only: []
+rest_only:
+- category: business unit
+  operations:
+  - operation: GET /api/v2/business_units
+    summary: list business units
+- category: corporate categories
+  operations:
+  - operation: GET /api/v2/corporate/categories
+    summary: list categories
+  - operation: POST /api/v2/corporate/categories
+    summary: create category
+  - operation: GET /api/v2/corporate/categories/{id}
+    summary: show category
+  - operation: PATCH /api/v2/corporate/categories/{id}
+    summary: update category
+  - operation: DELETE /api/v2/corporate/categories/{id}
+    summary: delete category
+- category: corporate items
+  operations:
+  - operation: GET /api/v2/corporate/items
+    summary: list items
+  - operation: POST /api/v2/corporate/items
+    summary: create item
+  - operation: GET /api/v2/corporate/items/{id}
+    summary: show item
+  - operation: PATCH /api/v2/corporate/items/{id}
+    summary: update item
+  - operation: DELETE /api/v2/corporate/items/{id}
+    summary: delete item
+- category: supplier contacts
+  operations:
+  - operation: GET /api/v2/supplier_contacts
+    summary: list contacts
+  - operation: POST /api/v2/supplier_contacts
+    summary: create supplier contact
+  - operation: GET /api/v2/supplier_contacts/{id}
+    summary: show contact
+  - operation: PATCH /api/v2/supplier_contacts/{id}
+    summary: update supplier contact
+  - operation: DELETE /api/v2/supplier_contacts/{id}
+    summary: delete contact
+- category: supplier organizations
+  operations:
+  - operation: GET /api/v2/supplier_organizations
+    summary: list supplier organizations
+  - operation: POST /api/v2/supplier_organizations
+    summary: create supplier organization
+  - operation: GET /api/v2/supplier_organizations/{id}
+    summary: get supplier organization
+  - operation: PATCH /api/v2/supplier_organizations/{id}
+    summary: update supplier organization
+- category: corporate purchase orders
+  operations:
+  - operation: GET /api/v2/corporate/purchase_orders
+    summary: list purchase_orders
+  - operation: POST /api/v2/corporate/purchase_orders
+    summary: create purchase_order
+  - operation: GET /api/v2/corporate/purchase_orders/{id}
+    summary: show purchase_order
+  - operation: PATCH /api/v2/corporate/purchase_orders/{id}
+    summary: update purchase_order
+  - operation: DELETE /api/v2/corporate/purchase_orders/{id}
+    summary: delete purchase_order
+- category: events
+  operations:
+  - operation: GET /api/v2/events
+    summary: list events
+  - operation: POST /api/v2/events
+    summary: create event
+  - operation: GET /api/v2/events/{id}
+    summary: show event
+  - operation: PATCH /api/v2/events/{id}
+    summary: update event
+  - operation: DELETE /api/v2/events/{id}
+    summary: delete event
+- category: awards
+  operations:
+  - operation: GET /api/v2/events/{id}/award
+    summary: show awarded event
+- category: schedules
+  operations:
+  - operation: GET /api/v2/events/{id}/schedule
+    summary: show schedule
+- category: document submissions
+  operations:
+  - operation: GET /api/v2/events/{event_id}/document_submissions
+    summary: list document submissions
+- category: event documents
+  operations:
+  - operation: GET /api/v2/events/{event_id}/documents
+    summary: list documents
+  - operation: POST /api/v2/events/{event_id}/documents
+    summary: create document
+  - operation: GET /api/v2/events/{event_id}/documents/{id}
+    summary: show document
+  - operation: PATCH /api/v2/events/{event_id}/documents/{id}
+    summary: update document
+  - operation: DELETE /api/v2/events/{event_id}/documents/{id}
+    summary: delete document
+- category: quote submissions
+  operations:
+  - operation: GET /api/v2/quote_submissions
+    summary: list quote submissions
+  - operation: GET /api/v2/quote_submissions/{id}
+    summary: show quote submission
+- category: event analytics
+  operations:
+  - operation: POST /api/v2/event_analytics/metrics/export_task
+    summary: Metrics
+  - operation: POST /api/v2/event_analytics/rounds/export_task
+    summary: Rounds
+  - operation: GET /api/v2/event_analytics/buyer_leaderboards
+    summary: Buyer Leaderboards
+  - operation: GET /api/v2/event_analytics/quotes
+    summary: Quotes
+  - operation: GET /api/v2/event_analytics/supplier_invitation_statuses
+    summary: Supplier Invitation Statuses
+  - operation: GET /api/v2/event_analytics/survey_results
+    summary: Survey Results
+coverage:
+  tools_named: 0
+  tools_bound: 0
+  mcp_only: 0
+  rest_operations_total: 46
+  rest_operations_with_tool: 0
+  bindable: false
+  blocker: mcp-tools-list-auth-gated
+x-evidence:
+- url: https://api.arkestro.com/api/v2/mcp
+  http_status: 401
+  fetched: '2026-08-06'
+- url: https://api.arkestro.com/api-docs/v2/openapi.yaml
+  http_status: 200
+  fetched: '2026-08-06'

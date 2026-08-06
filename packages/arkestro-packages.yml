@@ -1,0 +1,77 @@
+generated: '2026-08-06'
+method: searched
+source: npm, PyPI, RubyGems, Packagist, crates.io, NuGet, github.com/bid-ops-development
+summary:
+  official_api_clients: 0
+  official_other: 1
+  note: >-
+    Arkestro ships NO client library for its API in any language. The registry sweep found one
+    first-party npm package, but it is a design-token module for the product UI, not an API
+    client. Integrators call API V2 with raw HTTP and an X-Token header; the OpenAPI at
+    https://api.arkestro.com/api-docs/v2/openapi.yaml is the only generation input available,
+    and because it declares no operationIds, generated clients will get synthesized method
+    names (see overlays/arkestro-api-v2-overlay.yaml).
+packages:
+- language: javascript
+  registry: npm
+  name: arkestro-tokens
+  url: https://www.npmjs.com/package/arkestro-tokens
+  install: npm install arkestro-tokens
+  official: true
+  api_client: false
+  kind: design-tokens
+  description: Module for Arkestro's design tokens.
+  version: 1.0.3
+  license: MIT
+  repository: https://github.com/bid-ops-development/arkestro-tokens
+  published: '2023-03-28'
+  last_modified: '2023-03-28'
+  official_evidence: >-
+    Repository points at github.com/bid-ops-development, which is Arkestro's GitHub
+    organization (the org page is titled "Arkestro"; bid-ops / BidOps is Arkestro's former
+    company name).
+  note: Unmaintained since 2023 and unrelated to the API.
+registries_searched:
+- registry: npm
+  query: arkestro
+  results: 1
+  api_clients: 0
+- registry: PyPI
+  query: arkestro
+  results: 0
+  status: 404
+- registry: RubyGems
+  query: arkestro
+  results: 0
+- registry: Packagist
+  query: arkestro
+  results: 0
+  note: matches were arkenstone/core and orkestro/orkestro, neither related
+- registry: crates.io
+  query: arkestro
+  results: 0
+- registry: NuGet
+  query: arkestro
+  results: 0
+github:
+  organization: https://github.com/bid-ops-development
+  public_repos:
+  - name: terraform-provider-sendgrid
+    api_client: false
+    note: not an Arkestro API client
+  - name: base-image
+    api_client: false
+  sdk_repos: 0
+x-evidence:
+- url: https://registry.npmjs.org/-/v1/search?text=arkestro
+  http_status: 200
+  fetched: '2026-08-06'
+- url: https://pypi.org/pypi/arkestro/json
+  http_status: 404
+  fetched: '2026-08-06'
+- url: https://github.com/bid-ops-development
+  http_status: 200
+  fetched: '2026-08-06'
+- url: https://github.com/arkestro
+  http_status: 404
+  fetched: '2026-08-06'

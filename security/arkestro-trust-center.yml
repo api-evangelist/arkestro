@@ -1,0 +1,58 @@
+generated: '2026-08-06'
+method: searched
+probe: true
+url: https://trust.arkestro.com/
+platform: Drata
+platform_evidence: >-
+  trust.arkestro.com is a CNAME to trust.cname.drata.com, so the trust center is a hosted
+  Drata Trust Center. The host itself returned HTTP 403 with a Cloudflare interstitial
+  ("Just a moment...") to this pipeline's client, so the certifications below were NOT read
+  from the trust center. They were read from Arkestro's own public /security/ page, which is
+  where they are quoted from.
+source: https://arkestro.com/security/
+certifications:
+- name: ISO 27001:2022
+  statement: >-
+    "Our information security management system (ISMS) is ISO 27001:2022 certified"
+  source: https://arkestro.com/security/
+- name: SOC 2 Type II
+  statement: >-
+    "We successfully pass SOC-2 Type II audits without exceptions"
+  source: https://arkestro.com/security/
+  note: Rendered as "SOC-2 Type II" on Arkestro's page.
+security_program:
+  encryption_at_rest: AES
+  encryption_in_transit: HTTPS and TLS 1.2
+  encryption_note: >-
+    The page states TLS 1.2 for data in transit; the live TLS probe of both arkestro.com and
+    api.arkestro.com negotiated TLSv1.3, so deployed transport security exceeds the stated
+    floor. See security/arkestro-domain-security.yml.
+  penetration_testing: annual
+  vulnerability_scanning: regular
+  security_awareness_training: annual, all employees
+  hosting: AWS
+  isms_documentation: available on request
+not_found:
+- GDPR statement on the security page
+- CCPA statement on the security page
+- HIPAA, PCI DSS, FedRAMP, CSA STAR
+- a vulnerability disclosure or responsible disclosure policy
+- a security@ contact address (the only published address is legal@arkestro.com, on the
+  privacy policy)
+x-evidence:
+- url: https://arkestro.com/security/
+  http_status: 200
+  fetched: '2026-08-06'
+  keywords:
+  - ISO 27001:2022
+  - SOC-2 Type II
+  - AES
+  - TLS 1.2
+  - penetration tests
+- url: https://trust.arkestro.com/
+  http_status: 403
+  fetched: '2026-08-06'
+  note: Cloudflare bot challenge; contents not read
+- record: CNAME trust.arkestro.com
+  value: trust.cname.drata.com
+  fetched: '2026-08-06'

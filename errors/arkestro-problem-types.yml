@@ -1,0 +1,172 @@
+generated: '2026-08-06'
+method: derived
+source: openapi/arkestro-api-v2-openapi.yml
+format: custom
+rfc9457: false
+note: 'Derived from the 4xx/5xx responses declared across all 46 operations of the published OpenAPI.
+  Arkestro does not use application/problem+json and publishes no error-code registry, so there is no
+  error identity to catalog below the HTTP status: every failure returns the same flat {"error": "<message>"}
+  object with additionalProperties: false. The `detail` field on each entry is API Evangelist''s reading
+  of what the status means on this API, derived from where it is declared; `spec_descriptions` is what
+  Arkestro''s own spec says, verbatim.'
+envelope:
+  media_type: application/json
+  schema:
+    type: object
+    required:
+    - error
+    additionalProperties: false
+    properties:
+      error:
+        type: string
+  field: error
+  machine_readable_code: false
+  field_level_validation_detail: false
+  problem_type_uri: false
+coverage:
+  operations: 46
+  operations_declaring_401: 46
+  statuses_declared:
+  - 400
+  - 401
+  - 403
+  - 404
+  - 422
+  - 500
+problems:
+- status: 400
+  title: Bad Request
+  spec_descriptions:
+  - Bad Request
+  detail: Malformed request body or invalid parameter values. Returned on write operations (POST/PATCH/DELETE)
+    when the payload cannot be parsed or a value is rejected before validation.
+  schema:
+    type: object
+    required:
+    - error
+    additionalProperties: false
+    properties:
+      error:
+        type: string
+  media_type: application/json
+  operation_count: 18
+  example_operations:
+  - POST /api/v2/corporate/categories
+  - PATCH /api/v2/corporate/categories/{id}
+  - DELETE /api/v2/corporate/categories/{id}
+  - POST /api/v2/corporate/items
+- status: 401
+  title: Unauthorized
+  spec_descriptions:
+  - Unauthorized
+  detail: Missing or invalid X-Token. The Personal Access Token header was absent, expired, or not recognized
+    for this tenant.
+  schema:
+    type: object
+    required:
+    - error
+    additionalProperties: false
+    properties:
+      error:
+        type: string
+  media_type: application/json
+  operation_count: 46
+  example_operations:
+  - GET /api/v2/business_units
+  - GET /api/v2/corporate/categories
+  - POST /api/v2/corporate/categories
+  - GET /api/v2/corporate/categories/{id}
+- status: 403
+  title: Forbidden
+  spec_descriptions:
+  - Forbidden
+  detail: Authenticated but not permitted. The token is valid but the user lacks rights to the resource,
+    or the tenant does not have the API feature enabled.
+  schema:
+    type: object
+    required:
+    - error
+    additionalProperties: false
+    properties:
+      error:
+        type: string
+  media_type: application/json
+  operation_count: 43
+  example_operations:
+  - GET /api/v2/business_units
+  - GET /api/v2/corporate/categories
+  - POST /api/v2/corporate/categories
+  - GET /api/v2/corporate/categories/{id}
+- status: 404
+  title: Not Found
+  spec_descriptions:
+  - Not Found
+  detail: The addressed record does not exist, or exists outside the caller's tenant. Arkestro does not
+    distinguish these two cases.
+  schema:
+    type: object
+    required:
+    - error
+    additionalProperties: false
+    properties:
+      error:
+        type: string
+  media_type: application/json
+  operation_count: 29
+  example_operations:
+  - GET /api/v2/corporate/categories/{id}
+  - PATCH /api/v2/corporate/categories/{id}
+  - DELETE /api/v2/corporate/categories/{id}
+  - GET /api/v2/corporate/items/{id}
+- status: 422
+  title: Unprocessable Entity
+  spec_descriptions:
+  - Unprocessable Entity
+  detail: Validation failed. The request was well-formed but the values violate a business rule. The body
+    carries only a single freeform message -- no field-level detail is returned.
+  schema:
+    type: object
+    required:
+    - error
+    additionalProperties: false
+    properties:
+      error:
+        type: string
+  media_type: application/json
+  operation_count: 29
+  example_operations:
+  - GET /api/v2/business_units
+  - GET /api/v2/corporate/categories
+  - POST /api/v2/corporate/categories
+  - PATCH /api/v2/corporate/categories/{id}
+- status: 500
+  title: Bad Request
+  spec_descriptions:
+  - Bad Request
+  detail: Server error. Note that the published spec labels this response "Bad Request", which is a mislabel
+    in the contract, not a different behavior.
+  schema:
+    type: object
+    required:
+    - error
+    additionalProperties: false
+    properties:
+      error:
+        type: string
+  media_type: application/json
+  operation_count: 46
+  example_operations:
+  - GET /api/v2/business_units
+  - GET /api/v2/corporate/categories
+  - POST /api/v2/corporate/categories
+  - GET /api/v2/corporate/categories/{id}
+gaps:
+- No RFC 9457 application/problem+json.
+- No stable machine-readable error code -- a client can only branch on HTTP status.
+- No field-level validation errors on 422, which is the status most needing them.
+- The 500 response is described as "Bad Request" throughout the spec (a contract mislabel).
+- No 429 declared anywhere; rate-limit behavior is unspecified.
+x-evidence:
+- url: https://api.arkestro.com/api-docs/v2/openapi.yaml
+  http_status: 200
+  fetched: '2026-08-06'

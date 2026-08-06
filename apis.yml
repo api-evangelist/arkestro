@@ -1,18 +1,93 @@
 aid: arkestro
 name: Arkestro
-description: 'Arkestro is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Arkestro is a predictive procurement orchestration platform for enterprise sourcing teams,
+  applying negotiation science, supplier science and process science to run competitive
+  sourcing events at scale. The platform covers sourcing events and their schedules, supplier
+  organizations and contacts, corporate item and category catalogs, purchase orders, document
+  and quote submissions, awards, and event analytics. It serves automotive, oil and gas,
+  high-tech manufacturing, construction, financial services and food and beverage buyers.
+  Arkestro publishes a public OpenAPI 3.1.1 contract for its API V2 at api.arkestro.com and
+  operates an OAuth 2.1 remote MCP server, though its developer documentation portal sits
+  behind a customer sign-in wall.
+image: https://arkestro.com/wp-content/uploads/arkestro_logo_featured_default.jpg
 url: https://raw.githubusercontent.com/api-evangelist/arkestro/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-06'
 modified: '2026-08-06'
 tags:
-- Company
-apis: []
+- procurement
+- sourcing
+- supply-chain
+- spend-management
+- e-sourcing
+- supplier-management
+- purchase-orders
+- procurement-analytics
+- enterprise-software
+- predictive-procurement
+- mcp
+- webhooks
+apis:
+- name: Arkestro API V2
+  description: >-
+    Public REST API for managing an Arkestro instance without a user session. Covers the
+    creation and execution of sourcing events, event schedules and awards, event and
+    document submissions, quote submissions, supplier organizations and contacts, corporate
+    categories, items and purchase orders, business units, and a set of event analytics
+    export and reporting endpoints. Authenticated with an admin-issued Personal Access Token
+    in an X-Token header. 46 operations across 26 paths, OpenAPI 3.1.1.
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - procurement
+  - sourcing
+  - supplier-management
+  - purchase-orders
+  - procurement-analytics
+  - e-sourcing
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-api-v2-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+  - type: Overlay
+    url: overlays/arkestro-api-v2-overlay.yaml
+- name: Arkestro MCP Server
+  description: >-
+    Remote Model Context Protocol server operated by Arkestro, authorized with OAuth 2.1
+    authorization code flow and mandatory PKCE S256 against the mcp:read, mcp:write and
+    offline_access scopes. The endpoint is live but undocumented on any public Arkestro page
+    and its tools/list is authorization-gated, so the tool set is not publicly enumerable.
+  humanURL: https://api.arkestro.com/.well-known/oauth-authorization-server
+  baseURL: https://api.arkestro.com/api/v2/mcp
+  tags:
+  - mcp
+  - procurement
+  - agent-native
+  properties:
+  - type: MCPServer
+    url: mcp/arkestro-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/arkestro-tool-crosswalk.yml
+  - type: OAuthScopes
+    url: scopes/arkestro-scopes.yml
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +95,68 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.hiive.com/securities/arkestro-stock
+  url: https://arkestro.com/
+- type: Documentation
+  url: https://api.arkestro.com/api-docs
+- type: APIReference
+  url: https://api.arkestro.com/api-docs
+- type: DeveloperPortal
+  url: https://developer.arkestro.com/
+- type: Login
+  url: https://app.arkestro.com/login
+- type: Support
+  url: https://arkestro.com/contact-us/
+- type: Blog
+  url: https://arkestro.com/blog/
+- type: GitHubOrganization
+  url: https://github.com/bid-ops-development
+- type: TermsOfService
+  url: https://arkestro.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://arkestro.com/privacy-policy/
+- type: StatusPage
+  url: https://www.arkestrostatus.com/
+- type: Compliance
+  url: https://arkestro.com/security/
+- type: TrustCenter
+  url: security/arkestro-trust-center.yml
+- type: Webhooks
+  url: asyncapi/arkestro-webhooks.yml
+- type: MCPServer
+  url: mcp/arkestro-mcp.yml
+- type: OAuthScopes
+  url: scopes/arkestro-scopes.yml
+- type: Authentication
+  url: authentication/arkestro-authentication.yml
+- type: Conventions
+  url: conventions/arkestro-conventions.yml
+- type: ErrorCatalog
+  url: errors/arkestro-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/arkestro-lifecycle.yml
+- type: Conformance
+  url: conformance/arkestro-conformance.yml
+- type: DataModel
+  url: data-model/arkestro-data-model.yml
+- type: WellKnown
+  url: well-known/arkestro-well-known.yml
+- type: Packages
+  url: packages/arkestro-packages.yml
+- type: LLMsTxt
+  url: llms/arkestro-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/arkestro-agentic-access.yml
+- type: DomainSecurity
+  url: security/arkestro-domain-security.yml
+- type: Overlay
+  url: overlays/arkestro-api-v2-overlay.yaml
+- type: ToolCrosswalk
+  url: mcp/arkestro-tool-crosswalk.yml
+x-enrichment:
+  date: '2026-08-06'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v1
+

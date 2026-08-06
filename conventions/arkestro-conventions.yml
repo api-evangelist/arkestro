@@ -1,0 +1,178 @@
+generated: '2026-08-06'
+method: derived
+source: openapi/arkestro-api-v2-openapi.yml
+docs: https://api.arkestro.com/api-docs
+summary: >-
+  Arkestro API V2 is a conventional Rails-shaped REST API: tenant-scoped API-key auth in a
+  custom header, limit/offset pagination with a pagination envelope, sort_by/sort_order
+  ordering, and a flat {"error": "..."} error body on every failure. It is consistent and
+  legible, but it carries no request idempotency, no rate-limit signaling and no
+  machine-readable error taxonomy.
+authentication:
+  style: api-key-header
+  header: X-Token
+  scheme_name: ApiKeyAuth
+  applied: globally, via a root-level `security` requirement
+  detail: authentication/arkestro-authentication.yml
+  second_surface:
+    name: MCP
+    style: oauth2 authorization_code + PKCE S256
+    note: separate credential, separate endpoint; see mcp/arkestro-mcp.yml
+versioning:
+  scheme: uri-path
+  current: v2
+  path_prefix: /api/v2/
+  info_version: '2.0'
+  spec_version: OpenAPI 3.1.1
+  header_negotiation: false
+  detail: lifecycle/arkestro-lifecycle.yml
+pagination:
+  style: limit-offset
+  request_params:
+  - name: limit
+    in: query
+    description: the number of records requested
+  - name: offset
+    in: query
+    description: the number of records skipped after filtering and sorting
+  response_envelope:
+    key: pagination
+    fields:
+    - name: limit
+      description: the number of records requested
+    - name: offset
+      description: the number of records skipped after filtering and sorting
+    - name: total
+      description: the total number of records available after filtering
+    - name: returned_count
+      description: the number of records returned in the current response
+  cursor_support: false
+  note: >-
+    Collections return a named data key alongside the pagination envelope (for example
+    {"events": [...], "pagination": {...}}) rather than a generic `data` key. `total` is
+    present, so a client can compute the number of pages up front.
+sorting:
+  params:
+  - sort_by
+  - sort_order
+filtering:
+  style: query-parameter
+  common_params:
+  - archived
+  - business_unit_id
+  - creator_user_full_name
+  - end_date
+  - event_id
+  - event_state
+  - event_tag_names
+  - external_id
+  - owner_full_name
+  - refreshed_after
+  - start_date
+  - status
+  - submitted_at_gte
+  - submitted_at_lte
+  - supplier_org_name
+  note: >-
+    A consistent `_gte` / `_lte` suffix convention for time-bounded filters, plus
+    start_date/end_date on the analytics endpoints.
+external_ids:
+  supported: true
+  field: external_id
+  note: >-
+    Events and other records carry a nullable external_id and it is queryable as a filter,
+    so a caller's own system-of-record key can be used for correlation and lookup.
+idempotency:
+  request_idempotency: false
+  header: null
+  finding: >-
+    The REST API declares no idempotency key. There is no Idempotency-Key parameter on any
+    of the 46 operations and no idempotency guidance in the spec description. A POST to
+    /api/v2/events retried after a timeout is not safe -- the caller must fall back to the
+    external_id filter to detect a duplicate before retrying.
+  webhook_delivery_idempotency:
+    supported: true
+    header: X-Arkestro-Idempotency-Key
+    scope: outbound webhook deliveries only, for consumer-side dedupe
+    detail: asyncapi/arkestro-webhooks.yml
+    note: >-
+      Recorded separately and deliberately not conflated with request idempotency. Arkestro
+      solves duplicate delivery in the direction it controls (its webhooks to you) and
+      leaves duplicate submission (your writes to it) unaddressed.
+error_envelope:
+  format: custom-flat-object
+  rfc9457: false
+  media_type: application/json
+  schema:
+    type: object
+    required:
+    - error
+    additionalProperties: false
+    properties:
+      error:
+        type: string
+  applies_to:
+  - '400'
+  - '401'
+  - '403'
+  - '404'
+  - '422'
+  - '500'
+  detail: errors/arkestro-problem-types.yml
+  note: >-
+    A single freeform human-readable string, with additionalProperties false. There is no
+    machine-readable error code, no field-level validation detail on 422, and no problem
+    type URI. A client cannot branch on error identity, only on HTTP status.
+rate_limiting:
+  documented: false
+  headers: null
+  '429': >-
+    Not declared as a response on any of the 46 operations. The webhook retry rules do treat
+    a 429 from the SUBSCRIBER as retryable, which shows Arkestro models 429 semantics
+    outbound but publishes no inbound rate-limit contract.
+  detail: null
+request_tracing:
+  response_header: x-request-id
+  observed: true
+  evidence: >-
+    Observed on a live response from https://api.arkestro.com/api/v2/mcp
+    (x-request-id: aecd2ebe-848e-9315-be43-5853989682db). Not documented in the spec.
+  webhook_body_field: request_id
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+  note: no generic metadata/custom-fields object on the public resources
+media_types:
+  request: application/json
+  response: application/json
+  file_upload:
+    style: presigned-url
+    note: >-
+      Event documents are created through a document_with_upload_url response shape rather
+      than a multipart POST -- the API returns an upload URL the client writes the bytes to.
+transport_security:
+  https_only: true
+  hsts: max-age=15552000; includeSubDomains; preload
+  csp_on_api_responses: true
+  observed_headers:
+  - strict-transport-security
+  - content-security-policy
+  - x-content-type-options
+  - x-frame-options
+  - referrer-policy
+cross_links:
+  authentication: authentication/arkestro-authentication.yml
+  scopes: scopes/arkestro-scopes.yml
+  errors: errors/arkestro-problem-types.yml
+  lifecycle: lifecycle/arkestro-lifecycle.yml
+  webhooks: asyncapi/arkestro-webhooks.yml
+  data_model: data-model/arkestro-data-model.yml
+x-evidence:
+- url: https://api.arkestro.com/api-docs/v2/openapi.yaml
+  http_status: 200
+  fetched: '2026-08-06'
+- url: https://api.arkestro.com/api/v2/mcp
+  http_status: 401
+  fetched: '2026-08-06'
+  note: source of the observed response-header set

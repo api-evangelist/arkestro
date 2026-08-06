@@ -1,0 +1,75 @@
+generated: '2026-08-06'
+method: probed
+source: https://api.arkestro.com/.well-known/
+host: https://api.arkestro.com
+summary:
+  hosts_probed: 4
+  documents_found: 1
+  note: >-
+    Only api.arkestro.com serves a /.well-known/ document. It publishes RFC 8414 OAuth 2.0
+    Authorization Server Metadata whose scopes_supported (mcp:read, mcp:write, offline_access)
+    is the public evidence that Arkestro operates a remote MCP server. No security.txt,
+    OIDC discovery, api-catalog, ai-plugin.json or agent card is served on any Arkestro host.
+documents:
+- path: /.well-known/oauth-authorization-server
+  host: api.arkestro.com
+  spec: RFC 8414
+  status: 200
+  content_type: application/json
+  file: arkestro-oauth-authorization-server.json
+- path: /.well-known/security.txt
+  host: api.arkestro.com
+  spec: RFC 9116
+  status: 404
+- path: /.well-known/security.txt
+  host: arkestro.com
+  spec: RFC 9116
+  status: 404
+- path: /.well-known/openid-configuration
+  host: api.arkestro.com
+  status: 404
+- path: /.well-known/oauth-protected-resource
+  host: api.arkestro.com
+  spec: RFC 9728
+  status: 404
+  note: >-
+    Absent even though a protected MCP resource exists at /api/v2/mcp; MCP clients must
+    fall back to the authorization-server document above for discovery.
+- path: /.well-known/api-catalog
+  host: api.arkestro.com
+  spec: RFC 9727
+  status: 404
+- path: /.well-known/ai-plugin.json
+  host: api.arkestro.com
+  status: 404
+- path: /.well-known/agent-card.json
+  host: api.arkestro.com
+  spec: A2A 1.0.0
+  status: 404
+- path: /.well-known/agent-card.json
+  host: arkestro.com
+  spec: A2A 1.0.0
+  status: 404
+- path: /.well-known/agent-card.json
+  host: mcp.arkestro.com
+  spec: A2A 1.0.0
+  status: 404
+- path: /.well-known/agent.json
+  host: api.arkestro.com
+  spec: A2A pre-0.3
+  status: 404
+- path: /.well-known/agent.json
+  host: arkestro.com
+  spec: A2A pre-0.3
+  status: 404
+hosts_probed:
+- arkestro.com
+- api.arkestro.com
+- docs.arkestro.com
+- developer.arkestro.com
+- mcp.arkestro.com
+x-evidence:
+  fetched: '2026-08-06'
+  url: https://api.arkestro.com/.well-known/oauth-authorization-server
+  http_status: 200
+  content_type: application/json; charset=utf-8

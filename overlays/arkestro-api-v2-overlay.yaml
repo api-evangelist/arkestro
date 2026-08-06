@@ -1,0 +1,157 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Arkestro API V2
+  version: 1.0.0
+extends: openapi/arkestro-api-v2-openapi.yml
+x-generated: '2026-08-06'
+x-method: generated
+x-rationale: 'Arkestro''s published OpenAPI 3.1.1 is unusually complete on content -- every one of the 46 operations
+  has a summary, a tag, and declared 2xx/4xx/5xx responses -- but NOT ONE OPERATION HAS AN operationId. That is
+  the single highest-leverage defect in the contract: without operationIds, generated SDKs invent method names,
+  Arazzo workflows cannot reference steps, MCP tool generators have no stable tool name, and any two code generators
+  disagree. This overlay supplies a stable operationId for each operation, derived deterministically from the provider''s
+  OWN summary text, so the names are Arkestro''s vocabulary rather than ours. The spec is not mutated; apply this
+  overlay to reproduce the enhancement. These ids are API Evangelist''s proposal and are NOT served by Arkestro.'
+actions:
+- target: $.info
+  update:
+    x-apievangelist-profile: https://apievangelist.com/providers/arkestro
+    x-apievangelist-note: operationIds added by overlay; absent from the published contract
+- target: $.paths['/api/v2/business_units'].get
+  update:
+    operationId: listBusinessUnits
+- target: $.paths['/api/v2/corporate/categories'].get
+  update:
+    operationId: listCategories
+- target: $.paths['/api/v2/corporate/categories'].post
+  update:
+    operationId: createCategory
+- target: $.paths['/api/v2/corporate/categories/{id}'].get
+  update:
+    operationId: showCategory
+- target: $.paths['/api/v2/corporate/categories/{id}'].patch
+  update:
+    operationId: updateCategory
+- target: $.paths['/api/v2/corporate/categories/{id}'].delete
+  update:
+    operationId: deleteCategory
+- target: $.paths['/api/v2/corporate/items'].get
+  update:
+    operationId: listItems
+- target: $.paths['/api/v2/corporate/items'].post
+  update:
+    operationId: createItem
+- target: $.paths['/api/v2/corporate/items/{id}'].get
+  update:
+    operationId: showItem
+- target: $.paths['/api/v2/corporate/items/{id}'].patch
+  update:
+    operationId: updateItem
+- target: $.paths['/api/v2/corporate/items/{id}'].delete
+  update:
+    operationId: deleteItem
+- target: $.paths['/api/v2/supplier_contacts'].get
+  update:
+    operationId: listContacts
+- target: $.paths['/api/v2/supplier_contacts'].post
+  update:
+    operationId: createSupplierContact
+- target: $.paths['/api/v2/supplier_contacts/{id}'].get
+  update:
+    operationId: showContact
+- target: $.paths['/api/v2/supplier_contacts/{id}'].patch
+  update:
+    operationId: updateSupplierContact
+- target: $.paths['/api/v2/supplier_contacts/{id}'].delete
+  update:
+    operationId: deleteContact
+- target: $.paths['/api/v2/supplier_organizations'].get
+  update:
+    operationId: listSupplierOrganizations
+- target: $.paths['/api/v2/supplier_organizations'].post
+  update:
+    operationId: createSupplierOrganization
+- target: $.paths['/api/v2/supplier_organizations/{id}'].get
+  update:
+    operationId: getSupplierOrganization
+- target: $.paths['/api/v2/supplier_organizations/{id}'].patch
+  update:
+    operationId: updateSupplierOrganization
+- target: $.paths['/api/v2/corporate/purchase_orders'].get
+  update:
+    operationId: listPurchaseOrders
+- target: $.paths['/api/v2/corporate/purchase_orders'].post
+  update:
+    operationId: createPurchaseOrder
+- target: $.paths['/api/v2/corporate/purchase_orders/{id}'].get
+  update:
+    operationId: showPurchaseOrder
+- target: $.paths['/api/v2/corporate/purchase_orders/{id}'].patch
+  update:
+    operationId: updatePurchaseOrder
+- target: $.paths['/api/v2/corporate/purchase_orders/{id}'].delete
+  update:
+    operationId: deletePurchaseOrder
+- target: $.paths['/api/v2/events'].get
+  update:
+    operationId: listEvents
+- target: $.paths['/api/v2/events'].post
+  update:
+    operationId: createEvent
+- target: $.paths['/api/v2/events/{id}'].get
+  update:
+    operationId: showEvent
+- target: $.paths['/api/v2/events/{id}'].patch
+  update:
+    operationId: updateEvent
+- target: $.paths['/api/v2/events/{id}'].delete
+  update:
+    operationId: deleteEvent
+- target: $.paths['/api/v2/events/{id}/award'].get
+  update:
+    operationId: showAwardedEvent
+- target: $.paths['/api/v2/events/{id}/schedule'].get
+  update:
+    operationId: showSchedule
+- target: $.paths['/api/v2/events/{event_id}/document_submissions'].get
+  update:
+    operationId: listDocumentSubmissions
+- target: $.paths['/api/v2/events/{event_id}/documents'].get
+  update:
+    operationId: listDocuments
+- target: $.paths['/api/v2/events/{event_id}/documents'].post
+  update:
+    operationId: createDocument
+- target: $.paths['/api/v2/events/{event_id}/documents/{id}'].get
+  update:
+    operationId: showDocument
+- target: $.paths['/api/v2/events/{event_id}/documents/{id}'].patch
+  update:
+    operationId: updateDocument
+- target: $.paths['/api/v2/events/{event_id}/documents/{id}'].delete
+  update:
+    operationId: deleteDocument
+- target: $.paths['/api/v2/quote_submissions'].get
+  update:
+    operationId: listQuoteSubmissions
+- target: $.paths['/api/v2/quote_submissions/{id}'].get
+  update:
+    operationId: showQuoteSubmission
+- target: $.paths['/api/v2/event_analytics/metrics/export_task'].post
+  update:
+    operationId: metrics
+- target: $.paths['/api/v2/event_analytics/rounds/export_task'].post
+  update:
+    operationId: rounds
+- target: $.paths['/api/v2/event_analytics/buyer_leaderboards'].get
+  update:
+    operationId: buyerLeaderboards
+- target: $.paths['/api/v2/event_analytics/quotes'].get
+  update:
+    operationId: quotes
+- target: $.paths['/api/v2/event_analytics/supplier_invitation_statuses'].get
+  update:
+    operationId: supplierInvitationStatuses
+- target: $.paths['/api/v2/event_analytics/survey_results'].get
+  update:
+    operationId: surveyResults

@@ -1,0 +1,87 @@
+generated: '2026-08-06'
+method: searched
+source: openapi/arkestro-api-v2-openapi.yml
+docs: https://api.arkestro.com/api-docs
+summary:
+  types:
+  - apiKey
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+  note: >-
+    Arkestro runs two distinct auth surfaces that do not overlap. The REST API V2 is
+    API-key only (an admin-issued Personal Access Token in an X-Token header, declared as
+    the sole securityScheme in the published OpenAPI). The remote MCP server at
+    /api/v2/mcp is OAuth 2.1 only, advertised through RFC 8414 authorization-server
+    metadata with PKCE S256 required. Neither surface accepts the other's credential.
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-Token
+  surface: REST API V2
+  sources:
+  - openapi/arkestro-api-v2-openapi.yml
+  provisioning: >-
+    Admin-only, and feature-flagged. Per the OpenAPI description the user must be an admin
+    and must request the API feature be enabled for the tenant; the token is then created at
+    User Settings -> Personal Access Tokens.
+  example_usage: >-
+    curl --location --request GET 'https://api.arkestro.com/api/v2/events'
+    --header 'Accept: application/json' --header 'X-Token: <YOUR API TOKEN>'
+- name: OAuth2
+  type: oauth2
+  surface: Remote MCP server (https://api.arkestro.com/api/v2/mcp)
+  sources:
+  - well-known/arkestro-oauth-authorization-server.json
+  issuer: https://api.arkestro.com
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.arkestro.com/oauth/authorize
+    tokenUrl: https://api.arkestro.com/oauth/token
+    refreshUrl: https://api.arkestro.com/oauth/token
+    scopes:
+      mcp:read: null
+      mcp:write: null
+      offline_access: null
+  revocation_endpoint: https://api.arkestro.com/oauth/revoke
+  introspection_endpoint: https://api.arkestro.com/oauth/introspect
+  grant_types_supported:
+  - authorization_code
+  - refresh_token
+  response_types_supported:
+  - code
+  token_endpoint_auth_methods_supported:
+  - client_secret_basic
+  - client_secret_post
+  - none
+  pkce:
+    required: true
+    code_challenge_methods_supported:
+    - S256
+    evidence: >-
+      An unparameterized GET to /oauth/authorize returns HTTP 400
+      "invalid_request: code_challenge with code_challenge_method=S256 is required",
+      so PKCE S256 is enforced, not merely advertised.
+  authorization_response_iss_parameter_supported: true
+  userinfo_endpoint: null
+  openid_connect: false
+gaps:
+- The published OpenAPI declares only ApiKeyAuth; the oauth2 surface is not represented in
+  any spec, so a generated client cannot discover it from the contract alone.
+- No /.well-known/oauth-protected-resource (RFC 9728) document, so an MCP client cannot
+  discover the authorization server from the protected resource in the standard way.
+- No documented token rotation, expiry, or scope model for the X-Token personal access token.
+x-evidence:
+- url: https://api.arkestro.com/api-docs/v2/openapi.yaml
+  http_status: 200
+  fetched: '2026-08-06'
+- url: https://api.arkestro.com/.well-known/oauth-authorization-server
+  http_status: 200
+  fetched: '2026-08-06'
+- url: https://api.arkestro.com/oauth/authorize
+  http_status: 400
+  fetched: '2026-08-06'
+  note: PKCE enforcement check
