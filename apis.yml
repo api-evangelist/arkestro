@@ -31,48 +31,12 @@ tags:
 - mcp
 - webhooks
 apis:
-- name: Arkestro API V2
-  description: >-
-    Public REST API for managing an Arkestro instance without a user session. Covers the
-    creation and execution of sourcing events, event schedules and awards, event and
-    document submissions, quote submissions, supplier organizations and contacts, corporate
-    categories, items and purchase orders, business units, and a set of event analytics
-    export and reporting endpoints. Authenticated with an admin-issued Personal Access Token
-    in an X-Token header. 46 operations across 26 paths, OpenAPI 3.1.1.
-  humanURL: https://api.arkestro.com/api-docs
-  baseURL: https://api.arkestro.com
-  tags:
-  - procurement
-  - sourcing
-  - supplier-management
-  - purchase-orders
-  - procurement-analytics
-  - e-sourcing
-  properties:
-  - type: OpenAPI
-    url: openapi/arkestro-api-v2-openapi.yml
-  - type: APIReference
-    url: https://api.arkestro.com/api-docs
-  - type: Documentation
-    url: https://api.arkestro.com/api-docs
-  - type: Authentication
-    url: authentication/arkestro-authentication.yml
-  - type: Conventions
-    url: conventions/arkestro-conventions.yml
-  - type: ErrorCatalog
-    url: errors/arkestro-problem-types.yml
-  - type: DataModel
-    url: data-model/arkestro-data-model.yml
-  - type: Webhooks
-    url: asyncapi/arkestro-webhooks.yml
-  - type: Overlay
-    url: overlays/arkestro-api-v2-overlay.yaml
 - name: Arkestro MCP Server
   description: >-
-    Remote Model Context Protocol server operated by Arkestro, authorized with OAuth 2.1
-    authorization code flow and mandatory PKCE S256 against the mcp:read, mcp:write and
-    offline_access scopes. The endpoint is live but undocumented on any public Arkestro page
-    and its tools/list is authorization-gated, so the tool set is not publicly enumerable.
+    Remote Model Context Protocol server operated by Arkestro, authorized with OAuth 2.1 authorization
+    code flow and mandatory PKCE S256 against the mcp:read, mcp:write and offline_access scopes. The endpoint
+    is live but undocumented on any public Arkestro page and its tools/list is authorization-gated, so
+    the tool set is not publicly enumerable.
   humanURL: https://api.arkestro.com/.well-known/oauth-authorization-server
   baseURL: https://api.arkestro.com/api/v2/mcp
   tags:
@@ -88,6 +52,318 @@ apis:
     url: scopes/arkestro-scopes.yml
   - type: Authentication
     url: authentication/arkestro-authentication.yml
+- aid: arkestro:arkestro-awards-api
+  name: Arkestro Awards API
+  description: The awards API from Arkestro — 1 operation(s) for awards.
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - awards
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-awards-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-business-unit-api
+  name: Arkestro business unit API
+  description: The business unit API from Arkestro — 1 operation(s) for business unit.
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - business unit
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-business-unit-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-corporate-categories-api
+  name: Arkestro corporate categories API
+  description: Categories represent item or service groupings used in various reports and programs
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - corporate categories
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-corporate-categories-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-corporate-items-api
+  name: Arkestro corporate items API
+  description: Items represent goods or services under agreement in Arkestro.
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - corporate items
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-corporate-items-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-corporate-purchase-orders-api
+  name: Arkestro corporate purchase orders API
+  description: Purchase Orders for an organization
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - corporate purchase orders
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-corporate-purchase-orders-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-document-submissions-api
+  name: Arkestro document submissions API
+  description: Vendor document submissions for an event
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - document submissions
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-document-submissions-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-event-analytics-api
+  name: Arkestro event analytics API
+  description: The event analytics API from Arkestro — 6 operation(s) for event analytics.
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - event analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-event-analytics-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-event-documents-api
+  name: Arkestro event documents API
+  description: Documents attached to an event for supplier review or submission
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - event documents
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-event-documents-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-events-api
+  name: Arkestro Events API
+  description: The events API from Arkestro — 2 operation(s) for events.
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - events
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-events-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-quote-submissions-api
+  name: Arkestro quote submissions API
+  description: Quote submissions from suppliers on events
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - quote submissions
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-quote-submissions-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-schedules-api
+  name: Arkestro Schedules API
+  description: The schedules API from Arkestro — 1 operation(s) for schedules.
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-schedules-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-supplier-contacts-api
+  name: Arkestro supplier contacts API
+  description: Contacts represent an individual at a supplier organization
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - supplier contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-supplier-contacts-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
+- aid: arkestro:arkestro-supplier-organizations-api
+  name: Arkestro supplier organizations API
+  description: Supplier organizations represent external companies that supply goods or services
+  humanURL: https://api.arkestro.com/api-docs
+  baseURL: https://api.arkestro.com
+  tags:
+  - supplier organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/arkestro-supplier-organizations-api-openapi.yml
+  - type: APIReference
+    url: https://api.arkestro.com/api-docs
+  - type: Documentation
+    url: https://api.arkestro.com/api-docs
+  - type: Authentication
+    url: authentication/arkestro-authentication.yml
+  - type: Conventions
+    url: conventions/arkestro-conventions.yml
+  - type: ErrorCatalog
+    url: errors/arkestro-problem-types.yml
+  - type: DataModel
+    url: data-model/arkestro-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkestro-webhooks.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
