@@ -1,0 +1,1975 @@
+{
+  "item": [
+    {
+      "id": "b150f5a8-eded-41f3-9953-3ca73a372983",
+      "name": "events",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "560c104f-2c8a-449f-8bd1-7d5d6a79fb06",
+          "name": "list events",
+          "request": {
+            "name": "list events",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "external_id",
+                  "value": "<string>",
+                  "description": "One or more `external_id` values to filter by. To pass multiple values, use repeated query params: `?external_id[]=EXT-001&external_id[]=EXT-002`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created_at",
+                  "description": "The field to sort results by. Defaults to `created_at`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "asc",
+                  "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The maximum number of results to return. Defaults to `20`, max `200`."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c730687-749c-4f66-94fa-a8b20f703c1e",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"id\": 1,\n      \"name\": \"Apollo Hardware\",\n      \"description\": \"An event to develop advanced space-grade fasteners and components.\",\n      \"external_id\": \"APOLLO-EXT-001\",\n      \"status\": \"draft\",\n      \"created_at\": \"2025-03-26T17:00:00.000Z\",\n      \"currency\": \"USD\",\n      \"tags\": [\n        \"finance\",\n        \"procurement\"\n      ],\n      \"config\": {\n        \"supplier_quantity_enabled\": false\n      },\n      \"business_unit\": {\n        \"id\": 10,\n        \"name\": \"Aerospace Engineering\",\n        \"unique_name\": \"aerospace_eng\"\n      },\n      \"creator\": {\n        \"id\": 501,\n        \"email\": \"john.doe@abc.com\"\n      }\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Titanium Tools\",\n      \"description\": \"Development of high-strength tools and equipment for aerospace applications.\",\n      \"external_id\": \"TITANIUM-EXT-002\",\n      \"status\": \"open_for_bidding\",\n      \"created_at\": \"2025-03-26T18:30:00.000Z\",\n      \"currency\": \"USD\",\n      \"tags\": [\n        \"finance\"\n      ],\n      \"config\": {\n        \"supplier_quantity_enabled\": false\n      },\n      \"business_unit\": {\n        \"id\": 15,\n        \"name\": \"Advanced Manufacturing\",\n        \"unique_name\": \"adv_mfg\"\n      },\n      \"creator\": {\n        \"id\": 502,\n        \"email\": \"jane.smith@acme.com\"\n      }\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Precision Fasteners\",\n      \"description\": \"Creating a new line of precision-engineered bolts and screws.\",\n      \"external_id\": \"PRECISION-EXT-003\",\n      \"status\": \"awarded\",\n      \"created_at\": \"2025-03-27T09:15:00.000Z\",\n      \"currency\": \"USD\",\n      \"tags\": [],\n      \"config\": {\n        \"supplier_quantity_enabled\": false\n      },\n      \"business_unit\": {\n        \"id\": 20,\n        \"name\": \"Industrial Fasteners\",\n        \"unique_name\": \"ind_fasteners\"\n      },\n      \"creator\": {\n        \"id\": 503,\n        \"email\": \"sam.lee@xyz.com\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"limit\": 3,\n    \"offset\": 10,\n    \"total\": 122,\n    \"returned_count\": 3\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f38ee57a-6400-4a8a-84f8-06643144abc4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f8dfc90-3d41-4966-abeb-a03b0dea54d5",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31871425-d88c-456f-9b97-4af42954b3bd",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77ae1ab7-72bc-40a3-b924-e043c4a0f5cd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9bfdb53-7df7-4d61-a91a-29a9749dfbd1",
+          "name": "create event",
+          "request": {
+            "name": "create event",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"external_id\": \"<string>\",\n    \"descriptive_columns_handler\": \"<string>\",\n    \"automated\": \"<boolean>\",\n    \"business_unit\": {\n      \"id\": \"<integer>\"\n    },\n    \"source_event\": {\n      \"id\": \"<integer>\"\n    },\n    \"start_at\": \"<dateTime>\",\n    \"creator\": {\n      \"id\": \"<integer>\",\n      \"email\": \"<string>\"\n    },\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": \"<boolean>\"\n    },\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"<string>\",\n        \"conversion_rate\": \"<float>\"\n      },\n      {\n        \"quoting_currency\": \"<string>\",\n        \"conversion_rate\": \"<float>\"\n      }\n    ],\n    \"supplier_contacts\": [\n      {\n        \"id\": \"<integer>\",\n        \"email\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"email\": \"<string>\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\"\n      },\n      {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\",\n        \"key_3\": \"<string>\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"<string>\",\n        \"sno\": \"<integer>\",\n        \"description\": \"<string>\",\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"<string>\",\n            \"taxonomy\": \"<string,null>\",\n            \"scope\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"taxonomy\": \"<string,null>\",\n            \"scope\": \"<string>\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"quantity\": \"<integer>\",\n            \"extended_quantity\": \"<integer>\",\n            \"price\": \"<float>\",\n            \"units\": \"<string>\",\n            \"negotiation_starting_price\": \"<number,null>\",\n            \"descriptive_attributes\": {\n              \"key_0\": \"<string>\",\n              \"key_1\": \"<string>\"\n            },\n            \"descriptive_elements\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          },\n          {\n            \"sno\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"quantity\": \"<integer>\",\n            \"extended_quantity\": \"<integer>\",\n            \"price\": \"<float>\",\n            \"units\": \"<string>\",\n            \"negotiation_starting_price\": \"<number,null>\",\n            \"descriptive_attributes\": {\n              \"key_0\": \"<string>\",\n              \"key_1\": \"<string>\"\n            },\n            \"descriptive_elements\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"sno\": \"<integer>\",\n        \"description\": \"<string>\",\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"<string>\",\n            \"taxonomy\": \"<string,null>\",\n            \"scope\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"taxonomy\": \"<string,null>\",\n            \"scope\": \"<string>\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"quantity\": \"<integer>\",\n            \"extended_quantity\": \"<integer>\",\n            \"price\": \"<float>\",\n            \"units\": \"<string>\",\n            \"negotiation_starting_price\": \"<number,null>\",\n            \"descriptive_attributes\": {\n              \"key_0\": \"<string>\"\n            },\n            \"descriptive_elements\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          },\n          {\n            \"sno\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"quantity\": \"<integer>\",\n            \"extended_quantity\": \"<integer>\",\n            \"price\": \"<float>\",\n            \"units\": \"<string>\",\n            \"negotiation_starting_price\": \"<number,null>\",\n            \"descriptive_attributes\": {\n              \"key_0\": \"<string>\"\n            },\n            \"descriptive_elements\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5cf2bc29-830a-439d-b2e8-f97f73d9244a",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"ERF013338 200007902\",\n    \"external_id\": \"ERF013338\",\n    \"creator\": {\n      \"email\": \"jane.doe@acme.com\"\n    },\n    \"descriptive_columns_handler\": \"union\",\n    \"currency\": \"USD\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"EUR\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": true\n    },\n    \"business_unit\": {\n      \"id\": 334\n    },\n    \"source_event\": {\n      \"id\": 58513\n    },\n    \"start_at\": \"2026-05-01T09:00:00Z\",\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"id\": 4983\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"Site ID\": \"CSD-1053\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"name\": \"FWG-103K34014XXSB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 1,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,A105N,34IN,75#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-07\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"10_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"line_items\": [\n          {\n            \"name\": \"FWN-304G32001SB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 2,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-21\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"20_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"event\": {\n    \"id\": 118996,\n    \"name\": \"ERF013338 200007902\",\n    \"description\": \"Template - Commodity Buys\",\n    \"external_id\": \"ERF013338\",\n    \"status\": \"draft\",\n    \"created_at\": \"2025-03-26T17:11:11.000Z\",\n    \"currency\": \"USD\",\n    \"exchange_rates\": [\n      {\n        \"event_currency\": \"USD\",\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"event_currency\": \"USD\",\n        \"quoting_currency\": \"EUR\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": true\n    },\n    \"business_unit\": {\n      \"id\": 334,\n      \"name\": \"Research & Development\",\n      \"unique_name\": \"RND\"\n    },\n    \"source_event\": {\n      \"id\": 58513\n    },\n    \"creator\": {\n      \"id\": 501,\n      \"email\": \"jane.doe@acme.com\"\n    },\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994,\n        \"email\": \"shawn@xyz.com\"\n      },\n      {\n        \"id\": 4983,\n        \"email\": \"supplier@abc.com\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"id\": 1,\n        \"type_text\": \"Site ID\",\n        \"value_text\": \"CSD-1053\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"id\": 188194,\n        \"name\": \"Lot For RFQLine# 10_0_1\",\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"id\": 44210,\n            \"name\": \"Freight Charges\",\n            \"column_order_index\": 0,\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"id\": 2391408,\n            \"name\": \"FWG-103K34014XXSB\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1\",\n              \"Description\": \"FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"\",\n              \"Required Date\": \"2024-09-07\",\n              \"Ship-to Location\": \"\",\n              \"AML/COO Restriction\": \"\"\n            },\n            \"is_required\": false,\n            \"price\": 0,\n            \"sno\": 1\n          }\n        ]\n      },\n      {\n        \"id\": 188195,\n        \"name\": \"Lot For RFQLine# 20_0_1\",\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 2,\n        \"adder_custom_column_headers\": [],\n        \"line_items\": [\n          {\n            \"id\": 2391409,\n            \"name\": \"FWN-304G32001SB\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1\",\n              \"Description\": \"FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"FLG,RFWN,304SS,32IN,150#,B\",\n              \"Required Date\": \"2024-09-21\",\n              \"Ship-to Location\": \"\",\n              \"AML/COO Restriction\": \"\"\n            },\n            \"is_required\": false,\n            \"price\": 0,\n            \"sno\": 2\n          }\n        ]\n      }\n    ],\n    \"schedule\": {\n      \"id\": 115455,\n      \"start_at\": \"2026-04-01T19:07:00.000Z\",\n      \"end_at\": \"2026-04-08T19:07:00.000Z\",\n      \"round_count\": 2,\n      \"round_length\": 2,\n      \"round_unit\": \"days\",\n      \"has_price_guidance_round\": false,\n      \"should_skip_weekends\": true,\n      \"event_format\": \"rounds\",\n      \"rounds\": [\n        {\n          \"id\": 272749,\n          \"name\": \"Round 1\",\n          \"description\": null,\n          \"round_type\": \"pricing\",\n          \"start_time\": \"2026-04-01T19:07:00.000Z\",\n          \"end_time\": \"2026-04-06T19:07:00.000Z\",\n          \"number\": 1,\n          \"length_unit\": \"days\",\n          \"length_value\": 5\n        },\n        {\n          \"id\": 272750,\n          \"name\": \"Round 2\",\n          \"description\": null,\n          \"round_type\": \"pricing\",\n          \"start_time\": \"2026-04-06T19:07:00.000Z\",\n          \"end_time\": \"2026-04-08T19:07:00.000Z\",\n          \"number\": 2,\n          \"length_unit\": \"days\",\n          \"length_value\": 2\n        }\n      ],\n      \"multi_round\": true,\n      \"started\": false,\n      \"ended\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "add59b0b-74c5-4101-85a4-a3593b10c826",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"ERF013338 200007902\",\n    \"external_id\": \"ERF013338\",\n    \"creator\": {\n      \"email\": \"jane.doe@acme.com\"\n    },\n    \"descriptive_columns_handler\": \"union\",\n    \"currency\": \"USD\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"EUR\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": true\n    },\n    \"business_unit\": {\n      \"id\": 334\n    },\n    \"source_event\": {\n      \"id\": 58513\n    },\n    \"start_at\": \"2026-05-01T09:00:00Z\",\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"id\": 4983\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"Site ID\": \"CSD-1053\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"name\": \"FWG-103K34014XXSB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 1,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,A105N,34IN,75#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-07\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"10_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"line_items\": [\n          {\n            \"name\": \"FWN-304G32001SB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 2,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-21\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"20_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77a407fd-77ca-48f0-b936-3a7a91518e5f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"ERF013338 200007902\",\n    \"external_id\": \"ERF013338\",\n    \"creator\": {\n      \"email\": \"jane.doe@acme.com\"\n    },\n    \"descriptive_columns_handler\": \"union\",\n    \"currency\": \"USD\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"EUR\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": true\n    },\n    \"business_unit\": {\n      \"id\": 334\n    },\n    \"source_event\": {\n      \"id\": 58513\n    },\n    \"start_at\": \"2026-05-01T09:00:00Z\",\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"id\": 4983\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"Site ID\": \"CSD-1053\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"name\": \"FWG-103K34014XXSB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 1,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,A105N,34IN,75#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-07\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"10_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"line_items\": [\n          {\n            \"name\": \"FWN-304G32001SB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 2,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-21\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"20_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21b399d6-9262-4deb-b814-77bb37eca09b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"ERF013338 200007902\",\n    \"external_id\": \"ERF013338\",\n    \"creator\": {\n      \"email\": \"jane.doe@acme.com\"\n    },\n    \"descriptive_columns_handler\": \"union\",\n    \"currency\": \"USD\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"EUR\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": true\n    },\n    \"business_unit\": {\n      \"id\": 334\n    },\n    \"source_event\": {\n      \"id\": 58513\n    },\n    \"start_at\": \"2026-05-01T09:00:00Z\",\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"id\": 4983\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"Site ID\": \"CSD-1053\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"name\": \"FWG-103K34014XXSB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 1,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,A105N,34IN,75#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-07\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"10_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"line_items\": [\n          {\n            \"name\": \"FWN-304G32001SB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 2,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-21\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"20_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f56fa9e4-390e-43a4-88f2-681e89d6a2c8",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"ERF013338 200007902\",\n    \"external_id\": \"ERF013338\",\n    \"creator\": {\n      \"email\": \"jane.doe@acme.com\"\n    },\n    \"descriptive_columns_handler\": \"union\",\n    \"currency\": \"USD\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"EUR\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": true\n    },\n    \"business_unit\": {\n      \"id\": 334\n    },\n    \"source_event\": {\n      \"id\": 58513\n    },\n    \"start_at\": \"2026-05-01T09:00:00Z\",\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"id\": 4983\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"Site ID\": \"CSD-1053\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"name\": \"FWG-103K34014XXSB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 1,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,A105N,34IN,75#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-07\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"10_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"line_items\": [\n          {\n            \"name\": \"FWN-304G32001SB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 2,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-21\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"20_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"external_id has already been taken\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b310028-760b-4d3a-b92c-d387c73deb30",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"ERF013338 200007902\",\n    \"external_id\": \"ERF013338\",\n    \"creator\": {\n      \"email\": \"jane.doe@acme.com\"\n    },\n    \"descriptive_columns_handler\": \"union\",\n    \"currency\": \"USD\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"EUR\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": true\n    },\n    \"business_unit\": {\n      \"id\": 334\n    },\n    \"source_event\": {\n      \"id\": 58513\n    },\n    \"start_at\": \"2026-05-01T09:00:00Z\",\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"id\": 4983\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"Site ID\": \"CSD-1053\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"name\": \"FWG-103K34014XXSB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 1,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,A105N,34IN,75#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-07\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"10_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"line_items\": [\n          {\n            \"name\": \"FWN-304G32001SB\",\n            \"price\": 0,\n            \"extended_quantity\": 1,\n            \"sno\": 2,\n            \"descriptive_elements\": [\n              {\n                \"name\": \"Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"Required Date\",\n                \"value\": \"2024-09-21\"\n              },\n              {\n                \"name\": \"Extended Description\",\n                \"value\": \"FLG,RFWN,304SS,32IN,150#,B\"\n              },\n              {\n                \"name\": \"External Line Item ID\",\n                \"value\": \"20_0_1\"\n              }\n            ],\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1\"\n            },\n            \"units\": \"EA\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1681415f-0410-4fd9-bfa1-3bc97db43d23",
+          "name": "show event",
+          "request": {
+            "name": "show event",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "events",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f218b9d7-6515-48f4-b363-98a3f5f7ae8e",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"event\": {\n    \"id\": 118996,\n    \"name\": \"ERF013338 200007902\",\n    \"description\": \"Template - Commodity Buys\",\n    \"external_id\": \"ERF013338\",\n    \"status\": \"draft\",\n    \"created_at\": \"2025-03-26T17:11:11.000Z\",\n    \"currency\": \"USD\",\n    \"exchange_rates\": [\n      {\n        \"event_currency\": \"USD\",\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"event_currency\": \"USD\",\n        \"quoting_currency\": \"EUR\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": true\n    },\n    \"business_unit\": {\n      \"id\": 334,\n      \"name\": \"Research & Development\",\n      \"unique_name\": \"RND\"\n    },\n    \"source_event\": {\n      \"id\": 58513\n    },\n    \"creator\": {\n      \"id\": 501,\n      \"email\": \"jane.doe@acme.com\"\n    },\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994,\n        \"email\": \"shawn@xyz.com\"\n      },\n      {\n        \"id\": 4983,\n        \"email\": \"supplier@abc.com\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"id\": 1,\n        \"type_text\": \"Site ID\",\n        \"value_text\": \"CSD-1053\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"id\": 188194,\n        \"name\": \"Lot For RFQLine# 10_0_1\",\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"id\": 44210,\n            \"name\": \"Freight Charges\",\n            \"column_order_index\": 0,\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"id\": 2391408,\n            \"name\": \"FWG-103K34014XXSB\",\n            \"description\": \"FLG,RFWN,A105N,34IN,75#,B\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1\",\n              \"Description\": \"FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"\",\n              \"Required Date\": \"2024-09-07\",\n              \"Ship-to Location\": \"\",\n              \"AML/COO Restriction\": \"\"\n            },\n            \"is_required\": false,\n            \"price\": 0,\n            \"sno\": 1\n          }\n        ]\n      },\n      {\n        \"id\": 188195,\n        \"name\": \"Lot For RFQLine# 20_0_1\",\n        \"description\": \"Lot For RFQLine# 10_0_1\",\n        \"sno\": 2,\n        \"adder_custom_column_headers\": [],\n        \"line_items\": [\n          {\n            \"id\": 2391409,\n            \"name\": \"FWN-304G32001SB\",\n            \"description\": \"FLG,RFWN,304SS,32IN,150#,B\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1\",\n              \"Description\": \"FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"FLG,RFWN,304SS,32IN,150#,B\",\n              \"Required Date\": \"2024-09-21\",\n              \"Ship-to Location\": \"\",\n              \"AML/COO Restriction\": \"\"\n            },\n            \"is_required\": false,\n            \"price\": 0,\n            \"sno\": 2\n          }\n        ]\n      }\n    ],\n    \"schedule\": {\n      \"id\": 115455,\n      \"start_at\": \"2026-04-01T19:07:00.000Z\",\n      \"end_at\": \"2026-04-08T19:07:00.000Z\",\n      \"round_count\": 2,\n      \"round_length\": 2,\n      \"round_unit\": \"days\",\n      \"has_price_guidance_round\": false,\n      \"should_skip_weekends\": true,\n      \"event_format\": \"rounds\",\n      \"rounds\": [\n        {\n          \"id\": 272749,\n          \"name\": \"Round 1\",\n          \"description\": null,\n          \"round_type\": \"pricing\",\n          \"start_time\": \"2026-04-01T19:07:00.000Z\",\n          \"end_time\": \"2026-04-06T19:07:00.000Z\",\n          \"number\": 1,\n          \"length_unit\": \"days\",\n          \"length_value\": 5\n        },\n        {\n          \"id\": 272750,\n          \"name\": \"Round 2\",\n          \"description\": null,\n          \"round_type\": \"pricing\",\n          \"start_time\": \"2026-04-06T19:07:00.000Z\",\n          \"end_time\": \"2026-04-08T19:07:00.000Z\",\n          \"number\": 2,\n          \"length_unit\": \"days\",\n          \"length_value\": 2\n        }\n      ],\n      \"multi_round\": true,\n      \"started\": false,\n      \"ended\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "281f4cc8-2894-450f-88ce-12ac0c915ea3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddaa370b-0c62-42c4-9f9f-da12ca888bee",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcbeabb7-f0aa-45d9-b931-c4648978335f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c5e74d0-97a8-4d4d-ae32-a23e00db6159",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17415448-0c3d-47b1-9b37-8e6f8eadd969",
+          "name": "update event",
+          "request": {
+            "name": "update event",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "events",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"external_id\": \"<string>\",\n    \"descriptive_columns_handler\": \"<string>\",\n    \"automated\": \"<boolean>\",\n    \"business_unit\": {\n      \"id\": \"<integer>\"\n    },\n    \"source_event\": {\n      \"id\": \"<integer>\"\n    },\n    \"creator\": {\n      \"id\": \"<integer>\",\n      \"email\": \"<string>\"\n    },\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": \"<boolean>\"\n    },\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"<string>\",\n        \"conversion_rate\": \"<float>\"\n      },\n      {\n        \"quoting_currency\": \"<string>\",\n        \"conversion_rate\": \"<float>\"\n      }\n    ],\n    \"supplier_contacts\": [\n      {\n        \"id\": \"<integer>\",\n        \"email\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"email\": \"<string>\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"<string>\",\n        \"sno\": \"<integer>\",\n        \"description\": \"<string>\",\n        \"adder_custom_column_headers\": [\n          {\n            \"id\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"taxonomy\": \"<string,null>\",\n            \"scope\": \"<string>\"\n          },\n          {\n            \"id\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"taxonomy\": \"<string,null>\",\n            \"scope\": \"<string>\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"quantity\": \"<integer>\",\n            \"extended_quantity\": \"<integer>\",\n            \"price\": \"<float>\",\n            \"units\": \"<string>\",\n            \"negotiation_starting_price\": \"<number,null>\",\n            \"descriptive_attributes\": {\n              \"key_0\": \"<string>\",\n              \"key_1\": \"<string>\"\n            },\n            \"descriptive_elements\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          },\n          {\n            \"sno\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"quantity\": \"<integer>\",\n            \"extended_quantity\": \"<integer>\",\n            \"price\": \"<float>\",\n            \"units\": \"<string>\",\n            \"negotiation_starting_price\": \"<number,null>\",\n            \"descriptive_attributes\": {\n              \"key_0\": \"<string>\"\n            },\n            \"descriptive_elements\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"name\": \"<string>\",\n        \"sno\": \"<integer>\",\n        \"description\": \"<string>\",\n        \"adder_custom_column_headers\": [\n          {\n            \"id\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"taxonomy\": \"<string,null>\",\n            \"scope\": \"<string>\"\n          },\n          {\n            \"id\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"taxonomy\": \"<string,null>\",\n            \"scope\": \"<string>\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"quantity\": \"<integer>\",\n            \"extended_quantity\": \"<integer>\",\n            \"price\": \"<float>\",\n            \"units\": \"<string>\",\n            \"negotiation_starting_price\": \"<number,null>\",\n            \"descriptive_attributes\": {\n              \"key_0\": \"<string>\"\n            },\n            \"descriptive_elements\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          },\n          {\n            \"sno\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"quantity\": \"<integer>\",\n            \"extended_quantity\": \"<integer>\",\n            \"price\": \"<float>\",\n            \"units\": \"<string>\",\n            \"negotiation_starting_price\": \"<number,null>\",\n            \"descriptive_attributes\": {\n              \"key_0\": \"<string>\",\n              \"key_1\": \"<string>\",\n              \"key_2\": \"<string>\",\n              \"key_3\": \"<string>\"\n            },\n            \"descriptive_elements\": [\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              },\n              {\n                \"name\": \"<string>\",\n                \"value\": \"<string>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b940019-f7de-4c4b-b48e-4324b0849660",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"Updated Event Name\",\n    \"description\": \"Updated description for the event\",\n    \"currency\": \"EUR\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"GBP\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"external_id\": \"ERF013339\",\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": false\n    },\n    \"business_unit\": {\n      \"id\": 15\n    },\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"email\": \"supplier@abc.com\"\n      },\n      {\n        \"email\": \"another-supplier@best-parts.com\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"type_text\": \"Updated Site ID\",\n        \"value_text\": \"CSD-2054\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Updated Lot For RFQLine# 10_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": 1,\n            \"name\": \"Updated FWG-103K34014XXSB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-01\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Updated Lot For RFQLine# 20_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"line_items\": [\n          {\n            \"sno\": 2,\n            \"name\": \"Updated FWN-304G32001SB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-15\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"event\": {\n    \"id\": 118996,\n    \"name\": \"Updated Event Name\",\n    \"description\": \"Updated description for the event\",\n    \"currency\": \"EUR\",\n    \"exchange_rates\": [\n      {\n        \"event_currency\": \"EUR\",\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"event_currency\": \"EUR\",\n        \"quoting_currency\": \"GBP\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"external_id\": \"ERF013339\",\n    \"status\": \"open_for_bidding\",\n    \"created_at\": \"2025-03-26T17:11:11.000Z\",\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": false\n    },\n    \"business_unit\": {\n      \"id\": 15,\n      \"name\": \"Advanced Manufacturing\",\n      \"unique_name\": \"adv_mfg\"\n    },\n    \"creator\": {\n      \"id\": 501,\n      \"email\": \"jane.doe@acme.com\"\n    },\n    \"custom_value_fields\": [\n      {\n        \"id\": 1,\n        \"type_text\": \"Updated Site ID\",\n        \"value_text\": \"CSD-2054\"\n      }\n    ],\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994,\n        \"email\": \"shawn@xyz.com\"\n      },\n      {\n        \"id\": 4983,\n        \"email\": \"supplier@abc.com\"\n      },\n      {\n        \"id\": 3311,\n        \"email\": \"another-supplier@best-parts.com\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"id\": 188194,\n        \"name\": \"Updated Lot For RFQLine# 10_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"id\": 44210,\n            \"name\": \"Freight Charges\",\n            \"column_order_index\": 0,\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"id\": 2391408,\n            \"name\": \"Updated FWG-103K34014XXSB\",\n            \"description\": \"Updated FLG,RFWN,A105N,34IN,75#,B\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-01\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            },\n            \"is_required\": true,\n            \"price\": 0,\n            \"sno\": 1\n          }\n        ]\n      },\n      {\n        \"id\": 188195,\n        \"name\": \"Updated Lot For RFQLine# 20_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"adder_custom_column_headers\": [],\n        \"line_items\": [\n          {\n            \"id\": 2391409,\n            \"name\": \"Updated FWN-304G32001SB\",\n            \"description\": \"Updated FLG,RFWN,304SS,32IN,150#,B\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-15\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            },\n            \"is_required\": true,\n            \"price\": 0,\n            \"sno\": 2\n          }\n        ]\n      }\n    ],\n    \"schedule\": {\n      \"id\": 115455,\n      \"start_at\": \"2026-04-02T19:07:00.000Z\",\n      \"end_at\": \"2026-04-10T19:07:00.000Z\",\n      \"round_count\": 3,\n      \"round_length\": 3,\n      \"round_unit\": \"days\",\n      \"has_price_guidance_round\": true,\n      \"should_skip_weekends\": false,\n      \"event_format\": \"rounds\",\n      \"rounds\": [\n        {\n          \"id\": 272749,\n          \"name\": \"Updated Round 1\",\n          \"description\": \"Updated description for Round 1\",\n          \"round_type\": \"pricing\",\n          \"start_time\": \"2026-04-02T19:07:00.000Z\",\n          \"end_time\": \"2026-04-06T19:07:00.000Z\",\n          \"number\": 1,\n          \"length_unit\": \"days\",\n          \"length_value\": 4\n        },\n        {\n          \"id\": 272750,\n          \"name\": \"Updated Round 2\",\n          \"description\": \"Updated description for Round 2\",\n          \"round_type\": \"pricing\",\n          \"start_time\": \"2026-04-06T19:07:00.000Z\",\n          \"end_time\": \"2026-04-09T19:07:00.000Z\",\n          \"number\": 2,\n          \"length_unit\": \"days\",\n          \"length_value\": 3\n        },\n        {\n          \"id\": 272751,\n          \"name\": \"New Round 3\",\n          \"description\": \"Description for new round\",\n          \"round_type\": \"final\",\n          \"start_time\": \"2026-04-09T19:07:00.000Z\",\n          \"end_time\": \"2026-04-10T19:07:00.000Z\",\n          \"number\": 3,\n          \"length_unit\": \"days\",\n          \"length_value\": 1\n        }\n      ],\n      \"multi_round\": true,\n      \"started\": true,\n      \"ended\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b8eed70-4c40-4732-8e7f-785470973f4b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"Updated Event Name\",\n    \"description\": \"Updated description for the event\",\n    \"currency\": \"EUR\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"GBP\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"external_id\": \"ERF013339\",\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": false\n    },\n    \"business_unit\": {\n      \"id\": 15\n    },\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"email\": \"supplier@abc.com\"\n      },\n      {\n        \"email\": \"another-supplier@best-parts.com\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"type_text\": \"Updated Site ID\",\n        \"value_text\": \"CSD-2054\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Updated Lot For RFQLine# 10_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": 1,\n            \"name\": \"Updated FWG-103K34014XXSB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-01\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Updated Lot For RFQLine# 20_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"line_items\": [\n          {\n            \"sno\": 2,\n            \"name\": \"Updated FWN-304G32001SB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-15\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4265fd65-c0dc-4bd9-af74-b302f2efc11d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"Updated Event Name\",\n    \"description\": \"Updated description for the event\",\n    \"currency\": \"EUR\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"GBP\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"external_id\": \"ERF013339\",\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": false\n    },\n    \"business_unit\": {\n      \"id\": 15\n    },\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"email\": \"supplier@abc.com\"\n      },\n      {\n        \"email\": \"another-supplier@best-parts.com\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"type_text\": \"Updated Site ID\",\n        \"value_text\": \"CSD-2054\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Updated Lot For RFQLine# 10_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": 1,\n            \"name\": \"Updated FWG-103K34014XXSB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-01\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Updated Lot For RFQLine# 20_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"line_items\": [\n          {\n            \"sno\": 2,\n            \"name\": \"Updated FWN-304G32001SB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-15\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d024741-9249-4655-bcca-dec83eaee861",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"Updated Event Name\",\n    \"description\": \"Updated description for the event\",\n    \"currency\": \"EUR\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"GBP\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"external_id\": \"ERF013339\",\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": false\n    },\n    \"business_unit\": {\n      \"id\": 15\n    },\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"email\": \"supplier@abc.com\"\n      },\n      {\n        \"email\": \"another-supplier@best-parts.com\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"type_text\": \"Updated Site ID\",\n        \"value_text\": \"CSD-2054\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Updated Lot For RFQLine# 10_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": 1,\n            \"name\": \"Updated FWG-103K34014XXSB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-01\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Updated Lot For RFQLine# 20_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"line_items\": [\n          {\n            \"sno\": 2,\n            \"name\": \"Updated FWN-304G32001SB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-15\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "364bdfc9-e0cd-41b5-894b-a92f723c7f56",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"Updated Event Name\",\n    \"description\": \"Updated description for the event\",\n    \"currency\": \"EUR\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"GBP\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"external_id\": \"ERF013339\",\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": false\n    },\n    \"business_unit\": {\n      \"id\": 15\n    },\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"email\": \"supplier@abc.com\"\n      },\n      {\n        \"email\": \"another-supplier@best-parts.com\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"type_text\": \"Updated Site ID\",\n        \"value_text\": \"CSD-2054\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Updated Lot For RFQLine# 10_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": 1,\n            \"name\": \"Updated FWG-103K34014XXSB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-01\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Updated Lot For RFQLine# 20_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"line_items\": [\n          {\n            \"sno\": 2,\n            \"name\": \"Updated FWN-304G32001SB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-15\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "367b9492-4bae-43af-8b18-980a58adc0cb",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"Updated Event Name\",\n    \"description\": \"Updated description for the event\",\n    \"currency\": \"EUR\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"GBP\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"external_id\": \"ERF013339\",\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": false\n    },\n    \"business_unit\": {\n      \"id\": 15\n    },\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"email\": \"supplier@abc.com\"\n      },\n      {\n        \"email\": \"another-supplier@best-parts.com\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"type_text\": \"Updated Site ID\",\n        \"value_text\": \"CSD-2054\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Updated Lot For RFQLine# 10_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": 1,\n            \"name\": \"Updated FWG-103K34014XXSB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-01\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Updated Lot For RFQLine# 20_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"line_items\": [\n          {\n            \"sno\": 2,\n            \"name\": \"Updated FWN-304G32001SB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-15\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18155fae-a103-4e8e-82b4-48c454c62be3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"Updated Event Name\",\n    \"description\": \"Updated description for the event\",\n    \"currency\": \"EUR\",\n    \"accepted_currencies\": [\n      {\n        \"quoting_currency\": \"MXN\",\n        \"conversion_rate\": 20.5\n      },\n      {\n        \"quoting_currency\": \"GBP\",\n        \"conversion_rate\": 0.85\n      }\n    ],\n    \"external_id\": \"ERF013339\",\n    \"tags\": [\n      \"finance\",\n      \"procurement\"\n    ],\n    \"config\": {\n      \"supplier_quantity_enabled\": false\n    },\n    \"business_unit\": {\n      \"id\": 15\n    },\n    \"supplier_contacts\": [\n      {\n        \"id\": 5994\n      },\n      {\n        \"email\": \"supplier@abc.com\"\n      },\n      {\n        \"email\": \"another-supplier@best-parts.com\"\n      }\n    ],\n    \"custom_value_fields\": [\n      {\n        \"type_text\": \"Updated Site ID\",\n        \"value_text\": \"CSD-2054\"\n      }\n    ],\n    \"lots\": [\n      {\n        \"name\": \"Updated Lot For RFQLine# 10_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 10_0_1\",\n        \"sno\": 1,\n        \"adder_custom_column_headers\": [\n          {\n            \"name\": \"Freight Charges\",\n            \"taxonomy\": \"freight_logistics\",\n            \"scope\": \"per_line\"\n          }\n        ],\n        \"line_items\": [\n          {\n            \"sno\": 1,\n            \"name\": \"Updated FWG-103K34014XXSB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"10_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,A105N,34IN,75#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-01\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Updated Lot For RFQLine# 20_0_1\",\n        \"description\": \"Updated description for Lot For RFQLine# 20_0_1\",\n        \"sno\": 2,\n        \"line_items\": [\n          {\n            \"sno\": 2,\n            \"name\": \"Updated FWN-304G32001SB\",\n            \"quantity\": 1,\n            \"extended_quantity\": 1,\n            \"price\": 0,\n            \"units\": \"EA\",\n            \"descriptive_attributes\": {\n              \"External Line Item ID\": \"20_0_1-Updated\",\n              \"Description\": \"Updated FLG,RFWN,304SS,32IN,150#,B\",\n              \"Extended Description\": \"Updated extended description\",\n              \"Required Date\": \"2024-10-15\",\n              \"Ship-to Location\": \"Updated location\",\n              \"AML/COO Restriction\": \"Updated restriction\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d07b371-237d-4ff7-b92d-b19d3cc1e767",
+          "name": "delete event",
+          "request": {
+            "name": "delete event",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "events",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a59f602f-6e7b-4ec0-8527-e6875ec8f862",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "68ec5e47-d3de-4884-bc7e-4fd75a5dc6e1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c569df0-aa23-4b14-ba7e-73b9d4e0b208",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a44c7f3d-da61-42c2-9a97-0c04fbd2f48d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eda32522-add1-4eb3-a250-6b7f4c333939",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05395ffc-30ea-4b51-9687-144e7b2d29a9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.arkestro.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "90b0fd0c-c16e-48d4-9795-621889dcb331",
+    "name": "V2 Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.\nOur current API offering features endpoints that allow the creation and execution of an event.\n\nTo get started, please generate an API Token.\nTo generate an API Token your user must be an admin and you must request the feature be made available.\nOnce enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request\nheader as an X-Token.\n\nOnce you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:\ncurl --location --request GET 'https://api.arkestro.com/api/v2/events' --header 'Accept: application/json' --header 'X-Token: <YOUR API TOKEN>'",
+      "type": "text/plain"
+    }
+  }
+}

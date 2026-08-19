@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 corporate items API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "corporate items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/corporate/items",
+            "params": [
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. Defaults to `created_at`."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return. Defaults to `20`, max `200`."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+              }
+            ]
+          },
+          "docs": "List all of the Items under an organization"
+        },
+        {
+          "info": {
+            "name": "create item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.arkestro.com/api/v2/corporate/items",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new item"
+        },
+        {
+          "info": {
+            "name": "show item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/corporate/items/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ]
+          },
+          "docs": "Get an item by id"
+        },
+        {
+          "info": {
+            "name": "update item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.arkestro.com/api/v2/corporate/items/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an item by id"
+        },
+        {
+          "info": {
+            "name": "delete item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.arkestro.com/api/v2/corporate/items/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ]
+          },
+          "docs": "Delete an item by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,693 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 quote submissions API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: quote submissions
+  description: Quote submissions from suppliers on events
+paths:
+  /api/v2/quote_submissions:
+    get:
+      summary: list quote submissions
+      description: Returns a paginated list of quote submissions. Submissions from suppliers that have been excluded from an event are not returned.
+      tags:
+      - quote submissions
+      parameters:
+      - name: limit
+        in: query
+        description: The maximum number of results to return. Defaults to `20`, max `200`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 20
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: sort_order
+        in: query
+        description: Sort order for `submitted_at` (`asc` for ascending, `desc` for descending). Defaults to `desc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      - name: event_id
+        in: query
+        description: Filter by one or more event IDs (e.g. `?event_id=123` or `?event_id[]=123&event_id[]=456`).
+        required: false
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: status
+        in: query
+        description: Filter by submission status. `active` returns the most recent submission per supplier (default). `inactive` returns previous-round submissions that have been superseded. Pass both to include all (e.g. `?status=active` or `?status[]=active&status[]=inactive`).
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - active
+            - inactive
+          default:
+          - active
+      - name: archived
+        in: query
+        description: Filter by archived state. Archived submissions are ones that have been removed from consideration in the event by the buyer. Pass both to include all (e.g. `?archived[]=true&archived[]=false`).
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - 'true'
+            - 'false'
+          default:
+          - 'false'
+      - name: submitted_at_gte
+        in: query
+        description: Filter submissions submitted on or after this date. Accepts ISO 8601 format (`YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: submitted_at_lte
+        in: query
+        description: Filter submissions submitted on or before this date. Accepts ISO 8601 format (`YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - quote_submissions
+                - pagination
+                properties:
+                  quote_submissions:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - status
+                      - archived
+                      - submitted_at
+                      - round_number
+                      - total
+                      - supplier_contact
+                      - event
+                      properties:
+                        id:
+                          type: integer
+                          description: The Arkestro ID of the quote submission
+                        status:
+                          type: string
+                          description: The status of the quote submission. `active` is the most recent submission per supplier. `inactive` indicates a previous-round submission that has been superseded.
+                          enum:
+                          - active
+                          - inactive
+                          example: active
+                        archived:
+                          type: boolean
+                          description: Whether the submission has been archived (removed from consideration) by the buyer.
+                          example: false
+                        submitted_at:
+                          type: string
+                          format: date-time
+                          description: The timestamp when the quote was submitted
+                        round_number:
+                          type: integer
+                          description: The round number of the quote submission
+                        total:
+                          type:
+                          - string
+                          - 'null'
+                          description: The sum of all line item totals in the quote submission, represented as a decimal string in the event's base currency. Null when no line items have been priced.
+                          example: '150000.00'
+                        supplier_contact:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - id
+                          - external_id
+                          - first_name
+                          - last_name
+                          - email
+                          - supplier_organization
+                          properties:
+                            id:
+                              type: integer
+                              description: The Arkestro ID of the supplier contact
+                            external_id:
+                              type:
+                              - string
+                              - 'null'
+                              description: The external ID of the supplier contact
+                            first_name:
+                              type:
+                              - string
+                              - 'null'
+                              description: First name of the supplier contact
+                            last_name:
+                              type:
+                              - string
+                              - 'null'
+                              description: Last name of the supplier contact
+                            email:
+                              type:
+                              - string
+                              - 'null'
+                              description: Email of the supplier contact
+                            supplier_organization:
+                              type: object
+                              required:
+                              - id
+                              - external_id
+                              - name
+                              properties:
+                                id:
+                                  type: integer
+                                  description: The Arkestro ID of the supplier organization
+                                external_id:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: The external ID of the supplier organization
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: The name of the supplier organization
+                              additionalProperties: false
+                          additionalProperties: false
+                        event:
+                          type: object
+                          required:
+                          - id
+                          - external_id
+                          - name
+                          - status
+                          properties:
+                            id:
+                              type: integer
+                              description: The Arkestro ID of the event
+                            external_id:
+                              type:
+                              - string
+                              - 'null'
+                              description: The external ID of the event
+                            name:
+                              type: string
+                              description: The name of the event
+                            status:
+                              type: string
+                              description: The current status of the event
+                              enum:
+                              - draft
+                              - open_for_questions
+                              - open_for_bidding
+                              - closed
+                              - ready_to_award
+                              - awarded
+                              - unawarded
+                              example: open_for_bidding
+                          additionalProperties: false
+                      additionalProperties: false
+                  pagination:
+                    type: object
+                    properties:
+                      limit:
+                        type: integer
+                        description: The number of records requested.
+                      offset:
+                        type: integer
+                        description: The number of records skipped after filtering and sorting.
+                      total:
+                        type: integer
+                        description: The total number of records available after filtering.
+                      returned_count:
+                        type: integer
+                        description: The number of records returned in the current response.
+                additionalProperties: false
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/quote_submissions/{id}:
+    get:
+      summary: show quote submission
+      description: Get a quote submission by id
+      tags:
+      - quote submissions
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - quote_submission
+                properties:
+                  quote_submission:
+                    type: object
+                    required:
+                    - id
+                    - status
+                    - archived
+                    - submitted_at
+                    - round_number
+                    - total
+                    - quoting_currency
+                    - supplier_contact
+                    - event
+                    - quote_submission_lots
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the quote submission
+                      status:
+                        type: string
+                        description: The status of the quote submission. `active` is the most recent submission per supplier. `inactive` indicates a previous-round submission that has been superseded.
+                        enum:
+                        - active
+                        - inactive
+                        example: active
+                      archived:
+                        type: boolean
+                        description: Whether the submission has been archived (removed from consideration) by the buyer.
+                        example: false
+                      submitted_at:
+                        type: string
+                        format: date-time
+                        description: The timestamp when the quote was submitted
+                      round_number:
+                        type: integer
+                        description: The round number of the quote submission
+                      total:
+                        type:
+                        - string
+                        - 'null'
+                        description: The sum of all line item totals in the quote submission, represented as a decimal string in the event's base currency. Null when no line items have been priced.
+                        example: '150000.00'
+                      quoting_currency:
+                        type:
+                        - string
+                        - 'null'
+                        description: ISO 4217 currency code the supplier quoted in. May differ from the event's base currency when multi-currency quoting is enabled.
+                        example: USD
+                      supplier_contact:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - external_id
+                        - first_name
+                        - last_name
+                        - email
+                        - supplier_organization
+                        properties:
+                          id:
+                            type: integer
+                            description: The Arkestro ID of the supplier contact
+                          external_id:
+                            type:
+                            - string
+                            - 'null'
+                            description: The external ID of the supplier contact
+                          first_name:
+                            type:
+                            - string
+                            - 'null'
+                            description: First name of the supplier contact
+                          last_name:
+                            type:
+                            - string
+                            - 'null'
+                            description: Last name of the supplier contact
+                          email:
+                            type:
+                            - string
+                            - 'null'
+                            description: Email of the supplier contact
+                          supplier_organization:
+                            type: object
+                            required:
+                            - id
+                            - external_id
+                            - name
+                            properties:
+                              id:
+                                type: integer
+                                description: The Arkestro ID of the supplier organization
+                              external_id:
+                                type:
+                                - string
+                                - 'null'
+                                description: The external ID of the supplier organization
+                              name:
+                                type:
+                                - string
+                                - 'null'
+                                description: The name of the supplier organization
+                            additionalProperties: false
+                        additionalProperties: false
+                      event:
+                        type: object
+                        required:
+                        - id
+                        - external_id
+                        - name
+                        - status
+                        - currency
+                        properties:
+                          id:
+                            type: integer
+                            description: The Arkestro ID of the event
+                          external_id:
+                            type:
+                            - string
+                            - 'null'
+                            description: The external ID of the event
+                          name:
+                            type: string
+                            description: The name of the event
+                          status:
+                            type: string
+                            description: The current status of the event
+                            enum:
+                            - draft
+                            - open_for_questions
+                            - open_for_bidding
+                            - closed
+                            - ready_to_award
+                            - awarded
+                            - unawarded
+                            example: open_for_bidding
+                          currency:
+                            type: string
+                            description: ISO 4217 currency code for the event's base currency.
+                            example: USD
+                        additionalProperties: false
+                      quote_submission_lots:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - lot
+                          - quote_submission_line_items
+                          properties:
+                            id:
+                              type: integer
+                              description: The Arkestro ID of the quote submission lot
+                            lot:
+                              type: object
+                              required:
+                              - id
+                              - name
+                              properties:
+                                id:
+                                  type: integer
+                                  description: The Arkestro ID of the lot
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: The name of the lot
+                              additionalProperties: false
+                            quote_submission_line_items:
+                              type: array
+                              description: The line items within this lot that the supplier has quoted on
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - price
+                                - discount
+                                - total
+                                - no_quote
+                                - line_item
+                                - adder_custom_column_items
+                                properties:
+                                  id:
+                                    type: integer
+                                    description: The Arkestro ID of the quote submission line item
+                                  price:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: The unit price quoted by the supplier, represented as a string-encoded decimal. Provided in the event-specified currency.
+                                    example: '1.5'
+                                  discount:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: The per-unit discount applied to the line item, represented as a string-encoded decimal. Provided in the event-specified currency.
+                                    example: '0.1'
+                                  total:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: The total for the line item including per-unit discount, represented as a string-encoded decimal. Provided in the event-specified currency.
+                                    example: '150.0'
+                                  no_quote:
+                                    type: boolean
+                                    description: Whether the supplier declined to quote on this line item
+                                  quoted_quantity:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: The quoted quantity of units the supplier provided a quote for.
+                                    example: '8'
+                                  adder_custom_column_items:
+                                    type: array
+                                    description: The Adder Columns quoted by the supplier for this line item, along with the quoted value for each. Always present as an array — empty if the supplier hasn't quoted any Adder Columns on this line item.
+                                    items:
+                                      type: object
+                                      required:
+                                      - adder_custom_column_header_id
+                                      - display_text
+                                      - value
+                                      - supplier_provided_value
+                                      properties:
+                                        adder_custom_column_header_id:
+                                          type: integer
+                                          description: The Arkestro ID of the Adder Column this value belongs to.
+                                        display_text:
+                                          type:
+                                          - string
+                                          - 'null'
+                                          description: The configured name/label of the Adder Column.
+                                        value:
+                                          type: string
+                                          description: The quoted value for this Adder Column, represented as a string-encoded decimal. Provided in the event-specified currency.
+                                          example: '10.0'
+                                        supplier_provided_value:
+                                          type:
+                                          - string
+                                          - 'null'
+                                          description: The quoted value for this Adder Column as entered by the supplier, represented as a string-encoded decimal. Provided in the supplier's quoting currency. Null if the supplier quoted this column without providing a separate supplier-currency value.
+                                          example: '10.0'
+                                      additionalProperties: false
+                                  line_item:
+                                    type: object
+                                    required:
+                                    - id
+                                    - name
+                                    - quantity
+                                    - unit_of_measure
+                                    properties:
+                                      id:
+                                        type: integer
+                                        description: The Arkestro ID of the line item
+                                      name:
+                                        type:
+                                        - string
+                                        - 'null'
+                                        description: The name of the line item
+                                      quantity:
+                                        type:
+                                        - string
+                                        - 'null'
+                                        description: The total number of items requested for this line item, represented as a string-encoded decimal.
+                                        example: '100.0'
+                                      unit_of_measure:
+                                        type:
+                                        - string
+                                        - 'null'
+                                        description: The unit of measure for the line item
+                                        example: EA
+                                    additionalProperties: false
+                                additionalProperties: false
+                          additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

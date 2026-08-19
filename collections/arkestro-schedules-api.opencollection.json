@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 Schedules API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "show schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/events/:id/schedule",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ]
+          },
+          "docs": "show schedule"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 supplier organizations API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "supplier organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list supplier organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/supplier_organizations",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more `external_id` values to filter by. To pass multiple values, use repeated query params: `?external_id[]=EXT-001&external_id[]=EXT-002`.\n"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. Defaults to `created_at`."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return. Defaults to `20`, max `200`."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of supplier organizations scoped to the authenticated user's company."
+        },
+        {
+          "info": {
+            "name": "create supplier organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.arkestro.com/api/v2/supplier_organizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new supplier organization scoped to the authenticated user's company"
+        },
+        {
+          "info": {
+            "name": "get supplier organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/supplier_organizations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Supplier organization ID"
+              }
+            ]
+          },
+          "docs": "Returns a single supplier organization belonging to the authenticated buyer company."
+        },
+        {
+          "info": {
+            "name": "update supplier organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.arkestro.com/api/v2/supplier_organizations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Supplier organization ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing supplier organization belonging to the authenticated buyer company. Only provided fields are updated."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

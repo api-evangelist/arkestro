@@ -1,0 +1,332 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 document submissions API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: document submissions
+  description: Vendor document submissions for an event
+paths:
+  /api/v2/events/{event_id}/document_submissions:
+    get:
+      summary: list document submissions
+      tags:
+      - document submissions
+      parameters:
+      - name: event_id
+        in: path
+        description: The ID of the event
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of results to return. Defaults to `20`, max `200`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 20
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: sort_by
+        in: query
+        description: The field to sort results by. Defaults to `created_at`.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - created_at
+          - updated_at
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document_submissions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        download_url:
+                          type:
+                          - string
+                          - 'null'
+                        submitted_at:
+                          type: string
+                          format: date-time
+                        approved:
+                          type:
+                          - boolean
+                          - 'null'
+                        rejection_reason:
+                          type:
+                          - string
+                          - 'null'
+                        filename:
+                          type:
+                          - string
+                          - 'null'
+                        supplier_contact:
+                          type:
+                          - object
+                          - 'null'
+                          description: The supplier contact who submitted the document
+                          required:
+                          - id
+                          - external_id
+                          - first_name
+                          - last_name
+                          - email
+                          - supplier_organization
+                          properties:
+                            id:
+                              type: integer
+                              description: The Arkestro ID of the supplier contact
+                            external_id:
+                              type:
+                              - string
+                              - 'null'
+                              description: The external ID of the supplier contact
+                            first_name:
+                              type:
+                              - string
+                              - 'null'
+                              description: First name of the supplier contact
+                            last_name:
+                              type:
+                              - string
+                              - 'null'
+                              description: Last name of the supplier contact
+                            email:
+                              type:
+                              - string
+                              - 'null'
+                              description: Email of the supplier contact
+                            supplier_organization:
+                              type: object
+                              required:
+                              - id
+                              - external_id
+                              - name
+                              properties:
+                                id:
+                                  type: integer
+                                  description: The Arkestro ID of the supplier organization
+                                external_id:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: The external ID of the supplier organization
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: The name of the supplier organization
+                              additionalProperties: false
+                          additionalProperties: false
+                        document:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            external_id:
+                              type:
+                              - string
+                              - 'null'
+                          additionalProperties: false
+                      additionalProperties: false
+                  pagination:
+                    type: object
+                    properties:
+                      limit:
+                        type: integer
+                        description: The number of records requested.
+                      offset:
+                        type: integer
+                        description: The number of records skipped after filtering and sorting.
+                      total:
+                        type: integer
+                        description: The total number of records available after filtering.
+                      returned_count:
+                        type: integer
+                        description: The number of records returned in the current response.
+                additionalProperties: false
+              examples:
+                approved_submission:
+                  summary: Approved NDA submission
+                  value:
+                    document_submissions:
+                    - id: 1042
+                      download_url: https://arkestro-production.s3.amazonaws.com/uploads/acme/nda_signed_2026.pdf
+                      submitted_at: '2026-03-15T09:22:00.000Z'
+                      approved: true
+                      rejection_reason: null
+                      filename: nda_signed_2026.pdf
+                      supplier_contact:
+                        id: 3021
+                        external_id: ACME-CONTACT-018
+                        first_name: Maria
+                        last_name: Alvarez
+                        email: maria.alvarez@acme.example.com
+                        supplier_organization:
+                          id: 87
+                          external_id: ACME-NA-001
+                          name: Acme North America
+                      document:
+                        id: 14
+                        name: Non-Disclosure Agreement
+                        external_id: DOC-NDA-2026
+                    - id: 1043
+                      download_url: https://arkestro-production.s3.amazonaws.com/uploads/globex/nda_signed_2026.pdf
+                      submitted_at: '2026-03-16T14:05:00.000Z'
+                      approved: false
+                      rejection_reason: Signature missing on page 3.
+                      filename: nda_signed_2026.pdf
+                      supplier_contact:
+                        id: 3155
+                        external_id: null
+                        first_name: Jonas
+                        last_name: Keller
+                        email: j.keller@globex.example.com
+                        supplier_organization:
+                          id: 91
+                          external_id: GLOBEX-EU-004
+                          name: Globex Europe
+                      document:
+                        id: 14
+                        name: Non-Disclosure Agreement
+                        external_id: DOC-NDA-2026
+                    - id: 1044
+                      download_url: null
+                      submitted_at: '2026-03-17T08:45:00.000Z'
+                      approved: null
+                      rejection_reason: null
+                      filename: null
+                      supplier_contact: null
+                      document:
+                        id: 14
+                        name: Non-Disclosure Agreement
+                        external_id: DOC-NDA-2026
+                    pagination:
+                      limit: 20
+                      offset: 0
+                      total: 3
+                      returned_count: 3
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

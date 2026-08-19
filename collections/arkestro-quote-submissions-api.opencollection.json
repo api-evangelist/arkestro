@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 quote submissions API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "quote submissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list quote submissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/quote_submissions",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return. Defaults to `20`, max `200`."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for `submitted_at` (`asc` for ascending, `desc` for descending). Defaults to `desc`."
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more event IDs (e.g. `?event_id=123` or `?event_id[]=123&event_id[]=456`)."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by submission status. `active` returns the most recent submission per supplier (default). `inactive` returns previous-round submissions that have been superseded. Pass both to include all (e.g. `?status=active` or `?status[]=active&status[]=inactive`)."
+              },
+              {
+                "name": "archived",
+                "value": "",
+                "type": "query",
+                "description": "Filter by archived state. Archived submissions are ones that have been removed from consideration in the event by the buyer. Pass both to include all (e.g. `?archived[]=true&archived[]=false`)."
+              },
+              {
+                "name": "submitted_at_gte",
+                "value": "",
+                "type": "query",
+                "description": "Filter submissions submitted on or after this date. Accepts ISO 8601 format (`YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`)."
+              },
+              {
+                "name": "submitted_at_lte",
+                "value": "",
+                "type": "query",
+                "description": "Filter submissions submitted on or before this date. Accepts ISO 8601 format (`YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`)."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of quote submissions. Submissions from suppliers that have been excluded from an event are not returned."
+        },
+        {
+          "info": {
+            "name": "show quote submission",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/quote_submissions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ]
+          },
+          "docs": "Get a quote submission by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -19,15 +19,13 @@ server:
     - offline_access
     metadata: well-known/arkestro-oauth-authorization-server.json
 discovery:
-  how_found: >-
-    Arkestro publishes no MCP documentation on any public page — docs.arkestro.com and
-    developer.arkestro.com both 302 to a sign-in wall. The server was found by following the
-    RFC 8414 authorization-server metadata at api.arkestro.com, whose scopes_supported list
-    (mcp:read, mcp:write, offline_access) is an mcp-prefixed scope namespace and therefore
-    proof that an MCP resource exists. Path enumeration against api.arkestro.com then
-    separated the live endpoint from the rest: every candidate path returned
-    {"status":404,"error":"Not Found"} except /api/v2/mcp, which returned HTTP 401
-    {"error":"Authentication failed"} — a 401 rather than a 404 is the endpoint answering.
+  how_found: 'Arkestro publishes no MCP documentation on any public page — docs.arkestro.com and developer.arkestro.com
+    both 302 to a sign-in wall. The server was found by following the RFC 8414 authorization-server metadata
+    at api.arkestro.com, whose scopes_supported list (mcp:read, mcp:write, offline_access) is an mcp-prefixed
+    scope namespace and therefore proof that an MCP resource exists. Path enumeration against api.arkestro.com
+    then separated the live endpoint from the rest: every candidate path returned {"status":404,"error":"Not
+    Found"} except /api/v2/mcp, which returned HTTP 401 {"error":"Authentication failed"} — a 401 rather
+    than a 404 is the endpoint answering.'
   paths_that_404ed:
   - /mcp
   - /mcp/
@@ -42,19 +40,17 @@ discovery:
 tools:
   enumerated: false
   reason: auth-gated
-  detail: >-
-    An anonymous JSON-RPC tools/list against the endpoint returns HTTP 401
-    {"error":"Authentication failed"}. The live tool set and every tool inputSchema require
-    an authenticated OAuth introspection that this pipeline does not perform. Arkestro
-    publishes no llms.txt and no MCP docs page, so there is no public tool list to fall back
-    to. NO TOOL LIST IS RECORDED HERE — see mcp/arkestro-tool-crosswalk.yml for the REST
-    surface the server most likely projects, recorded as rest_only rather than as invented
+  detail: An anonymous JSON-RPC tools/list against the endpoint returns HTTP 401 {"error":"Authentication
+    failed"}. The live tool set and every tool inputSchema require an authenticated OAuth introspection
+    that this pipeline does not perform. Arkestro publishes no llms.txt and no MCP docs page, so there
+    is no public tool list to fall back to. NO TOOL LIST IS RECORDED HERE — see mcp/arkestro-tool-crosswalk.yml
+    for the REST surface the server most likely projects, recorded as rest_only rather than as invented
     tools.
 gaps:
-- No /.well-known/oauth-protected-resource (RFC 9728) at the resource, so a compliant MCP
-  client cannot discover the authorization server from the endpoint itself.
-- The MCP server is entirely undocumented on Arkestro's public surface; it is discoverable
-  only by reading the OAuth metadata and probing.
+- No /.well-known/oauth-protected-resource (RFC 9728) at the resource, so a compliant MCP client cannot
+  discover the authorization server from the endpoint itself.
+- The MCP server is entirely undocumented on Arkestro's public surface; it is discoverable only by reading
+  the OAuth metadata and probing.
 - Scope granularity is read/write for the whole platform (see scopes/arkestro-scopes.yml).
 x-evidence:
 - url: https://api.arkestro.com/api/v2/mcp
@@ -70,3 +66,10 @@ x-evidence:
   http_status: 404
   fetched: '2026-08-06'
   note: control path — confirms the 401 above is not a blanket response
+deployment:
+  mode: remote
+  endpoint: https://api.arkestro.com/api/v2/mcp
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census

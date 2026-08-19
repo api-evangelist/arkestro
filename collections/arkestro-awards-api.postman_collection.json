@@ -1,0 +1,368 @@
+{
+  "item": [
+    {
+      "id": "65087fb0-ed93-4481-b604-a42396fdf04e",
+      "name": "awards",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "63b5cf02-cc9e-4901-b2d5-edc948643bd9",
+          "name": "show awarded event",
+          "request": {
+            "name": "show awarded event",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "events",
+                ":id",
+                "award"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5b9c8b4-3143-4ec8-be7a-b2558baf0eb0",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id",
+                    "award"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"award\": {\n    \"awarded_at\": \"2026-04-01T19:07:00.000Z\",\n    \"event\": {\n      \"id\": 118996,\n      \"name\": \"ERF013338 200007902\",\n      \"currency\": \"USD\",\n      \"external_id\": \"ERF013338\",\n      \"business_unit\": {\n        \"id\": 1,\n        \"name\": \"Midwest\",\n        \"unique_name\": \"Midwest Processing Co 123\"\n      },\n      \"custom_value_fields\": [\n        {\n          \"id\": 1,\n          \"type_text\": \"Site ID\",\n          \"value_text\": \"CSD-1053\"\n        }\n      ]\n    },\n    \"awarded_line_items\": [\n      {\n        \"name\": \"hammers\",\n        \"total_price\": \"1000.00\",\n        \"quoted_price_per_unit\": \"100.00\",\n        \"quantity\": \"10\",\n        \"quoted_quantity\": \"8\",\n        \"units\": \"each\",\n        \"external_contact_id\": \"sup123\",\n        \"supplier_provided_price\": \"2050.00\",\n        \"supplier_provided_discount\": \"5.0\",\n        \"quoting_currency\": \"MXN\",\n        \"descriptive_attributes\": {\n          \"country_of_origin\": \"USA\"\n        },\n        \"supplier\": {\n          \"name\": \"Acme Hammers Inc.\",\n          \"external_id\": \"sup123\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b5df4a7-4edb-467a-8e12-cb42d5a2a726",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id",
+                    "award"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1030639-18ec-4562-8956-02a911b7100b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id",
+                    "award"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4190e8bc-547c-4549-bb52-4e1e222f6266",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id",
+                    "award"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2790e19-ab28-4303-b88f-06165fe087e1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":id",
+                    "award"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.arkestro.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c3324038-2af7-49ef-8408-a5ab910d4c20",
+    "name": "V2 Awards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.\nOur current API offering features endpoints that allow the creation and execution of an event.\n\nTo get started, please generate an API Token.\nTo generate an API Token your user must be an admin and you must request the feature be made available.\nOnce enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request\nheader as an X-Token.\n\nOnce you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:\ncurl --location --request GET 'https://api.arkestro.com/api/v2/events' --header 'Accept: application/json' --header 'X-Token: <YOUR API TOKEN>'",
+      "type": "text/plain"
+    }
+  }
+}

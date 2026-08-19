@@ -1,0 +1,1936 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 event analytics API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: event analytics
+paths:
+  /api/v2/event_analytics/metrics/export_task:
+    post:
+      summary: Metrics
+      tags:
+      - event analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                export_task:
+                  type: object
+                  required:
+                  - callback_url
+                  - callback_action
+                  properties:
+                    callback_url:
+                      type: string
+                      description: The URL to return a presigned url to
+                    callback_action:
+                      type: string
+                      description: The action the URL takes, POST, GET, PATCH, etc.
+                additionalProperties: false
+              additionalProperties: false
+            example:
+              export_task:
+                callback_url: https://callback.com
+                callback_action: post
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  export_task:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: The ID of the job that is building the export
+                additionalProperties: false
+              example:
+                export_job_id: 123
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/event_analytics/rounds/export_task:
+    post:
+      summary: Rounds
+      tags:
+      - event analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                export_task:
+                  type: object
+                  required:
+                  - callback_url
+                  - callback_action
+                  properties:
+                    callback_url:
+                      type: string
+                      description: The URL to return a presigned url to
+                    callback_action:
+                      type: string
+                      description: The action the URL takes, POST, GET, PATCH, etc.
+                additionalProperties: false
+              additionalProperties: false
+            example:
+              export_task:
+                callback_url: https://callback.com
+                callback_action: post
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  export_task:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: The ID of the job that is building the export
+                additionalProperties: false
+              example:
+                export_task:
+                  id: 123
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/event_analytics/buyer_leaderboards:
+    get:
+      summary: Buyer Leaderboards
+      tags:
+      - event analytics
+      description: Retrieve buyer leaderboards data
+      parameters:
+      - name: business_unit_id
+        in: query
+        description: 'One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.
+
+          '
+        required: false
+        schema:
+          type: integer
+      - name: creator_user_full_name
+        in: query
+        description: One or more full names (first + last) of the user who created the resource. Accepts multiple values. Pass them as repeated query params `?creator_user_full_name[]=John%20Doe&creator_user_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Defaults to `1`, Max `1000`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 10
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: sort_by
+        in: query
+        description: The field to sort the items by which can be any value from the data field.
+        required: false
+        schema:
+          type: string
+          default: business_leaderboard_id
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - company_id
+                - business_unit_id
+                - dbt_run_id
+                - dbt_run_ts
+                - last_updated_at
+                properties:
+                  business_unit_id:
+                    type: array
+                    items:
+                      type: integer
+                    description: Arkestro business unit ID used for filtering the results.
+                  company_id:
+                    type: integer
+                    description: Arkestro company ID used for filtering the results.
+                  creator_full_name:
+                    type: array
+                    items:
+                      type: string
+                    description: Full name of the user who created the events used for filtering the results.
+                  data:
+                    type: array
+                    description: Array of buyer leaderboard records.
+                    items:
+                      type: object
+                      properties:
+                        baseline_total:
+                          type: number
+                          format: float
+                          description: Sum of baseline amounts (company preferred currency) across all time in scope.
+                        baseline_total_28d:
+                          type: number
+                          format: float
+                          description: Sum of baseline (preferred currency) for the last 28 days.
+                        baseline_total_90d:
+                          type: number
+                          format: float
+                          description: Sum of baseline (preferred currency) for the last 90 days.
+                        baseline_total_prev_28d:
+                          type: number
+                          format: float
+                          description: Sum of baseline (preferred currency) for the time window between 28 and 48 days ago.
+                        baseline_total_prev_90d:
+                          type: number
+                          format: float
+                          description: Sum of baseline (preferred currency) for the time window between 90 and 180 days ago.
+                        baseline_trend_28d:
+                          type: number
+                          format: float
+                          description: Baseline growth vs. the time window between 28 and 48 days ago, ratio (curr-prev)/prev.
+                        baseline_trend_90d:
+                          type: number
+                          format: float
+                          description: Baseline growth vs. the time window between 90 and 180 days ago, ratio (curr-prev)/prev.
+                        business_unit_id:
+                          type: integer
+                          description: Unique identifier of the business unit.
+                        business_unit_name:
+                          type: string
+                          description: Business unit name.
+                        buyer_leaderboard_id:
+                          type: string
+                          description: Deterministic surrogate key for the buyer leaderboard row (hash of company_id, company_name, business_unit_name, creator_user_full_name).
+                        company_id:
+                          type: integer
+                          description: Buyer company ID.
+                        company_name:
+                          type: string
+                          description: Buyer company name.
+                        creator_user_full_name:
+                          type: string
+                          description: Full name of the buyer who created the event (e.g. John Doe).
+                        dbt_run_id:
+                          type: string
+                          description: dbt invocation_id for the run that produced this row.
+                        dbt_run_ts:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the dbt run started.
+                        event_count:
+                          type: integer
+                          description: Total distinct events for this buyer across all time.
+                        event_count_28d:
+                          type: integer
+                          description: Distinct events opened in the the last 28 days.
+                        event_count_90d:
+                          type: integer
+                          description: Distinct events opened in the last 90 days.
+                        event_count_prev_28d:
+                          type: integer
+                          description: Distinct events opened in the window between 28 and 48 days ago.
+                        event_count_prev_90d:
+                          type: integer
+                          description: Distinct events opened in the the window between 90 and 180 days ago.
+                        event_count_trend_90d:
+                          type: number
+                          format: float
+                          description: Event openings growth vs. the time window between 90 and 180 days ago, ratio (curr-prev)/prev.
+                        events_opened_trend:
+                          type: number
+                          format: float
+                          description: Event openings change between the last 28 day time window and the prior 28-48 day time window. Calculated as (current-prior)/prior.
+                        item_count:
+                          type: integer
+                          description: Total distinct line items for this buyer across all time.
+                        item_count_28d:
+                          type: integer
+                          description: Total distinct line items in the last 28 days.
+                        item_count_90d:
+                          type: integer
+                          description: Total distinct line items in the last 90 days.
+                        item_count_prev_90d:
+                          type: integer
+                          description: Total distinct line items in the time window between 90 and 180 days ago.
+                        item_count_with_baseline_anomaly:
+                          type: integer
+                          description: Total number of line items with a baseline anomaly.
+                        item_count_with_baseline_anomaly_28d:
+                          type: integer
+                          description: Line items with a baseline anomaly in the last 28 days.
+                        item_count_with_baseline_anomaly_90d:
+                          type: integer
+                          description: Line items with a baseline anomaly in the last 90 days.
+                        item_count_with_quote_anomaly:
+                          type: integer
+                          description: Total number of line items with a quote anomaly.
+                        item_count_with_quote_anomaly_28d:
+                          type: integer
+                          description: Line items with a quote anomaly in the last 28 days.
+                        item_count_with_quote_anomaly_90d:
+                          type: integer
+                          description: Line items with a quote anomaly in the last 90 days.
+                        item_win_count_90d:
+                          type: integer
+                          description: Total distinct winning line items (non-negative savings) in the last 90 days.
+                        item_win_count_prev_90d:
+                          type: integer
+                          description: Total distinct winning line items (non-negative savings) in the time window between 90 and 180 days ago.
+                        potential_savings_in_pref_currency:
+                          type: number
+                          format: float
+                          description: Sum of potential savings (company preferred currency) across all time in scope. Potential savings is (baseline - lowest quote amount) * requested quantity of units.
+                        potential_savings_in_pref_currency_28d:
+                          type: number
+                          format: float
+                          description: Sum of potential savings (preferred currency) in the last 28 days.
+                        potential_savings_in_pref_currency_90d:
+                          type: number
+                          format: float
+                          description: Sum of potential savings (preferred currency) in the last 90 days.
+                        potential_savings_in_pref_currency_prev_28d:
+                          type: number
+                          format: float
+                          description: Sum of potential savings (preferred currency) in the time window between 28 and 48 days ago.
+                        potential_savings_in_pref_currency_prev_90d:
+                          type: number
+                          format: float
+                          description: Sum of potential savings (preferred currency) in the time window between 90 and 180 days ago.
+                        potential_savings_percent:
+                          type: number
+                          format: float
+                          description: Overall potential savings percent. Computed as SUM(potential_savings)/SUM(baseline_total where we have a baseline and quote). Please note that this is NULL if we do not have quotes or a baseline and it can be negative.
+                        potential_savings_trend_28d:
+                          type: number
+                          format: float
+                          description: Potential savings growth vs. the time window between 28 and 48 days ago, ratio (curr-prev)/prev.
+                        potential_savings_trend_90d:
+                          type: number
+                          format: float
+                          description: Potential savings growth vs. the time window between 90 and 180 days ago, ratio (curr-prev)/prev.
+                        supplier_engagement:
+                          type: number
+                          format: float
+                          description: 'Overall supplier engagement score, percent 0 to 100 (rounded). Computed as SUM(engagement_score_total)/SUM(engagement_opportunity_total)*100. The opportunities include tasks such as submitting a quote, accepting the suggested price, viewing the event, completing a survey, uploading documents, and replying to messages.
+
+                            '
+                        supplier_engagement_28d:
+                          type: number
+                          format: float
+                          description: Supplier engagement score in the last 28 days, ratio 0 to 1 (not percent).
+                        supplier_engagement_90d:
+                          type: number
+                          format: float
+                          description: Supplier engagement score in the last 90 days, ratio 0 to 1 (not percent).
+                        supplier_engagement_prev_28d:
+                          type: number
+                          format: float
+                          description: supplier engagement score in the time window between 28 and 48 days ago, ratio 0 to 1 (not percent).
+                        supplier_engagement_prev_90d:
+                          type: number
+                          format: float
+                          description: supplier engagement score in the time window between 90 and 180 days ago, ratio 0 to 1 (not percent).
+                        supplier_engagement_trend:
+                          type: number
+                          format: float
+                          description: Engagement growth change between the last 28 day time window and the prior 28-48 day time window. Calculated as (curr-prev)/prev.
+                        supplier_engagement_trend_90d:
+                          type: number
+                          format: float
+                          description: Engagement growth vs. the time window between 90 and 180 days ago, ratio (curr-prev)/prev.
+                        win_rate_percent_28d:
+                          type: number
+                          format: float
+                          description: Win rate in the last 28 days. A win is if the potential savings is non-negative for the line item.
+                        win_rate_percent_90d:
+                          type: number
+                          format: float
+                          description: Win rate in the last 90 days, ratio 0 to 1 (not percent).
+                        win_rate_percent_prev_28d:
+                          type: number
+                          format: float
+                          description: Win rate in the time window between 28 and 48 days ago.
+                        win_rate_percent_prev_90d:
+                          type: number
+                          format: float
+                          description: Win rate in the time window between 90 and 180 days ago, ratio 0 to 1 (not percent).
+                        win_rate_text:
+                          type: string
+                          description: 'Overall win ratio formatted as "wins / items (P%)" where P is the overall win percentage, rounded. A win is if the potential savings is non-negative for the line item.
+
+                            '
+                        win_rate_text_28d:
+                          type: string
+                          description: Win ratio for the last 28 days formatted "wins / items (percent)". Wins are the count of line items with non-negative potential savings.
+                        win_rate_text_90d:
+                          type: string
+                          description: Win ratio for the last 90 days formatted "wins / item (percent)". Wins are the count of line items with non-negative potential savings.
+                        win_rate_text_prev_28d:
+                          type: string
+                          description: Win ratio for the time window between 28 and 48 days ago formatted "wins / items (percent)". Wins are the count of line items with non-negative potential savings.
+                        win_rate_text_prev_90d:
+                          type: string
+                          description: Win ratio for the time window between 90 and 180 days ago formatted "wins / item (percent)". Wins are the count of line items with non-negative potential savings.
+                        win_rate_trend_28d:
+                          type: number
+                          format: float
+                          description: Win rate growth change between the last 28 day time window and the prior 28-48 day time window. Calculated as (curr-prev)/prev.
+                        win_rate_trend_90d:
+                          type: number
+                          format: float
+                          description: Win rate growth vs. the time window between 90 and 180 days ago, ratio (curr-prev)/prev.
+                  limit:
+                    type: integer
+                    description: Maximum number of records returned in the page.
+                  offset:
+                    type: integer
+                    description: Offset of the first record in the returned page.
+                  sort_by:
+                    type: string
+                    description: Field used for sorting the results.
+                  sort_order:
+                    type: string
+                    description: Sort order, either 'asc' or 'desc'.
+              example:
+                business_unit_id:
+                - '1'
+                company_id: 1
+                creator_full_name: null
+                data:
+                - baseline_total: 0.0
+                  baseline_total_28d: 0.0
+                  baseline_total_90d: 0.0
+                  baseline_total_prev_28d: 0.0
+                  baseline_total_prev_90d: 0.0
+                  baseline_trend_28d: 0.0
+                  baseline_trend_90d: 0.0
+                  business_unit_id: 1
+                  business_unit_name: Default
+                  buyer_leaderboard_id: f624fd41ecd7cd38744db47848bb8110
+                  company_id: 1
+                  company_name: Akrestro
+                  creator_user_full_name: louis boo
+                  dbt_run_id: 40181b4f-ac1d-448e-bf2d-146517f56eaf
+                  dbt_run_ts: '2025-09-03 08:15:07.203375+00:00'
+                  event_count: 1
+                  event_count_28d: 1
+                  event_count_90d: 1
+                  event_count_prev_28d: 0
+                  event_count_prev_90d: 0
+                  event_count_trend_90d: 0.0
+                  events_opened_trend: 0.0
+                  item_count: 3
+                  item_count_28d: 3
+                  item_count_90d: 3
+                  item_count_prev_90d: 0
+                  item_count_with_baseline_anomaly: 0
+                  item_count_with_baseline_anomaly_28d: 0
+                  item_count_with_baseline_anomaly_90d: 0
+                  item_count_with_quote_anomaly: 0
+                  item_count_with_quote_anomaly_28d: 0
+                  item_count_with_quote_anomaly_90d: 0
+                  item_win_count_90d: 0
+                  item_win_count_prev_90d: 0
+                  potential_savings_in_pref_currency: null
+                  potential_savings_in_pref_currency_28d: 0.0
+                  potential_savings_in_pref_currency_90d: 0.0
+                  potential_savings_in_pref_currency_prev_28d: 0.0
+                  potential_savings_in_pref_currency_prev_90d: 0.0
+                  potential_savings_percent: null
+                  potential_savings_trend_28d: 0.0
+                  potential_savings_trend_90d: 0.0
+                  supplier_engagement: 0.0
+                  supplier_engagement_28d: 0.0
+                  supplier_engagement_90d: 0.0
+                  supplier_engagement_prev_28d: 0.0
+                  supplier_engagement_prev_90d: 0.0
+                  supplier_engagement_trend: 0.0
+                  supplier_engagement_trend_90d: 0.0
+                  win_rate_percent_28d: 0.0
+                  win_rate_percent_90d: 0.0
+                  win_rate_percent_prev_28d: 0.0
+                  win_rate_percent_prev_90d: 0.0
+                  win_rate_text: 0 / 3 (0%)
+                  win_rate_text_28d: 0 / 3
+                  win_rate_text_90d: 0 / 3
+                  win_rate_text_prev_28d: 0 / 0
+                  win_rate_text_prev_90d: 0 / 0
+                  win_rate_trend_28d: 0.0
+                  win_rate_trend_90d: 0.0
+                limit: 1
+                offset: 1
+                sort_by: potential_savings_percent
+                sort_order: desc
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/event_analytics/quotes:
+    get:
+      summary: Quotes
+      tags:
+      - event analytics
+      description: Retrieve quotes data
+      parameters:
+      - name: business_unit_id
+        in: query
+        description: 'One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.
+
+          '
+        required: false
+        schema:
+          type: integer
+      - name: start_date
+        in: query
+        description: The start date to filter events by, in ISO 8601 format (YYYY-MM-DD).
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        description: The end date to filter events by, in ISO 8601 format (YYYY-MM-DD).
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: owner_full_name
+        in: query
+        description: One or more full names (first + last) of the user who owns the event. Accepts multiple values. Pass them as repeated query params `?owner_full_name[]=John%20Doe&owner_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language.
+        required: false
+        schema:
+          type: string
+      - name: supplier_org_name
+        in: query
+        description: One or more names of the organizations supplying the resource. Accepts multiple values. Pass them as repeated query params `?supplier_org_name[]=Acme 20Corp&supplier_org_name[]=Globex 20Corp`.
+        required: false
+        schema:
+          type: string
+      - name: event_state
+        in: query
+        description: 'The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.
+
+          '
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - awarded
+            - closed
+            - draft
+            - not_awarded
+            - open_for_bidding
+            - ready_to_award
+        style: form
+        explode: true
+      - name: event_tag_names
+        in: query
+        description: 'AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.
+
+          '
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+      - name: refreshed_after
+        in: query
+        description: The date and time after which the resource was last refreshed, in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Defaults to `1`, Max `1000`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 10
+      - name: sort_by
+        in: query
+        description: The field to sort the items by which can be any value from the data field.
+        required: false
+        schema:
+          type: string
+          default: response_line_item_id
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - response_line_item_id
+                - quote_status
+                - dbt_run_id
+                - dbt_run_ts
+                properties:
+                  business_unit_id:
+                    type: array
+                    items:
+                      type: integer
+                    description: Arkestro business unit ID used for filtering the results.
+                  company_id:
+                    type: integer
+                    description: Arkestro company ID used for filtering the results.
+                  data:
+                    type: array
+                    description: Array of quote records.
+                    items:
+                      type: object
+                      properties:
+                        awarded_date:
+                          type: string
+                          format: date-time
+                          description: Award decision timestamp for the line item (when awarded).
+                        awarded_quantity_of_units:
+                          type: number
+                          format: float
+                          description: Quantity awarded to this supplier on this line (when awarded).
+                        business_unit_id:
+                          type: integer
+                          description: Unique identifier for the business unit.
+                        business_unit_name:
+                          type: string
+                          description: Business unit name.
+                        company_id:
+                          type: integer
+                          description: Buyer company ID.
+                        company_name:
+                          type: string
+                          description: Buyer company name.
+                        creator_user_full_name:
+                          type: string
+                          description: Full name of the event creator.
+                        custom_columns:
+                          type: object
+                          description: Key-value map of custom column values at the line or lot level.
+                          additionalProperties:
+                            type:
+                            - string
+                            - number
+                            - boolean
+                            - 'null'
+                        dbt_run_id:
+                          type: string
+                          description: dbt invocation_id for the run that produced this row.
+                        dbt_run_ts:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the dbt run started.
+                        event_created_at:
+                          type: string
+                          format: date-time
+                          description: Event creation timestamp.
+                        event_currency:
+                          type: string
+                          description: ISO currency code for the event; un-suffixed price fields are expressed in this currency.
+                        event_end_time_at:
+                          type: string
+                          format: date-time
+                          description: Event end timestamp (when suppliers could no longer submit quotes).
+                        event_id:
+                          type: integer
+                          description: Arkestro event ID.
+                        event_name:
+                          type: string
+                          description: Event name.
+                        event_start_time_at:
+                          type: string
+                          format: date-time
+                          description: Event start timestamp (when suppliers could begin submitting quotes).
+                        event_state:
+                          type: string
+                          description: High-level event state (e.g., draft, open, closed).
+                        event_tag_name_list:
+                          type: array
+                          items:
+                            type: string
+                          description: List of tags applied to the event.
+                        is_awarded_quote:
+                          type: boolean
+                          description: True if this supplier’s active quote is the award winner for this line item.
+                        is_buyer_side_quote:
+                          type: boolean
+                          description: True if the quote originated from the buyer side to represent a negotiation outside of the system.
+                        is_included_in_reporting:
+                          type: boolean
+                          description: Whether this event/line contributes to reporting rollups. This is false for test/template/archived events.
+                        line_item_baseline_price:
+                          type: number
+                          format: float
+                          description: Baseline unit price in the event currency.
+                        line_item_baseline_price_in_pref_currency:
+                          type: number
+                          format: float
+                          description: Baseline unit price converted to the company’s preferred currency.
+                        line_item_baseline_price_in_usd:
+                          type: number
+                          format: float
+                          description: Baseline unit price converted to USD.
+                        line_item_baseline_price_total:
+                          type: number
+                          format: float
+                          description: Baseline extended price (unit × quantity) in the event currency.
+                        line_item_baseline_price_total_in_pref_currency:
+                          type: number
+                          format: float
+                          description: Baseline extended price converted to the company’s preferred currency.
+                        line_item_baseline_price_total_in_usd:
+                          type: number
+                          format: float
+                          description: Baseline extended price converted to USD.
+                        line_item_id:
+                          type: integer
+                          description: Unique identifier for the line item within the event.
+                        line_item_is_intelligent_counter_offer_enabled:
+                          type: boolean
+                          description: True if intelligent counter-offers are enabled on this line item.
+                        line_item_name:
+                          type: string
+                          description: Line item name.
+                        line_item_quantity_of_units:
+                          type: integer
+                          description: Quantity requested for the line item.
+                        line_item_unit_of_measure:
+                          type: string
+                          description: Unit of measure for the line item (e.g., EA, KG).
+                        lot_name:
+                          type: string
+                          description: Lot name.
+                        owner_full_name_list:
+                          type: array
+                          description: List of owners/stakeholders on the buyer side.
+                          items:
+                            type: string
+                        preferred_currency:
+                          type: string
+                          description: Company's preferred reporting currency (ISO code). All *_in_pref_currency fields are expressed in this currency.
+                        quote_line_item_discount:
+                          type: number
+                          format: float
+                          description: Discount applied at the line level.
+                        quote_line_item_discount_unconverted:
+                          type: number
+                          format: float
+                          description: Discount as entered by the supplier in quoting_currency, before conversion to event currency.
+                        quote_line_item_price:
+                          type: number
+                          format: float
+                          description: Quoted unit price in the event currency.
+                        quote_line_item_price_in_pref_currency:
+                          type: number
+                          format: float
+                          description: Quoted unit price converted to the company’s preferred currency.
+                        quote_line_item_price_in_usd:
+                          type: number
+                          format: float
+                          description: Quoted unit price converted to USD.
+                        quote_line_item_price_net:
+                          type: number
+                          format: float
+                          description: Net unit price after discount/surcharge in the event currency.
+                        quote_line_item_price_net_in_pref_currency:
+                          type: number
+                          format: float
+                          description: Net unit price converted to the company’s preferred currency.
+                        quote_line_item_price_net_in_usd:
+                          type: number
+                          format: float
+                          description: Net unit price converted to USD.
+                        quote_line_item_price_net_total:
+                          type: number
+                          format: float
+                          description: Net extended price (net unit × quoted quantity) in the event currency.
+                        quote_line_item_price_net_total_in_pref_currency:
+                          type: number
+                          format: float
+                          description: Net extended price converted to the company’s preferred currency.
+                        quote_line_item_price_net_total_in_usd:
+                          type: number
+                          format: float
+                          description: Net extended price converted to USD.
+                        quote_line_item_price_unconverted:
+                          type: number
+                          format: float
+                          description: Unit price as entered by the supplier in quoting_currency, before conversion to event currency.
+                        quote_line_item_quantity:
+                          type: integer
+                          description: Quantity the supplier quoted for this line (may differ from requested).
+                        quote_line_item_surcharge:
+                          type: number
+                          format: float
+                          description: Surcharge applied at the line level.
+                        quote_line_item_surcharge_unconverted:
+                          type: number
+                          format: float
+                          description: Surcharge as entered by the supplier in quoting_currency, before conversion to event currency.
+                        quote_status:
+                          type: string
+                          description: Quote status for this response line (e.g., active, inactive).
+                        quoting_currency:
+                          type: string
+                          description: ISO currency code the supplier quoted in. Equals event_currency when no currency conversion was needed.
+                        response_created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the supplier first submitted this quote line.
+                        response_line_item_id:
+                          type: integer
+                          description: Primary key for the quoted response for a specific line item.
+                        response_updated_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the supplier last updated this quote line.
+                        round_count:
+                          type: integer
+                          description: Total number of rounds in the event.
+                        round_number:
+                          type: integer
+                          description: Round number within the event.
+                        supplier_external_id:
+                          type: string
+                          description: External identifier for the supplier as defined by the buyer's system.
+                        supplier_org_id:
+                          type: integer
+                          description: Unique identifier for the supplier organization.
+                        supplier_org_invited_count:
+                          type: integer
+                          description: Number of supplier orgs invited to the event.
+                        supplier_org_name:
+                          type: string
+                          description: Supplier organization name.
+                        supplier_org_participated_count:
+                          type: integer
+                          description: Number of supplier orgs that agreed to participate in the event.
+                        supplier_profile_id:
+                          type: integer
+                          description: Supplier profile ID.
+                        supplier_user_email:
+                          type: string
+                          description: Supplier contact’s email address.
+                        supplier_user_full_name:
+                          type: string
+                          description: Supplier contact’s full name.
+                        system_baseline_anomaly_status:
+                          type: string
+                          description: 'Anomaly classification for the line item''s baseline price. Possible values: Not Anomaly, Anomaly, Review, No Data, Too Few Quotes.'
+                        system_quote_anomaly_status:
+                          type: string
+                          description: 'Anomaly classification for this individual quote. Possible values: Not Anomaly, Review, Anomaly. Null if fewer than 3 quotes exist on the line item.'
+                  event_state:
+                    type: array
+                    items:
+                      type: string
+                    description: High-level event state (e.g., draft, open, closed) used for filtering the results.
+                  event_tag_name_list:
+                    type: array
+                    items:
+                      type: string
+                    description: AND filter — event must have ALL specified tags. Used for filtering the results.
+                  limit:
+                    type: integer
+                    description: Maximum number of records returned in the page.
+                  offset:
+                    type: integer
+                    description: Offset of the first record in the returned page.
+                  owner_full_name:
+                    type: array
+                    items:
+                      type: string
+                    description: Full name of the user who owns the events used for filtering the results.
+                  refreshed_after:
+                    type: string
+                    format: date-time
+                    description: When the data was last refreshed. Used for caching purposes.
+                  sort_by:
+                    type: string
+                    description: Field used for sorting the results.
+                  sort_order:
+                    type: string
+                    description: Sort order, either 'asc' or 'desc'.
+                  supplier_org_name:
+                    type: array
+                    items:
+                      type: string
+                    description: Name of the supplier organization used for filtering the results.
+              example:
+                business_unit_id:
+                - '1'
+                company_id: 1
+                data:
+                - awarded_date: '2023-02-10T17:34:25.389581'
+                  awarded_quantity_of_units: null
+                  business_unit_id: 5
+                  business_unit_name: Default
+                  company_id: 1
+                  company_name: Test Company
+                  creator_user_full_name: John Johnson
+                  custom_columns: '{}'
+                  dbt_run_id: 40181b4f-ac1d-448e-bf2d-146517f56eaf
+                  dbt_run_ts: '2025-09-03 08:15:07.203375+00:00'
+                  event_created_at: '2023-02-01T18:52:44.726562'
+                  event_currency: USD
+                  event_end_time_at: '2023-02-08T23:00:00'
+                  event_id: 12345
+                  event_name: Ball Valve
+                  event_start_time_at: '2023-02-06T15:00:00'
+                  event_state: awarded
+                  event_tag_name_list:
+                  - tag1
+                  is_awarded_quote: false
+                  is_buyer_side_quote: false
+                  is_included_in_reporting: true
+                  line_item_baseline_price: 49.8
+                  line_item_baseline_price_in_pref_currency: 49.8
+                  line_item_baseline_price_in_usd: 49.8
+                  line_item_baseline_price_total: 149.39999999999998
+                  line_item_baseline_price_total_in_pref_currency: 149.39999999999998
+                  line_item_baseline_price_total_in_usd: 149.39999999999998
+                  line_item_id: 123
+                  line_item_is_intelligent_counter_offer_enabled: false
+                  line_item_name: 0303932
+                  line_item_quantity_of_units: 3.0
+                  line_item_unit_of_measure: unit
+                  lot_name: Valves
+                  owner_full_name_list: John Johnson
+                  preferred_currency: USD
+                  quote_line_item_discount: 0.0
+                  quote_line_item_discount_unconverted: 0.0
+                  quote_line_item_price: 49.8
+                  quote_line_item_price_in_pref_currency: 49.8
+                  quote_line_item_price_in_usd: 49.8
+                  quote_line_item_price_net: 49.79999999999999
+                  quote_line_item_price_net_in_pref_currency: 49.79999999999999
+                  quote_line_item_price_net_in_usd: 49.79999999999999
+                  quote_line_item_price_net_total: 149.39999999999998
+                  quote_line_item_price_net_total_in_pref_currency: 149.39999999999998
+                  quote_line_item_price_net_total_in_usd: 149.39999999999998
+                  quote_line_item_price_unconverted: 49.8
+                  quote_line_item_quantity: 1.0
+                  quote_line_item_surcharge: 0.0
+                  quote_line_item_surcharge_unconverted: 0.0
+                  quote_status: inactive
+                  quoting_currency: USD
+                  response_created_at: '2023-02-06T15:59:24.539789'
+                  response_line_item_id: 7658152
+                  response_updated_at: '2023-02-08T14:23:54.230304'
+                  round_count: 2
+                  round_number: 1
+                  supplier_external_id: V000721
+                  supplier_org_id: 235
+                  supplier_org_invited_count: 7
+                  supplier_org_name: Supplier Inc.
+                  supplier_org_participated_count: 6
+                  supplier_profile_id: 67076
+                  supplier_user_email: bob.bobson@supplier.com
+                  supplier_user_full_name: Bob Bobson
+                  system_baseline_anomaly_status: Not Anomaly
+                  system_quote_anomaly_status: Not Anomaly
+                event_state: null
+                limit: 1
+                offset: 1
+                order_by: potential_savings_percent
+                order_sort: desc
+                owner_full_name: null
+                refreshed_after: null
+                supplier_org_name: null
+                event_tag_name_list: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/event_analytics/supplier_invitation_statuses:
+    get:
+      summary: Supplier Invitation Statuses
+      tags:
+      - event analytics
+      description: Retrieve supplier invitation statuses
+      parameters:
+      - name: business_unit_id
+        in: query
+        description: 'One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.
+
+          '
+        required: false
+        schema:
+          type: integer
+      - name: start_date
+        in: query
+        description: The start date to filter events by, in ISO 8601 format (YYYY-MM-DD).
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        description: The end date to filter events by, in ISO 8601 format (YYYY-MM-DD).
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: owner_full_name
+        in: query
+        description: One or more full names (first + last) of the user who owns the event. Accepts multiple values. Pass them as repeated query params `?owner_full_name[]=John%20Doe&owner_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language.
+        required: false
+        schema:
+          type: string
+      - name: supplier_org_name
+        in: query
+        description: One or more names of the organizations supplying the resource. Accepts multiple values. Pass them as repeated query params `?supplier_org_name[]=Acme 20Corp&supplier_org_name[]=Globex 20Corp`.
+        required: false
+        schema:
+          type: string
+      - name: event_state
+        in: query
+        description: 'The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.
+
+          '
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - awarded
+            - closed
+            - draft
+            - not_awarded
+            - open_for_bidding
+            - ready_to_award
+        style: form
+        explode: true
+      - name: event_tag_names
+        in: query
+        description: 'AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.
+
+          '
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+      - name: refreshed_after
+        in: query
+        description: The date and time after which the resource was last refreshed, in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Defaults to `1`, Max `1000`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 10
+      - name: sort_by
+        in: query
+        description: The field to sort the items by which can be any value from the data field.
+        required: false
+        schema:
+          type: string
+          default: supplier_invitation_id
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - supplier_invitation_id
+                - company_id
+                - company_name
+                - event_id
+                - event_name
+                - is_included_in_reporting
+                - last_updated_at
+                properties:
+                  business_unit_id:
+                    type: array
+                    items:
+                      type: integer
+                    description: Arkestro business unit ID used for filtering the results.
+                  company_id:
+                    type: integer
+                    description: Arkestro company ID used for filtering the results.
+                  data:
+                    type: array
+                    description: Array of quote records.
+                    items:
+                      type: object
+                      properties:
+                        business_unit_id:
+                          type: integer
+                          description: Unique identifier for the business unit.
+                        business_unit_name:
+                          type: string
+                          description: Business unit name.
+                        company_id:
+                          type: integer
+                          description: Buyer company ID.
+                        company_name:
+                          type: string
+                          description: Arkestro company name.
+                        dbt_run_id:
+                          type: string
+                          description: dbt invocation_id for the run that produced this row (pipeline metadata).
+                        dbt_run_ts:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the dbt run started (pipeline metadata).
+                        event_created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the event was created.
+                        event_end_time_at:
+                          type: string
+                          format: date-time
+                          description: Event end time (when the suppliers could no longer submit quotes).
+                        event_id:
+                          type: integer
+                          description: Arkestro event ID.
+                        event_name:
+                          type: string
+                          description: Event name.
+                        event_start_time_at:
+                          type: string
+                          format: date-time
+                          description: Event start time (when the suppliers could begin submitting quotes).
+                        event_state:
+                          type: string
+                          description: High-level event state (e.g., draft, open, closed).
+                        event_tag_name_list:
+                          type: array
+                          items:
+                            type: string
+                          description: List of tags applied to the event.
+                        is_included_in_reporting:
+                          type: boolean
+                          description: Whether the event is included in reporting rollups. This excludes tests/templates/archived events.
+                        last_updated_at:
+                          type: string
+                          format: date-time
+                          description: Row last updated timestamp; equals dbt_run_ts in this model.
+                        owner_full_name_list:
+                          type: array
+                          description: List of owners/stakeholders on the buyer side.
+                          items:
+                            type: string
+                        supplier_has_participated:
+                          type: boolean
+                          description: True if the invited supplier org has agreed to participate.
+                        supplier_invitation_id:
+                          type: string
+                          description: Deterministic surrogate key (hash of company_id, event_id, invited supplier_org_id, user_id) uniquely identifying the invitation row.
+                        supplier_org_answer_to_invitation:
+                          type: string
+                          description: Supplier organization’s response to the invitation (if tracked at org level). If any user from that org accepted, this is 'accepted'.
+                        supplier_org_name_invited:
+                          type: string
+                          description: Name of the invited supplier organization’s (company) name.
+                        user_answer_to_invitation:
+                          type: string
+                          description: User’s response to the invitation (e.g., accepted, declined, pending).
+                        user_email:
+                          type: string
+                          description: Email of the invited user/contact.
+                        user_full_name:
+                          type: string
+                          description: Full name of the invited user/contact.
+                        user_invite_date:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the invitation record was sent to that user/contact.
+                  end_date:
+                    type: string
+                    format: date-time
+                    description: End date used for filtering the results (ISO 8601 format).
+                  event_state:
+                    type: array
+                    items:
+                      type: string
+                    description: High-level event state (e.g., draft, open, closed) used for filtering the results.
+                  event_tag_name_list:
+                    type: array
+                    items:
+                      type: string
+                    description: AND filter — event must have ALL specified tags. Used for filtering the results.
+                  limit:
+                    type: integer
+                    description: Maximum number of records returned in the page.
+                  offset:
+                    type: integer
+                    description: Offset of the first record in the returned page.
+                  owner_full_name:
+                    type: array
+                    items:
+                      type: string
+                    description: Full name of the user who owns the events used for filtering the results.
+                  refreshed_after:
+                    type: string
+                    format: date-time
+                    description: When the data was last refreshed. Used for caching purposes.
+                  start_date:
+                    type: string
+                    format: date-time
+                    description: Start date used for filtering the results (ISO 8601 format).
+                  sort_by:
+                    type: string
+                    description: Field used for sorting the results.
+                  sort_order:
+                    type: string
+                    description: Sort order, either 'asc' or 'desc'.
+                  supplier_org_name:
+                    type: array
+                    items:
+                      type: string
+                    description: Name of the supplier organization used for filtering the results.
+              example:
+                business_unit_id:
+                - '1'
+                company_id: 1
+                data:
+                - business_unit_id: 5
+                  business_unit_name: Default
+                  company_id: 1
+                  company_name: Test Company
+                  dbt_run_id: 40181b4f-ac1d-448e-bf2d-146517f56eaf
+                  dbt_run_ts: '2025-09-03 08:15:07.203375+00:00'
+                  event_created_at: '2025-06-25T16:18:06.827254'
+                  event_end_time_at: '2025-07-28T21:56:00'
+                  event_id: 138939
+                  event_name: Event Name
+                  event_start_time_at: '2025-06-25T17:00:00'
+                  event_state: closed
+                  event_tag_name_list:
+                  - tag1
+                  is_included_in_reporting: true
+                  last_updated_at: '2025-09-03 08:15:07.203375+00:00'
+                  owner_full_name_list: Ryan McKenzie
+                  supplier_has_participated: false
+                  supplier_invitation_id: 001496dbbcb8fe14683a0d7b8b58fc7a
+                  supplier_org_answer_to_invitation: accepted
+                  supplier_org_name_invited: Cambridge Pro Fab Inc.
+                  user_answer_to_invitation: accepted
+                  user_email: jhodgins@place.com
+                  user_full_name: Jim Hodgins
+                  user_invite_date: '2025-06-25T16:24:26.151760'
+                event_state: null
+                limit: 1
+                offset: 1
+                order_by: potential_savings_percent
+                order_sort: desc
+                owner_full_name: null
+                refreshed_after: null
+                supplier_org_name: null
+                event_tag_name_list: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/event_analytics/survey_results:
+    get:
+      summary: Survey Results
+      tags:
+      - event analytics
+      description: Retrieve survey results
+      parameters:
+      - name: business_unit_id
+        in: query
+        description: 'One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.
+
+          '
+        required: false
+        schema:
+          type: integer
+      - name: start_date
+        in: query
+        description: The start date to filter events by, in ISO 8601 format (YYYY-MM-DD).
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        description: The end date to filter events by, in ISO 8601 format (YYYY-MM-DD).
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: owner_full_name
+        in: query
+        description: One or more full names (first + last) of the user who owns the event. Accepts multiple values. Pass them as repeated query params `?owner_full_name[]=John%20Doe&owner_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language.
+        required: false
+        schema:
+          type: string
+      - name: supplier_org_name
+        in: query
+        description: One or more names of the organizations supplying the resource. Accepts multiple values. Pass them as repeated query params `?supplier_org_name[]=Acme 20Corp&supplier_org_name[]=Globex 20Corp`.
+        required: false
+        schema:
+          type: string
+      - name: event_state
+        in: query
+        description: 'The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.
+
+          '
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - awarded
+            - closed
+            - draft
+            - not_awarded
+            - open_for_bidding
+            - ready_to_award
+        style: form
+        explode: true
+      - name: event_tag_names
+        in: query
+        description: 'AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.
+
+          '
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+      - name: refreshed_after
+        in: query
+        description: The date and time after which the resource was last refreshed, in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Defaults to `1`, Max `1000`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 10
+      - name: sort_by
+        in: query
+        description: The field to sort the items by which can be any value from the data field.
+        required: false
+        schema:
+          type: string
+          default: survey_questions_and_answers_id
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - survey_questions_and_answers_id
+                - qualification_question_id
+                - qualification_question_text
+                - company_id
+                - event_id
+                - is_included_in_reporting
+                - last_updated_at
+                properties:
+                  business_unit_id:
+                    type: array
+                    items:
+                      type: integer
+                    description: Arkestro business unit ID used for filtering the results.
+                  company_id:
+                    type: integer
+                    description: Arkestro company ID used for filtering the results.
+                  data:
+                    type: array
+                    description: Array of quote records.
+                    items:
+                      type: object
+                      properties:
+                        answer_value:
+                          type: string
+                          description: Answer value. For multiple_choice/yes_no this is the option text; otherwise the raw entered value.
+                        answerable_type:
+                          type: string
+                          description: Entity the answer is associated with (e.g., LineItem). Determines how answers are joined to event context.
+                        business_unit_id:
+                          type: integer
+                          description: Arkestro business unit ID associated with the event.
+                        business_unit_name:
+                          type: string
+                          description: Arkestro business unit name associated with the event.
+                        company_id:
+                          type: integer
+                          description: Buyer company ID associated with the event.
+                        company_name:
+                          type: string
+                          description: Buyer company name for the event context.
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the answer record was created.
+                        dbt_run_id:
+                          type: string
+                          description: dbt invocation_id for the run that produced this row (pipeline metadata).
+                        dbt_run_ts:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the dbt run started (pipeline metadata).
+                        event_created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the event was created.
+                        event_end_time_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the event ended.
+                        event_id:
+                          type: integer
+                          description: Arkestro ID of the event.
+                        event_name:
+                          type: string
+                          description: Name of the event.
+                        event_start_time_at:
+                          type: string
+                          format: date-time
+                          description: Start timestamp of the event.
+                        event_state:
+                          type: string
+                          description: High-level event state (e.g., draft, open, closed).
+                        event_tag_name_list:
+                          type: array
+                          items:
+                            type: string
+                          description: List of tags applied to the event.
+                        is_included_in_reporting:
+                          type: boolean
+                          description: Whether the event is included in reporting rollups and downstream models. This is false for test/template/archived events.
+                        is_opted_out:
+                          type: boolean
+                          description: True if the respondent opted out of the survey.
+                        is_submitted:
+                          type: boolean
+                          description: True if the respondent submitted the survey; false for in-progress/draft answers.
+                        is_visible:
+                          type: boolean
+                          description: Whether the question is visible to respondents in the survey UI.
+                        last_updated_at:
+                          type: string
+                          format: date-time
+                          description: Row last updated timestamp; equals dbt_run_ts in this model.
+                        line_item_id:
+                          type: integer
+                          description: Arkestro ID of the line item associated with the answer.
+                  end_date:
+                    type: string
+                    format: date-time
+                    description: End date used for filtering the results (ISO 8601 format).
+                  event_state:
+                    type: array
+                    items:
+                      type: string
+                    description: High-level event state (e.g., draft, open, closed) used for filtering the results.
+                  event_tag_name_list:
+                    type: array
+                    items:
+                      type: string
+                    description: AND filter — event must have ALL specified tags. Used for filtering the results.
+                  limit:
+                    type: integer
+                    description: Maximum number of records returned in the page.
+                  offset:
+                    type: integer
+                    description: Offset of the first record in the returned page.
+                  owner_full_name:
+                    type: array
+                    items:
+                      type: string
+                    description: Full name of the user who owns the events used for filtering the results.
+                  refreshed_after:
+                    type: string
+                    format: date-time
+                    description: When the data was last refreshed. Used for caching purposes.
+                  sort_by:
+                    type: string
+                    description: Field used for sorting the results.
+                  sort_order:
+                    type: string
+                    description: Sort order, either 'asc' or 'desc'.
+                  start_date:
+                    type: string
+                    format: date-time
+                    description: Start date used for filtering the results (ISO 8601 format).
+                  supplier_org_name:
+                    type: array
+                    items:
+                      type: string
+                    description: Name of the supplier organization used for filtering the results.
+              example:
+                business_unit_id:
+                - '1'
+                company_id: 1
+                data:
+                - answer_value: 'no'
+                  answerable_type: LineItem
+                  business_unit_id: 1
+                  business_unit_name: Default
+                  company_id: 1
+                  company_name: Bid Ops
+                  created_at: '2023-11-01T20:43:59.115439'
+                  dbt_run_id: f378bc40-386d-4263-947b-bd02d1373be1
+                  dbt_run_ts: '2025-09-03 14:15:08.914592+00:00'
+                  event_created_at: '2023-11-01T19:54:46.987255'
+                  event_end_time_at: '2023-11-01T19:57:00'
+                  event_id: 77253
+                  event_name: RFP Old Schedule
+                  event_start_time_at: '2023-11-01T19:57:00'
+                  event_state: closed
+                  event_tag_name_list:
+                  - tag1
+                  is_included_in_reporting: true
+                  is_opted_out: false
+                  is_submitted: true
+                  is_visible: true
+                  last_updated_at: '2025-09-03 14:15:08.914592+00:00'
+                  line_item_id: 2099693
+                  line_item_name: Item 2
+                  lot_name: Lot 1
+                  owner_full_name_list: Buyer User
+                  qualification_question_id: 189677
+                  qualification_question_text: QA1
+                  qualification_question_type: yes_no
+                  questionable_type: CustomColumnHeader
+                  supplier_org_name: Bidops Test Supplier
+                  survey_questions_and_answers_id: 0f94fb985fb6bcafbb4e0b4db69377fd
+                  updated_at: '2023-11-01T20:43:59.115439'
+                  user_email: aziel+blood@bidops.com
+                  user_full_name: Vladimir Pavlov
+                event_state: null
+                limit: 1
+                offset: 1
+                order_by: potential_savings_percent
+                order_sort: desc
+                owner_full_name: null
+                refreshed_after: null
+                supplier_org_name: null
+                event_tag_name_list: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

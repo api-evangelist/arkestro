@@ -1,0 +1,550 @@
+{
+  "item": [
+    {
+      "id": "592100e8-3c3f-4581-9e36-dc51fa31b7f3",
+      "name": "document submissions",
+      "description": {
+        "content": "Vendor document submissions for an event",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5df5d11a-f9b7-4589-8d8e-60918a0393a7",
+          "name": "list document submissions",
+          "request": {
+            "name": "list document submissions",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "events",
+                ":event_id",
+                "document_submissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The maximum number of results to return. Defaults to `20`, max `200`."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created_at",
+                  "description": "The field to sort results by. Defaults to `created_at`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "asc",
+                  "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "event_id",
+                  "description": "(Required) The ID of the event"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce2e0860-1fa6-44dd-9c05-96d47b20878d",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":event_id",
+                    "document_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) The ID of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document_submissions\": [\n    {\n      \"id\": 1042,\n      \"download_url\": \"https://arkestro-production.s3.amazonaws.com/uploads/acme/nda_signed_2026.pdf\",\n      \"submitted_at\": \"2026-03-15T09:22:00.000Z\",\n      \"approved\": true,\n      \"rejection_reason\": null,\n      \"filename\": \"nda_signed_2026.pdf\",\n      \"supplier_contact\": {\n        \"id\": 3021,\n        \"external_id\": \"ACME-CONTACT-018\",\n        \"first_name\": \"Maria\",\n        \"last_name\": \"Alvarez\",\n        \"email\": \"maria.alvarez@acme.example.com\",\n        \"supplier_organization\": {\n          \"id\": 87,\n          \"external_id\": \"ACME-NA-001\",\n          \"name\": \"Acme North America\"\n        }\n      },\n      \"document\": {\n        \"id\": 14,\n        \"name\": \"Non-Disclosure Agreement\",\n        \"external_id\": \"DOC-NDA-2026\"\n      }\n    },\n    {\n      \"id\": 1043,\n      \"download_url\": \"https://arkestro-production.s3.amazonaws.com/uploads/globex/nda_signed_2026.pdf\",\n      \"submitted_at\": \"2026-03-16T14:05:00.000Z\",\n      \"approved\": false,\n      \"rejection_reason\": \"Signature missing on page 3.\",\n      \"filename\": \"nda_signed_2026.pdf\",\n      \"supplier_contact\": {\n        \"id\": 3155,\n        \"external_id\": null,\n        \"first_name\": \"Jonas\",\n        \"last_name\": \"Keller\",\n        \"email\": \"j.keller@globex.example.com\",\n        \"supplier_organization\": {\n          \"id\": 91,\n          \"external_id\": \"GLOBEX-EU-004\",\n          \"name\": \"Globex Europe\"\n        }\n      },\n      \"document\": {\n        \"id\": 14,\n        \"name\": \"Non-Disclosure Agreement\",\n        \"external_id\": \"DOC-NDA-2026\"\n      }\n    },\n    {\n      \"id\": 1044,\n      \"download_url\": null,\n      \"submitted_at\": \"2026-03-17T08:45:00.000Z\",\n      \"approved\": null,\n      \"rejection_reason\": null,\n      \"filename\": null,\n      \"supplier_contact\": null,\n      \"document\": {\n        \"id\": 14,\n        \"name\": \"Non-Disclosure Agreement\",\n        \"external_id\": \"DOC-NDA-2026\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"limit\": 20,\n    \"offset\": 0,\n    \"total\": 3,\n    \"returned_count\": 3\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fa059f5-74f9-41df-8ae3-3403a46914cd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":event_id",
+                    "document_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) The ID of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d7ad836-c658-4b14-84ae-f3d5eb403b0a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":event_id",
+                    "document_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) The ID of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "113f01d9-a293-4eb1-8801-6da3760e13f7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":event_id",
+                    "document_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) The ID of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90396f4e-77da-4b71-abd7-d6e8f7ac6f95",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":event_id",
+                    "document_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) The ID of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1f40044-5448-49e6-938a-1e179513b50c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events",
+                    ":event_id",
+                    "document_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) The ID of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.arkestro.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "938a6ab4-26cd-4e77-8a28-c7840fdff86a",
+    "name": "V2 document submissions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.\nOur current API offering features endpoints that allow the creation and execution of an event.\n\nTo get started, please generate an API Token.\nTo generate an API Token your user must be an admin and you must request the feature be made available.\nOnce enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request\nheader as an X-Token.\n\nOnce you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:\ncurl --location --request GET 'https://api.arkestro.com/api/v2/events' --header 'Accept: application/json' --header 'X-Token: <YOUR API TOKEN>'",
+      "type": "text/plain"
+    }
+  }
+}

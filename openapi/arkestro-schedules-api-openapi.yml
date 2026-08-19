@@ -1,0 +1,239 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 Schedules API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: schedules
+paths:
+  /api/v2/events/{id}/schedule:
+    get:
+      summary: show schedule
+      tags:
+      - schedules
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  schedule:
+                    type:
+                    - object
+                    - 'null'
+                    required:
+                    - id
+                    - start_at
+                    - end_at
+                    - round_count
+                    - round_length
+                    - round_unit
+                    - has_price_guidance_round
+                    - should_skip_weekends
+                    - event_format
+                    - rounds
+                    - multi_round
+                    - started
+                    - ended
+                    properties:
+                      id:
+                        type: integer
+                      start_at:
+                        type: string
+                        format: date-time
+                      end_at:
+                        type: string
+                        format: date-time
+                      round_count:
+                        type:
+                        - integer
+                        - 'null'
+                      round_length:
+                        type:
+                        - number
+                        - 'null'
+                        format: float
+                      round_unit:
+                        type:
+                        - string
+                        - 'null'
+                      has_price_guidance_round:
+                        type:
+                        - boolean
+                        - 'null'
+                      should_skip_weekends:
+                        type:
+                        - boolean
+                        - 'null'
+                      event_format:
+                        type: string
+                      rounds:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          - description
+                          - round_type
+                          - start_time
+                          - end_time
+                          - number
+                          - length_unit
+                          - length_value
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            round_type:
+                              type: string
+                            start_time:
+                              type: string
+                              format: date-time
+                            end_time:
+                              type: string
+                              format: date-time
+                            number:
+                              type: integer
+                            length_unit:
+                              type: string
+                            length_value:
+                              type: number
+                              format: float
+                      multi_round:
+                        type: boolean
+                      started:
+                        type: boolean
+                      ended:
+                        type: boolean
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                schedule:
+                  id: 115455
+                  start_at: '2026-04-01T19:07:00.000Z'
+                  end_at: '2026-04-08T19:07:00.000Z'
+                  round_count: 2
+                  round_length: 7
+                  round_unit: days
+                  has_price_guidance_round: false
+                  should_skip_weekends: true
+                  event_format: rounds
+                  rounds:
+                  - id: 272749
+                    name: Round 1
+                    description: null
+                    round_type: pricing
+                    start_time: '2026-04-01T19:07:00.000Z'
+                    end_time: '2026-04-06T19:07:00.000Z'
+                    number: 1
+                    length_unit: days
+                    length_value: 5
+                  - id: 272750
+                    name: Round 2
+                    description: null
+                    round_type: pricing
+                    start_time: '2026-04-06T19:07:00.000Z'
+                    end_time: '2026-04-08T19:07:00.000Z'
+                    number: 2
+                    length_unit: days
+                    length_value: 2
+                  multi_round: true
+                  started: false
+                  ended: false
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

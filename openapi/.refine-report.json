@@ -1,0 +1,53 @@
+{
+  "provider": "arkestro",
+  "sources": [
+    "arkestro-awards-api-openapi.yml",
+    "arkestro-business-unit-api-openapi.yml",
+    "arkestro-corporate-categories-api-openapi.yml",
+    "arkestro-corporate-items-api-openapi.yml",
+    "arkestro-corporate-purchase-orders-api-openapi.yml",
+    "arkestro-document-submissions-api-openapi.yml",
+    "arkestro-event-analytics-api-openapi.yml",
+    "arkestro-event-documents-api-openapi.yml",
+    "arkestro-events-api-openapi.yml",
+    "arkestro-quote-submissions-api-openapi.yml",
+    "arkestro-schedules-api-openapi.yml",
+    "arkestro-supplier-contacts-api-openapi.yml",
+    "arkestro-supplier-organizations-api-openapi.yml"
+  ],
+  "outputs": [
+    "arkestro-awards-api-openapi.yml",
+    "arkestro-business-unit-api-openapi.yml",
+    "arkestro-corporate-categories-api-openapi.yml",
+    "arkestro-corporate-items-api-openapi.yml",
+    "arkestro-corporate-purchase-orders-api-openapi.yml",
+    "arkestro-document-submissions-api-openapi.yml",
+    "arkestro-event-analytics-api-openapi.yml",
+    "arkestro-event-documents-api-openapi.yml",
+    "arkestro-events-api-openapi.yml",
+    "arkestro-quote-submissions-api-openapi.yml",
+    "arkestro-schedules-api-openapi.yml",
+    "arkestro-supplier-contacts-api-openapi.yml",
+    "arkestro-supplier-organizations-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "arkestro-awards-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-business-unit-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-corporate-categories-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-corporate-items-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-corporate-purchase-orders-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-document-submissions-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-event-analytics-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-event-documents-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-events-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-quote-submissions-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-schedules-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-supplier-contacts-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "arkestro-supplier-organizations-api-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

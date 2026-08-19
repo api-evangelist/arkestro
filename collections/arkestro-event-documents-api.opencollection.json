@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 event documents API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "event documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/events/:event_id/documents",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event"
+              }
+            ]
+          },
+          "docs": "list documents"
+        },
+        {
+          "info": {
+            "name": "create document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.arkestro.com/api/v2/events/:event_id/documents",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "create document"
+        },
+        {
+          "info": {
+            "name": "show document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/events/:event_id/documents/:id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ]
+          },
+          "docs": "show document"
+        },
+        {
+          "info": {
+            "name": "update document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.arkestro.com/api/v2/events/:event_id/documents/:id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "update document"
+        },
+        {
+          "info": {
+            "name": "delete document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.arkestro.com/api/v2/events/:event_id/documents/:id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ]
+          },
+          "docs": "delete document"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,3041 @@
+{
+  "item": [
+    {
+      "id": "e84ccb4f-4eaa-4a84-b232-d89e77cd74d5",
+      "name": "event analytics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "287d5e08-c064-49fc-98a7-3fb87b8271aa",
+          "name": "Metrics",
+          "request": {
+            "name": "Metrics",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "event_analytics",
+                "metrics",
+                "export_task"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"<string>\",\n    \"callback_action\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06455ee9-80d4-4b5a-9f3c-7e263b5f2837",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "metrics",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"export_job_id\": 123\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed9be50c-1732-44ce-97f2-1378fad2ab79",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "metrics",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0775f37b-a563-4c53-b5b2-fff770583521",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "metrics",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "532c4106-9d47-4595-97fc-11f5a340fe50",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "metrics",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f048822-a234-432c-8028-7bcdef6ea26d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "metrics",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58572f2e-536a-4255-9cdf-3027be692c61",
+          "name": "Rounds",
+          "request": {
+            "name": "Rounds",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "event_analytics",
+                "rounds",
+                "export_task"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"<string>\",\n    \"callback_action\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4612cd67-96ab-48dd-9de6-77cf95de9df3",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "rounds",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"export_task\": {\n    \"id\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2763af0f-86e5-46c3-a66a-929427280d8b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "rounds",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b1a7c4e-bac8-43ad-8456-c2676d4f16c6",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "rounds",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d1131ed-4753-425f-a98f-373e454eb543",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "rounds",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39844d86-225d-4c28-a95f-778ba2d44644",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "rounds",
+                    "export_task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"export_task\": {\n    \"callback_url\": \"https://callback.com\",\n    \"callback_action\": \"post\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67a321d1-669b-4eb8-8ccf-b5097b003665",
+          "name": "Buyer Leaderboards",
+          "request": {
+            "name": "Buyer Leaderboards",
+            "description": {
+              "content": "Retrieve buyer leaderboards data",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "event_analytics",
+                "buyer_leaderboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "business_unit_id",
+                  "value": "<integer>",
+                  "description": "One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "creator_user_full_name",
+                  "value": "<string>",
+                  "description": "One or more full names (first + last) of the user who created the resource. Accepts multiple values. Pass them as repeated query params `?creator_user_full_name[]=John%20Doe&creator_user_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of items to return. Defaults to `1`, Max `1000`."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "business_leaderboard_id",
+                  "description": "The field to sort the items by which can be any value from the data field."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "asc",
+                  "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c813c578-9135-4381-a2ff-f544bbc2824a",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "buyer_leaderboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "creator_user_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "business_leaderboard_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"business_unit_id\": [\n    \"1\"\n  ],\n  \"company_id\": 1,\n  \"creator_full_name\": null,\n  \"data\": [\n    {\n      \"baseline_total\": 0,\n      \"baseline_total_28d\": 0,\n      \"baseline_total_90d\": 0,\n      \"baseline_total_prev_28d\": 0,\n      \"baseline_total_prev_90d\": 0,\n      \"baseline_trend_28d\": 0,\n      \"baseline_trend_90d\": 0,\n      \"business_unit_id\": 1,\n      \"business_unit_name\": \"Default\",\n      \"buyer_leaderboard_id\": \"f624fd41ecd7cd38744db47848bb8110\",\n      \"company_id\": 1,\n      \"company_name\": \"Akrestro\",\n      \"creator_user_full_name\": \"louis boo\",\n      \"dbt_run_id\": \"40181b4f-ac1d-448e-bf2d-146517f56eaf\",\n      \"dbt_run_ts\": \"2025-09-03 08:15:07.203375+00:00\",\n      \"event_count\": 1,\n      \"event_count_28d\": 1,\n      \"event_count_90d\": 1,\n      \"event_count_prev_28d\": 0,\n      \"event_count_prev_90d\": 0,\n      \"event_count_trend_90d\": 0,\n      \"events_opened_trend\": 0,\n      \"item_count\": 3,\n      \"item_count_28d\": 3,\n      \"item_count_90d\": 3,\n      \"item_count_prev_90d\": 0,\n      \"item_count_with_baseline_anomaly\": 0,\n      \"item_count_with_baseline_anomaly_28d\": 0,\n      \"item_count_with_baseline_anomaly_90d\": 0,\n      \"item_count_with_quote_anomaly\": 0,\n      \"item_count_with_quote_anomaly_28d\": 0,\n      \"item_count_with_quote_anomaly_90d\": 0,\n      \"item_win_count_90d\": 0,\n      \"item_win_count_prev_90d\": 0,\n      \"potential_savings_in_pref_currency\": null,\n      \"potential_savings_in_pref_currency_28d\": 0,\n      \"potential_savings_in_pref_currency_90d\": 0,\n      \"potential_savings_in_pref_currency_prev_28d\": 0,\n      \"potential_savings_in_pref_currency_prev_90d\": 0,\n      \"potential_savings_percent\": null,\n      \"potential_savings_trend_28d\": 0,\n      \"potential_savings_trend_90d\": 0,\n      \"supplier_engagement\": 0,\n      \"supplier_engagement_28d\": 0,\n      \"supplier_engagement_90d\": 0,\n      \"supplier_engagement_prev_28d\": 0,\n      \"supplier_engagement_prev_90d\": 0,\n      \"supplier_engagement_trend\": 0,\n      \"supplier_engagement_trend_90d\": 0,\n      \"win_rate_percent_28d\": 0,\n      \"win_rate_percent_90d\": 0,\n      \"win_rate_percent_prev_28d\": 0,\n      \"win_rate_percent_prev_90d\": 0,\n      \"win_rate_text\": \"0 / 3 (0%)\",\n      \"win_rate_text_28d\": \"0 / 3\",\n      \"win_rate_text_90d\": \"0 / 3\",\n      \"win_rate_text_prev_28d\": \"0 / 0\",\n      \"win_rate_text_prev_90d\": \"0 / 0\",\n      \"win_rate_trend_28d\": 0,\n      \"win_rate_trend_90d\": 0\n    }\n  ],\n  \"limit\": 1,\n  \"offset\": 1,\n  \"sort_by\": \"potential_savings_percent\",\n  \"sort_order\": \"desc\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d3da44e-ebf6-4efb-97b8-a92c8585653b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "buyer_leaderboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "creator_user_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "business_leaderboard_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64df8171-9920-4451-bf14-4582f0202fa6",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "buyer_leaderboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "creator_user_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "business_leaderboard_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a332ea5-0643-425a-a45d-4710e149be6c",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "buyer_leaderboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "creator_user_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "business_leaderboard_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25f3a48d-8e2c-4868-b6b2-6c33869e5858",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "buyer_leaderboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "creator_user_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "business_leaderboard_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7bb9e800-6ff5-4090-92da-75f81f7c9676",
+          "name": "Quotes",
+          "request": {
+            "name": "Quotes",
+            "description": {
+              "content": "Retrieve quotes data",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "event_analytics",
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "business_unit_id",
+                  "value": "<integer>",
+                  "description": "One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "The start date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "The end date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner_full_name",
+                  "value": "<string>",
+                  "description": "One or more full names (first + last) of the user who owns the event. Accepts multiple values. Pass them as repeated query params `?owner_full_name[]=John%20Doe&owner_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language."
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_org_name",
+                  "value": "<string>",
+                  "description": "One or more names of the organizations supplying the resource. Accepts multiple values. Pass them as repeated query params `?supplier_org_name[]=Acme 20Corp&supplier_org_name[]=Globex 20Corp`."
+                },
+                {
+                  "disabled": false,
+                  "key": "event_state",
+                  "value": "<string>",
+                  "description": "The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_state",
+                  "value": "<string>",
+                  "description": "The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_tag_names",
+                  "value": "<string>",
+                  "description": "AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_tag_names",
+                  "value": "<string>",
+                  "description": "AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "refreshed_after",
+                  "value": "<dateTime>",
+                  "description": "The date and time after which the resource was last refreshed, in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of items to return. Defaults to `1`, Max `1000`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "response_line_item_id",
+                  "description": "The field to sort the items by which can be any value from the data field."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "asc",
+                  "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "17fe4aaa-42b6-4290-a914-e907d5f2e04f",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "response_line_item_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"business_unit_id\": [\n    \"1\"\n  ],\n  \"company_id\": 1,\n  \"data\": [\n    {\n      \"awarded_date\": \"2023-02-10T17:34:25.389581\",\n      \"awarded_quantity_of_units\": null,\n      \"business_unit_id\": 5,\n      \"business_unit_name\": \"Default\",\n      \"company_id\": 1,\n      \"company_name\": \"Test Company\",\n      \"creator_user_full_name\": \"John Johnson\",\n      \"custom_columns\": \"{}\",\n      \"dbt_run_id\": \"40181b4f-ac1d-448e-bf2d-146517f56eaf\",\n      \"dbt_run_ts\": \"2025-09-03 08:15:07.203375+00:00\",\n      \"event_created_at\": \"2023-02-01T18:52:44.726562\",\n      \"event_currency\": \"USD\",\n      \"event_end_time_at\": \"2023-02-08T23:00:00\",\n      \"event_id\": 12345,\n      \"event_name\": \"Ball Valve\",\n      \"event_start_time_at\": \"2023-02-06T15:00:00\",\n      \"event_state\": \"awarded\",\n      \"event_tag_name_list\": [\n        \"tag1\"\n      ],\n      \"is_awarded_quote\": false,\n      \"is_buyer_side_quote\": false,\n      \"is_included_in_reporting\": true,\n      \"line_item_baseline_price\": 49.8,\n      \"line_item_baseline_price_in_pref_currency\": 49.8,\n      \"line_item_baseline_price_in_usd\": 49.8,\n      \"line_item_baseline_price_total\": 149.39999999999998,\n      \"line_item_baseline_price_total_in_pref_currency\": 149.39999999999998,\n      \"line_item_baseline_price_total_in_usd\": 149.39999999999998,\n      \"line_item_id\": 123,\n      \"line_item_is_intelligent_counter_offer_enabled\": false,\n      \"line_item_name\": 303932,\n      \"line_item_quantity_of_units\": 3,\n      \"line_item_unit_of_measure\": \"unit\",\n      \"lot_name\": \"Valves\",\n      \"owner_full_name_list\": \"John Johnson\",\n      \"preferred_currency\": \"USD\",\n      \"quote_line_item_discount\": 0,\n      \"quote_line_item_discount_unconverted\": 0,\n      \"quote_line_item_price\": 49.8,\n      \"quote_line_item_price_in_pref_currency\": 49.8,\n      \"quote_line_item_price_in_usd\": 49.8,\n      \"quote_line_item_price_net\": 49.79999999999999,\n      \"quote_line_item_price_net_in_pref_currency\": 49.79999999999999,\n      \"quote_line_item_price_net_in_usd\": 49.79999999999999,\n      \"quote_line_item_price_net_total\": 149.39999999999998,\n      \"quote_line_item_price_net_total_in_pref_currency\": 149.39999999999998,\n      \"quote_line_item_price_net_total_in_usd\": 149.39999999999998,\n      \"quote_line_item_price_unconverted\": 49.8,\n      \"quote_line_item_quantity\": 1,\n      \"quote_line_item_surcharge\": 0,\n      \"quote_line_item_surcharge_unconverted\": 0,\n      \"quote_status\": \"inactive\",\n      \"quoting_currency\": \"USD\",\n      \"response_created_at\": \"2023-02-06T15:59:24.539789\",\n      \"response_line_item_id\": 7658152,\n      \"response_updated_at\": \"2023-02-08T14:23:54.230304\",\n      \"round_count\": 2,\n      \"round_number\": 1,\n      \"supplier_external_id\": \"V000721\",\n      \"supplier_org_id\": 235,\n      \"supplier_org_invited_count\": 7,\n      \"supplier_org_name\": \"Supplier Inc.\",\n      \"supplier_org_participated_count\": 6,\n      \"supplier_profile_id\": 67076,\n      \"supplier_user_email\": \"bob.bobson@supplier.com\",\n      \"supplier_user_full_name\": \"Bob Bobson\",\n      \"system_baseline_anomaly_status\": \"Not Anomaly\",\n      \"system_quote_anomaly_status\": \"Not Anomaly\"\n    }\n  ],\n  \"event_state\": null,\n  \"limit\": 1,\n  \"offset\": 1,\n  \"order_by\": \"potential_savings_percent\",\n  \"order_sort\": \"desc\",\n  \"owner_full_name\": null,\n  \"refreshed_after\": null,\n  \"supplier_org_name\": null,\n  \"event_tag_name_list\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e263a987-d45f-4537-b6cc-98d8523be189",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "response_line_item_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53526f76-99b8-475e-84d6-244ac463efb1",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "response_line_item_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1dd89650-2c3a-4350-849c-5b3aaaa7f315",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "response_line_item_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44687808-d9a6-4ead-8605-be93a2c56aac",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "response_line_item_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11380b9b-fca9-442e-8e56-2f1f1bb427b5",
+          "name": "Supplier Invitation Statuses",
+          "request": {
+            "name": "Supplier Invitation Statuses",
+            "description": {
+              "content": "Retrieve supplier invitation statuses",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "event_analytics",
+                "supplier_invitation_statuses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "business_unit_id",
+                  "value": "<integer>",
+                  "description": "One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "The start date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "The end date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner_full_name",
+                  "value": "<string>",
+                  "description": "One or more full names (first + last) of the user who owns the event. Accepts multiple values. Pass them as repeated query params `?owner_full_name[]=John%20Doe&owner_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language."
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_org_name",
+                  "value": "<string>",
+                  "description": "One or more names of the organizations supplying the resource. Accepts multiple values. Pass them as repeated query params `?supplier_org_name[]=Acme 20Corp&supplier_org_name[]=Globex 20Corp`."
+                },
+                {
+                  "disabled": false,
+                  "key": "event_state",
+                  "value": "<string>",
+                  "description": "The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_state",
+                  "value": "<string>",
+                  "description": "The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_tag_names",
+                  "value": "<string>",
+                  "description": "AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_tag_names",
+                  "value": "<string>",
+                  "description": "AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "refreshed_after",
+                  "value": "<dateTime>",
+                  "description": "The date and time after which the resource was last refreshed, in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of items to return. Defaults to `1`, Max `1000`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "supplier_invitation_id",
+                  "description": "The field to sort the items by which can be any value from the data field."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "asc",
+                  "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "96513573-0c18-459b-90ee-51d7f7a2b6fe",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "supplier_invitation_statuses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "supplier_invitation_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"business_unit_id\": [\n    \"1\"\n  ],\n  \"company_id\": 1,\n  \"data\": [\n    {\n      \"business_unit_id\": 5,\n      \"business_unit_name\": \"Default\",\n      \"company_id\": 1,\n      \"company_name\": \"Test Company\",\n      \"dbt_run_id\": \"40181b4f-ac1d-448e-bf2d-146517f56eaf\",\n      \"dbt_run_ts\": \"2025-09-03 08:15:07.203375+00:00\",\n      \"event_created_at\": \"2025-06-25T16:18:06.827254\",\n      \"event_end_time_at\": \"2025-07-28T21:56:00\",\n      \"event_id\": 138939,\n      \"event_name\": \"Event Name\",\n      \"event_start_time_at\": \"2025-06-25T17:00:00\",\n      \"event_state\": \"closed\",\n      \"event_tag_name_list\": [\n        \"tag1\"\n      ],\n      \"is_included_in_reporting\": true,\n      \"last_updated_at\": \"2025-09-03 08:15:07.203375+00:00\",\n      \"owner_full_name_list\": \"Ryan McKenzie\",\n      \"supplier_has_participated\": false,\n      \"supplier_invitation_id\": \"001496dbbcb8fe14683a0d7b8b58fc7a\",\n      \"supplier_org_answer_to_invitation\": \"accepted\",\n      \"supplier_org_name_invited\": \"Cambridge Pro Fab Inc.\",\n      \"user_answer_to_invitation\": \"accepted\",\n      \"user_email\": \"jhodgins@place.com\",\n      \"user_full_name\": \"Jim Hodgins\",\n      \"user_invite_date\": \"2025-06-25T16:24:26.151760\"\n    }\n  ],\n  \"event_state\": null,\n  \"limit\": 1,\n  \"offset\": 1,\n  \"order_by\": \"potential_savings_percent\",\n  \"order_sort\": \"desc\",\n  \"owner_full_name\": null,\n  \"refreshed_after\": null,\n  \"supplier_org_name\": null,\n  \"event_tag_name_list\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fbd2969-71c1-40ea-a54d-71e6f77f2dc0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "supplier_invitation_statuses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "supplier_invitation_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2e90e0d-9e02-4261-ad14-440c95de3ffd",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "supplier_invitation_statuses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "supplier_invitation_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f9fe3f7-5ffe-4f75-a619-993b7d39b9dd",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "supplier_invitation_statuses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "supplier_invitation_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab2fed56-ad6e-4860-9717-646631161e19",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "supplier_invitation_statuses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "supplier_invitation_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f51c3a31-39e6-4b48-bfdb-ccedd752c00a",
+          "name": "Survey Results",
+          "request": {
+            "name": "Survey Results",
+            "description": {
+              "content": "Retrieve survey results",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "event_analytics",
+                "survey_results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "business_unit_id",
+                  "value": "<integer>",
+                  "description": "One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "The start date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "The end date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner_full_name",
+                  "value": "<string>",
+                  "description": "One or more full names (first + last) of the user who owns the event. Accepts multiple values. Pass them as repeated query params `?owner_full_name[]=John%20Doe&owner_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language."
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_org_name",
+                  "value": "<string>",
+                  "description": "One or more names of the organizations supplying the resource. Accepts multiple values. Pass them as repeated query params `?supplier_org_name[]=Acme 20Corp&supplier_org_name[]=Globex 20Corp`."
+                },
+                {
+                  "disabled": false,
+                  "key": "event_state",
+                  "value": "<string>",
+                  "description": "The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_state",
+                  "value": "<string>",
+                  "description": "The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_tag_names",
+                  "value": "<string>",
+                  "description": "AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_tag_names",
+                  "value": "<string>",
+                  "description": "AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "refreshed_after",
+                  "value": "<dateTime>",
+                  "description": "The date and time after which the resource was last refreshed, in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of items to return. Defaults to `1`, Max `1000`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "survey_questions_and_answers_id",
+                  "description": "The field to sort the items by which can be any value from the data field."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "asc",
+                  "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "316359ee-90b5-4c15-9764-2bc18a1a218b",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "survey_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "survey_questions_and_answers_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"business_unit_id\": [\n    \"1\"\n  ],\n  \"company_id\": 1,\n  \"data\": [\n    {\n      \"answer_value\": \"no\",\n      \"answerable_type\": \"LineItem\",\n      \"business_unit_id\": 1,\n      \"business_unit_name\": \"Default\",\n      \"company_id\": 1,\n      \"company_name\": \"Bid Ops\",\n      \"created_at\": \"2023-11-01T20:43:59.115439\",\n      \"dbt_run_id\": \"f378bc40-386d-4263-947b-bd02d1373be1\",\n      \"dbt_run_ts\": \"2025-09-03 14:15:08.914592+00:00\",\n      \"event_created_at\": \"2023-11-01T19:54:46.987255\",\n      \"event_end_time_at\": \"2023-11-01T19:57:00\",\n      \"event_id\": 77253,\n      \"event_name\": \"RFP Old Schedule\",\n      \"event_start_time_at\": \"2023-11-01T19:57:00\",\n      \"event_state\": \"closed\",\n      \"event_tag_name_list\": [\n        \"tag1\"\n      ],\n      \"is_included_in_reporting\": true,\n      \"is_opted_out\": false,\n      \"is_submitted\": true,\n      \"is_visible\": true,\n      \"last_updated_at\": \"2025-09-03 14:15:08.914592+00:00\",\n      \"line_item_id\": 2099693,\n      \"line_item_name\": \"Item 2\",\n      \"lot_name\": \"Lot 1\",\n      \"owner_full_name_list\": \"Buyer User\",\n      \"qualification_question_id\": 189677,\n      \"qualification_question_text\": \"QA1\",\n      \"qualification_question_type\": \"yes_no\",\n      \"questionable_type\": \"CustomColumnHeader\",\n      \"supplier_org_name\": \"Bidops Test Supplier\",\n      \"survey_questions_and_answers_id\": \"0f94fb985fb6bcafbb4e0b4db69377fd\",\n      \"updated_at\": \"2023-11-01T20:43:59.115439\",\n      \"user_email\": \"aziel+blood@bidops.com\",\n      \"user_full_name\": \"Vladimir Pavlov\"\n    }\n  ],\n  \"event_state\": null,\n  \"limit\": 1,\n  \"offset\": 1,\n  \"order_by\": \"potential_savings_percent\",\n  \"order_sort\": \"desc\",\n  \"owner_full_name\": null,\n  \"refreshed_after\": null,\n  \"supplier_org_name\": null,\n  \"event_tag_name_list\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acb9c689-88f3-42eb-a03c-62493158b235",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "survey_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "survey_questions_and_answers_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de537afc-1f29-421a-8cdc-c9e7f5332033",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "survey_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "survey_questions_and_answers_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c37fa17c-3d97-44eb-9950-33e9ffabe749",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "survey_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "survey_questions_and_answers_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cab2c702-4d9f-4192-a0b3-f60dde7b6f29",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "event_analytics",
+                    "survey_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business_unit_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "owner_full_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_org_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "event_tag_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "refreshed_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "survey_questions_and_answers_id"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.arkestro.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b76a5d2c-4d66-4407-9db8-a428f22b3be6",
+    "name": "V2 event analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.\nOur current API offering features endpoints that allow the creation and execution of an event.\n\nTo get started, please generate an API Token.\nTo generate an API Token your user must be an admin and you must request the feature be made available.\nOnce enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request\nheader as an X-Token.\n\nOnce you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:\ncurl --location --request GET 'https://api.arkestro.com/api/v2/events' --header 'Accept: application/json' --header 'X-Token: <YOUR API TOKEN>'",
+      "type": "text/plain"
+    }
+  }
+}

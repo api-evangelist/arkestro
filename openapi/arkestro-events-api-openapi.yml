@@ -1,0 +1,2924 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 Events API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: events
+paths:
+  /api/v2/events:
+    get:
+      summary: list events
+      tags:
+      - events
+      parameters:
+      - name: external_id
+        in: query
+        description: 'One or more `external_id` values to filter by. To pass multiple values, use repeated query params: `?external_id[]=EXT-001&external_id[]=EXT-002`.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: sort_by
+        in: query
+        description: The field to sort results by. Defaults to `created_at`.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - created_at
+          - updated_at
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      - name: limit
+        in: query
+        description: The maximum number of results to return. Defaults to `20`, max `200`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 20
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - name
+                      - description
+                      - external_id
+                      - status
+                      - created_at
+                      - currency
+                      - business_unit
+                      - creator
+                      properties:
+                        id:
+                          type: integer
+                        description:
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          type: string
+                        external_id:
+                          type:
+                          - string
+                          - 'null'
+                        status:
+                          type: string
+                          enum:
+                          - draft
+                          - open_for_bidding
+                          - closed
+                          - awarded
+                          - open_for_questions
+                          - ready_to_award
+                          - unawarded
+                        created_at:
+                          type: string
+                          format: date-time
+                        currency:
+                          type: string
+                        tags:
+                          type: array
+                          items:
+                            type: string
+                          example:
+                          - finance
+                          - procurement
+                        config:
+                          type: object
+                          required:
+                          - supplier_quantity_enabled
+                          properties:
+                            supplier_quantity_enabled:
+                              type: boolean
+                          additionalProperties: false
+                        business_unit:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          - unique_name
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            unique_name:
+                              type:
+                              - string
+                              - 'null'
+                        creator:
+                          type: object
+                          required:
+                          - id
+                          - email
+                          properties:
+                            id:
+                              type: integer
+                            email:
+                              type:
+                              - string
+                              - 'null'
+                      additionalProperties: false
+                  pagination:
+                    type: object
+                    properties:
+                      limit:
+                        type: integer
+                        description: The number of records requested.
+                      offset:
+                        type: integer
+                        description: The number of records skipped after filtering and sorting.
+                      total:
+                        type: integer
+                        description: The total number of records available after filtering.
+                      returned_count:
+                        type: integer
+                        description: The number of records returned in the current response.
+                additionalProperties: false
+              example:
+                events:
+                - id: 1
+                  name: Apollo Hardware
+                  description: An event to develop advanced space-grade fasteners and components.
+                  external_id: APOLLO-EXT-001
+                  status: draft
+                  created_at: '2025-03-26T17:00:00.000Z'
+                  currency: USD
+                  tags:
+                  - finance
+                  - procurement
+                  config:
+                    supplier_quantity_enabled: false
+                  business_unit:
+                    id: 10
+                    name: Aerospace Engineering
+                    unique_name: aerospace_eng
+                  creator:
+                    id: 501
+                    email: john.doe@abc.com
+                - id: 2
+                  name: Titanium Tools
+                  description: Development of high-strength tools and equipment for aerospace applications.
+                  external_id: TITANIUM-EXT-002
+                  status: open_for_bidding
+                  created_at: '2025-03-26T18:30:00.000Z'
+                  currency: USD
+                  tags:
+                  - finance
+                  config:
+                    supplier_quantity_enabled: false
+                  business_unit:
+                    id: 15
+                    name: Advanced Manufacturing
+                    unique_name: adv_mfg
+                  creator:
+                    id: 502
+                    email: jane.smith@acme.com
+                - id: 3
+                  name: Precision Fasteners
+                  description: Creating a new line of precision-engineered bolts and screws.
+                  external_id: PRECISION-EXT-003
+                  status: awarded
+                  created_at: '2025-03-27T09:15:00.000Z'
+                  currency: USD
+                  tags: []
+                  config:
+                    supplier_quantity_enabled: false
+                  business_unit:
+                    id: 20
+                    name: Industrial Fasteners
+                    unique_name: ind_fasteners
+                  creator:
+                    id: 503
+                    email: sam.lee@xyz.com
+                pagination:
+                  limit: 3
+                  offset: 10
+                  total: 122
+                  returned_count: 3
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: create event
+      tags:
+      - events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: object
+                  required:
+                  - name
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    currency:
+                      type: string
+                    external_id:
+                      type: string
+                      description: A unique identifier for the event within your company.
+                    descriptive_columns_handler:
+                      type: string
+                      enum:
+                      - match
+                      - replace
+                      - union
+                    automated:
+                      type: boolean
+                    business_unit:
+                      type: object
+                      required:
+                      - id
+                      properties:
+                        id:
+                          type: integer
+                    source_event:
+                      type: object
+                      required:
+                      - id
+                      properties:
+                        id:
+                          type: integer
+                    start_at:
+                      type: string
+                      format: date-time
+                      description: Start of the first scheduled element of the cloned event — the question round when the source has one, otherwise the first bidding round. The rest of the source schedule is shifted by the same offset, preserving the gaps between elements. Only applies when cloning from a source_event. Must be an ISO 8601 datetime string in the format YYYY-MM-DDTHH:mm:ssZ (e.g. 2026-05-01T09:00:00Z or 2026-05-01T09:00:00+05:30) — a date-only value (e.g. 2026-05-01) is not accepted. Cannot be in the past. If not provided, defaults to 3 weeks from the current time.
+                      example: '2026-05-01T09:00:00Z'
+                    creator:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        email:
+                          type: string
+                    tags:
+                      type: array
+                      description: Optional list of tags to apply. Overrides default creator tag inheritance. Pass empty array to set no tags.
+                      items:
+                        type: string
+                      example:
+                      - finance
+                      - procurement
+                    config:
+                      type: object
+                      properties:
+                        supplier_quantity_enabled:
+                          type: boolean
+                      additionalProperties: false
+                    accepted_currencies:
+                      type: array
+                      description: Optional array of accepted currencies with conversion rates
+                      items:
+                        type: object
+                        required:
+                        - quoting_currency
+                        - conversion_rate
+                        properties:
+                          quoting_currency:
+                            type: string
+                            example: MXN
+                          conversion_rate:
+                            type: number
+                            format: float
+                            example: 20.5
+                    supplier_contacts:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: Supplier Contact ID to be used for adding supplier_contact to the event shortlist
+                          email:
+                            type: string
+                            deprecated: true
+                            description: Deprecated field. Use 'id' to add supplier_contact to the event shortlist instead.
+                    custom_value_fields:
+                      type: array
+                      items:
+                        type: object
+                        additionalProperties:
+                          type: string
+                    lots:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - name
+                        - sno
+                        properties:
+                          name:
+                            type: string
+                          description:
+                            type: string
+                          sno:
+                            type: integer
+                          adder_custom_column_headers:
+                            type: array
+                            description: 'Adder columns to configure on this lot. Lot Assignment is implicit — the containing lot is the assignment. To share a column across multiple lots, include it in each lot''s adder_custom_column_headers.
+
+                              '
+                            items:
+                              type: object
+                              required:
+                              - name
+                              properties:
+                                name:
+                                  type: string
+                                taxonomy:
+                                  type:
+                                  - string
+                                  - 'null'
+                                scope:
+                                  type: string
+                                  enum:
+                                  - per_line
+                              additionalProperties: false
+                          line_items:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - sno
+                              - name
+                              - quantity
+                              - extended_quantity
+                              - price
+                              - units
+                              properties:
+                                sno:
+                                  type: integer
+                                name:
+                                  type: string
+                                quantity:
+                                  type: integer
+                                extended_quantity:
+                                  type: integer
+                                price:
+                                  type: number
+                                  format: float
+                                negotiation_starting_price:
+                                  type:
+                                  - number
+                                  - 'null'
+                                units:
+                                  type: string
+                                descriptive_attributes:
+                                  type: object
+                                  additionalProperties:
+                                    type: string
+                                descriptive_elements:
+                                  type: array
+                                  items:
+                                    type: object
+                                    required:
+                                    - name
+                                    - value
+                                    properties:
+                                      name:
+                                        type: string
+                                      value:
+                                        type: string
+                                    additionalProperties: false
+                              additionalProperties: false
+                        additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            example:
+              event:
+                name: ERF013338 200007902
+                external_id: ERF013338
+                creator:
+                  email: jane.doe@acme.com
+                descriptive_columns_handler: union
+                currency: USD
+                accepted_currencies:
+                - quoting_currency: MXN
+                  conversion_rate: 20.5
+                - quoting_currency: EUR
+                  conversion_rate: 0.85
+                tags:
+                - finance
+                - procurement
+                config:
+                  supplier_quantity_enabled: true
+                business_unit:
+                  id: 334
+                source_event:
+                  id: 58513
+                start_at: '2026-05-01T09:00:00Z'
+                supplier_contacts:
+                - id: 5994
+                - id: 4983
+                custom_value_fields:
+                - Site ID: CSD-1053
+                lots:
+                - name: Lot For RFQLine# 10_0_1
+                  sno: 1
+                  description: Lot For RFQLine# 10_0_1
+                  adder_custom_column_headers:
+                  - name: Freight Charges
+                    taxonomy: freight_logistics
+                    scope: per_line
+                  line_items:
+                  - name: FWG-103K34014XXSB
+                    price: 0
+                    extended_quantity: 1
+                    sno: 1
+                    descriptive_elements:
+                    - name: Description
+                      value: FLG,RFWN,A105N,34IN,75#,B
+                    - name: Required Date
+                      value: '2024-09-07'
+                    - name: Extended Description
+                      value: ''
+                    - name: External Line Item ID
+                      value: '10_0_1'
+                    descriptive_attributes:
+                      External Line Item ID: '10_0_1'
+                    units: EA
+                - name: Lot For RFQLine# 20_0_1
+                  sno: 2
+                  description: Lot For RFQLine# 10_0_1
+                  line_items:
+                  - name: FWN-304G32001SB
+                    price: 0
+                    extended_quantity: 1
+                    sno: 2
+                    descriptive_elements:
+                    - name: Description
+                      value: FLG,RFWN,304SS,32IN,150#,B
+                    - name: Required Date
+                      value: '2024-09-21'
+                    - name: Extended Description
+                      value: FLG,RFWN,304SS,32IN,150#,B
+                    - name: External Line Item ID
+                      value: '20_0_1'
+                    descriptive_attributes:
+                      External Line Item ID: '20_0_1'
+                    units: EA
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  event:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - description
+                    - external_id
+                    - status
+                    - created_at
+                    - currency
+                    - business_unit
+                    - source_event
+                    - creator
+                    - team_members
+                    - supplier_contacts
+                    - custom_value_fields
+                    - lots
+                    - schedule
+                    - exchange_rates
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                      currency:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                        - draft
+                        - open_for_bidding
+                        - closed
+                        - awarded
+                        - open_for_questions
+                        - ready_to_award
+                        - unawarded
+                      created_at:
+                        type: string
+                        format: date-time
+                      tags:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                        - finance
+                        - procurement
+                      config:
+                        type: object
+                        required:
+                        - supplier_quantity_enabled
+                        properties:
+                          supplier_quantity_enabled:
+                            type: boolean
+                        additionalProperties: false
+                      business_unit:
+                        type: object
+                        required:
+                        - id
+                        - name
+                        - unique_name
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          unique_name:
+                            type:
+                            - string
+                            - 'null'
+                      source_event:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: integer
+                      creator:
+                        type: object
+                        required:
+                        - id
+                        - email
+                        properties:
+                          id:
+                            type: integer
+                          email:
+                            type:
+                            - string
+                            - 'null'
+                      team_members:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - email
+                          - role
+                          properties:
+                            id:
+                              type: integer
+                            email:
+                              type:
+                              - string
+                              - 'null'
+                            role:
+                              type: string
+                              enum:
+                              - collaborator
+                              - owner
+                              - viewer
+                      supplier_contacts:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - email
+                          - status
+                          properties:
+                            email:
+                              type:
+                              - string
+                              - 'null'
+                            status:
+                              type: string
+                              enum:
+                              - shortlisted
+                              - not_answered
+                              - bounced
+                              - accepted
+                              - rejected
+                      custom_value_fields:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - type_text
+                          - value_text
+                          properties:
+                            id:
+                              type: integer
+                            type_text:
+                              type: string
+                            value_text:
+                              type: string
+                          additionalProperties: false
+                      lots:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          - description
+                          - sno
+                          - line_items
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            sno:
+                              type: integer
+                            custom_column_headers:
+                              type: array
+                              description: 'Only descriptive headers are exposed.
+
+                                '
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - display_text
+                                - column_type
+                                - data_type
+                                - is_supplier_visible
+                                - column_order_index
+                                properties:
+                                  id:
+                                    type: integer
+                                  display_text:
+                                    type: string
+                                  column_type:
+                                    type: string
+                                  data_type:
+                                    type: string
+                                  is_supplier_visible:
+                                    type: boolean
+                                  column_order_index:
+                                    type: integer
+                                  character_limit:
+                                    type:
+                                    - integer
+                                    - 'null'
+                                additionalProperties: false
+                            adder_custom_column_headers:
+                              type: array
+                              description: 'Adder columns configured on this lot. An "adder" is a numeric pricing column (e.g. Freight, Duties, Tariffs) that suppliers fill in when submitting a quote and whose values are added to the line-item price to produce the total landed cost. Lot Assignment is implicit: an adder column applies to the lot it appears under. Event-wide adder columns created via the buyer UI surface as an entry on every lot.
+
+                                '
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - name
+                                - column_order_index
+                                - taxonomy
+                                - scope
+                                properties:
+                                  id:
+                                    type: integer
+                                  name:
+                                    type: string
+                                    description: Column Name (buyer-defined display text)
+                                  column_order_index:
+                                    type: integer
+                                  taxonomy:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: Cost Category key
+                                  scope:
+                                    type: string
+                                    description: Cost Calculation (currently only 'per_line')
+                                    enum:
+                                    - per_line
+                                additionalProperties: false
+                            line_items:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - name
+                                - is_required
+                                - sno
+                                - descriptive_attributes
+                                properties:
+                                  id:
+                                    type: integer
+                                  name:
+                                    type: string
+                                  sno:
+                                    type: integer
+                                  is_required:
+                                    type: boolean
+                                  price:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  negotiation_starting_price:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  descriptive_attributes:
+                                    type: object
+                                    additionalProperties:
+                                      type: string
+                                  custom_column_items:
+                                    type: array
+                                    description: 'Only descriptive items are exposed.
+
+                                      '
+                                    items:
+                                      type: object
+                                      required:
+                                      - id
+                                      - custom_column_header_id
+                                      - column_type
+                                      - is_supplier_visible
+                                      properties:
+                                        id:
+                                          type: integer
+                                        custom_column_header_id:
+                                          type: integer
+                                        display_text:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        column_type:
+                                          type: string
+                                        is_supplier_visible:
+                                          type: boolean
+                                      additionalProperties: false
+                                additionalProperties: false
+                          additionalProperties: false
+                      schedule:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - start_at
+                        - end_at
+                        - round_count
+                        - round_length
+                        - round_unit
+                        - has_price_guidance_round
+                        - should_skip_weekends
+                        - event_format
+                        - rounds
+                        - multi_round
+                        - started
+                        - ended
+                        properties:
+                          id:
+                            type: integer
+                          start_at:
+                            type: string
+                            format: date-time
+                          end_at:
+                            type: string
+                            format: date-time
+                          round_count:
+                            type:
+                            - integer
+                            - 'null'
+                          round_length:
+                            type:
+                            - number
+                            - 'null'
+                            format: float
+                          round_unit:
+                            type:
+                            - string
+                            - 'null'
+                          has_price_guidance_round:
+                            type:
+                            - boolean
+                            - 'null'
+                          should_skip_weekends:
+                            type:
+                            - boolean
+                            - 'null'
+                          event_format:
+                            type: string
+                          rounds:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - id
+                              - name
+                              - description
+                              - round_type
+                              - start_time
+                              - end_time
+                              - number
+                              - length_unit
+                              - length_value
+                              properties:
+                                id:
+                                  type: integer
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                                round_type:
+                                  type: string
+                                start_time:
+                                  type: string
+                                  format: date-time
+                                end_time:
+                                  type: string
+                                  format: date-time
+                                number:
+                                  type: integer
+                                length_unit:
+                                  type: string
+                                length_value:
+                                  type: number
+                                  format: float
+                          multi_round:
+                            type: boolean
+                          started:
+                            type: boolean
+                          ended:
+                            type: boolean
+                        additionalProperties: false
+                      exchange_rates:
+                        type: array
+                        description: Accepted currencies with conversion rates to the event currency
+                        items:
+                          type: object
+                          required:
+                          - event_currency
+                          - quoting_currency
+                          - conversion_rate
+                          properties:
+                            event_currency:
+                              type: string
+                              description: The primary currency of the event
+                              example: USD
+                            quoting_currency:
+                              type: string
+                              description: An accepted quoting currency for this event
+                              example: MXN
+                            conversion_rate:
+                              type: number
+                              format: float
+                              description: Conversion rate from quoting_currency to event_currency
+                              example: 20.5
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                event:
+                  id: 118996
+                  name: ERF013338 200007902
+                  description: Template - Commodity Buys
+                  external_id: ERF013338
+                  status: draft
+                  created_at: '2025-03-26T17:11:11.000Z'
+                  currency: USD
+                  exchange_rates:
+                  - event_currency: USD
+                    quoting_currency: MXN
+                    conversion_rate: 20.5
+                  - event_currency: USD
+                    quoting_currency: EUR
+                    conversion_rate: 0.85
+                  tags:
+                  - finance
+                  - procurement
+                  config:
+                    supplier_quantity_enabled: true
+                  business_unit:
+                    id: 334
+                    name: Research & Development
+                    unique_name: RND
+                  source_event:
+                    id: 58513
+                  creator:
+                    id: 501
+                    email: jane.doe@acme.com
+                  supplier_contacts:
+                  - id: 5994
+                    email: shawn@xyz.com
+                  - id: 4983
+                    email: supplier@abc.com
+                  custom_value_fields:
+                  - id: 1
+                    type_text: Site ID
+                    value_text: CSD-1053
+                  lots:
+                  - id: 188194
+                    name: Lot For RFQLine# 10_0_1
+                    description: Lot For RFQLine# 10_0_1
+                    sno: 1
+                    adder_custom_column_headers:
+                    - id: 44210
+                      name: Freight Charges
+                      column_order_index: 0
+                      taxonomy: freight_logistics
+                      scope: per_line
+                    line_items:
+                    - id: 2391408
+                      name: FWG-103K34014XXSB
+                      descriptive_attributes:
+                        External Line Item ID: '10_0_1'
+                        Description: FLG,RFWN,A105N,34IN,75#,B
+                        Extended Description: ''
+                        Required Date: '2024-09-07'
+                        Ship-to Location: ''
+                        AML/COO Restriction: ''
+                      is_required: false
+                      price: 0.0
+                      sno: 1
+                  - id: 188195
+                    name: Lot For RFQLine# 20_0_1
+                    description: Lot For RFQLine# 10_0_1
+                    sno: 2
+                    adder_custom_column_headers: []
+                    line_items:
+                    - id: 2391409
+                      name: FWN-304G32001SB
+                      descriptive_attributes:
+                        External Line Item ID: '20_0_1'
+                        Description: FLG,RFWN,304SS,32IN,150#,B
+                        Extended Description: FLG,RFWN,304SS,32IN,150#,B
+                        Required Date: '2024-09-21'
+                        Ship-to Location: ''
+                        AML/COO Restriction: ''
+                      is_required: false
+                      price: 0.0
+                      sno: 2
+                  schedule:
+                    id: 115455
+                    start_at: '2026-04-01T19:07:00.000Z'
+                    end_at: '2026-04-08T19:07:00.000Z'
+                    round_count: 2
+                    round_length: 2
+                    round_unit: days
+                    has_price_guidance_round: false
+                    should_skip_weekends: true
+                    event_format: rounds
+                    rounds:
+                    - id: 272749
+                      name: Round 1
+                      description: null
+                      round_type: pricing
+                      start_time: '2026-04-01T19:07:00.000Z'
+                      end_time: '2026-04-06T19:07:00.000Z'
+                      number: 1
+                      length_unit: days
+                      length_value: 5
+                    - id: 272750
+                      name: Round 2
+                      description: null
+                      round_type: pricing
+                      start_time: '2026-04-06T19:07:00.000Z'
+                      end_time: '2026-04-08T19:07:00.000Z'
+                      number: 2
+                      length_unit: days
+                      length_value: 2
+                    multi_round: true
+                    started: false
+                    ended: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+              examples:
+                duplicate_external_id:
+                  summary: Duplicate external_id
+                  value:
+                    error: external_id has already been taken
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/events/{id}:
+    get:
+      summary: show event
+      tags:
+      - events
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  event:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - description
+                    - external_id
+                    - status
+                    - created_at
+                    - currency
+                    - business_unit
+                    - source_event
+                    - creator
+                    - team_members
+                    - supplier_contacts
+                    - custom_value_fields
+                    - lots
+                    - schedule
+                    - exchange_rates
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                      currency:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                        - draft
+                        - open_for_bidding
+                        - closed
+                        - awarded
+                        - open_for_questions
+                        - ready_to_award
+                        - unawarded
+                      created_at:
+                        type: string
+                        format: date-time
+                      tags:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                        - finance
+                        - procurement
+                      config:
+                        type: object
+                        required:
+                        - supplier_quantity_enabled
+                        properties:
+                          supplier_quantity_enabled:
+                            type: boolean
+                        additionalProperties: false
+                      business_unit:
+                        type: object
+                        required:
+                        - id
+                        - name
+                        - unique_name
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          unique_name:
+                            type:
+                            - string
+                            - 'null'
+                      source_event:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: integer
+                      creator:
+                        type: object
+                        required:
+                        - id
+                        - email
+                        properties:
+                          id:
+                            type: integer
+                          email:
+                            type:
+                            - string
+                            - 'null'
+                      team_members:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - email
+                          - role
+                          properties:
+                            id:
+                              type: integer
+                            email:
+                              type:
+                              - string
+                              - 'null'
+                            role:
+                              type: string
+                              enum:
+                              - collaborator
+                              - owner
+                              - viewer
+                      supplier_contacts:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - email
+                          - status
+                          properties:
+                            email:
+                              type:
+                              - string
+                              - 'null'
+                            status:
+                              type: string
+                              enum:
+                              - shortlisted
+                              - not_answered
+                              - bounced
+                              - accepted
+                              - rejected
+                      custom_value_fields:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - type_text
+                          - value_text
+                          properties:
+                            id:
+                              type: integer
+                            type_text:
+                              type: string
+                            value_text:
+                              type: string
+                          additionalProperties: false
+                      lots:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          - description
+                          - sno
+                          - line_items
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            sno:
+                              type: integer
+                            custom_column_headers:
+                              type: array
+                              description: 'Only descriptive headers are exposed.
+
+                                '
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - display_text
+                                - column_type
+                                - data_type
+                                - is_supplier_visible
+                                - column_order_index
+                                properties:
+                                  id:
+                                    type: integer
+                                  display_text:
+                                    type: string
+                                  column_type:
+                                    type: string
+                                  data_type:
+                                    type: string
+                                  is_supplier_visible:
+                                    type: boolean
+                                  column_order_index:
+                                    type: integer
+                                  character_limit:
+                                    type:
+                                    - integer
+                                    - 'null'
+                                additionalProperties: false
+                            adder_custom_column_headers:
+                              type: array
+                              description: 'Adder columns configured on this lot. An "adder" is a numeric pricing column (e.g. Freight, Duties, Tariffs) that suppliers fill in when submitting a quote and whose values are added to the line-item price to produce the total landed cost. Lot Assignment is implicit: an adder column applies to the lot it appears under. Event-wide adder columns created via the buyer UI surface as an entry on every lot.
+
+                                '
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - name
+                                - column_order_index
+                                - taxonomy
+                                - scope
+                                properties:
+                                  id:
+                                    type: integer
+                                  name:
+                                    type: string
+                                    description: Column Name (buyer-defined display text)
+                                  column_order_index:
+                                    type: integer
+                                  taxonomy:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: Cost Category key
+                                  scope:
+                                    type: string
+                                    description: Cost Calculation (currently only 'per_line')
+                                    enum:
+                                    - per_line
+                                additionalProperties: false
+                            line_items:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - name
+                                - is_required
+                                - sno
+                                - descriptive_attributes
+                                properties:
+                                  id:
+                                    type: integer
+                                  name:
+                                    type: string
+                                  sno:
+                                    type: integer
+                                  is_required:
+                                    type: boolean
+                                  price:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  negotiation_starting_price:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  descriptive_attributes:
+                                    type: object
+                                    additionalProperties:
+                                      type: string
+                                  custom_column_items:
+                                    type: array
+                                    description: 'Only descriptive items are exposed.
+
+                                      '
+                                    items:
+                                      type: object
+                                      required:
+                                      - id
+                                      - custom_column_header_id
+                                      - column_type
+                                      - is_supplier_visible
+                                      properties:
+                                        id:
+                                          type: integer
+                                        custom_column_header_id:
+                                          type: integer
+                                        display_text:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        column_type:
+                                          type: string
+                                        is_supplier_visible:
+                                          type: boolean
+                                      additionalProperties: false
+                                additionalProperties: false
+                          additionalProperties: false
+                      schedule:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - start_at
+                        - end_at
+                        - round_count
+                        - round_length
+                        - round_unit
+                        - has_price_guidance_round
+                        - should_skip_weekends
+                        - event_format
+                        - rounds
+                        - multi_round
+                        - started
+                        - ended
+                        properties:
+                          id:
+                            type: integer
+                          start_at:
+                            type: string
+                            format: date-time
+                          end_at:
+                            type: string
+                            format: date-time
+                          round_count:
+                            type:
+                            - integer
+                            - 'null'
+                          round_length:
+                            type:
+                            - number
+                            - 'null'
+                            format: float
+                          round_unit:
+                            type:
+                            - string
+                            - 'null'
+                          has_price_guidance_round:
+                            type:
+                            - boolean
+                            - 'null'
+                          should_skip_weekends:
+                            type:
+                            - boolean
+                            - 'null'
+                          event_format:
+                            type: string
+                          rounds:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - id
+                              - name
+                              - description
+                              - round_type
+                              - start_time
+                              - end_time
+                              - number
+                              - length_unit
+                              - length_value
+                              properties:
+                                id:
+                                  type: integer
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                                round_type:
+                                  type: string
+                                start_time:
+                                  type: string
+                                  format: date-time
+                                end_time:
+                                  type: string
+                                  format: date-time
+                                number:
+                                  type: integer
+                                length_unit:
+                                  type: string
+                                length_value:
+                                  type: number
+                                  format: float
+                          multi_round:
+                            type: boolean
+                          started:
+                            type: boolean
+                          ended:
+                            type: boolean
+                        additionalProperties: false
+                      exchange_rates:
+                        type: array
+                        description: Accepted currencies with conversion rates to the event currency
+                        items:
+                          type: object
+                          required:
+                          - event_currency
+                          - quoting_currency
+                          - conversion_rate
+                          properties:
+                            event_currency:
+                              type: string
+                              description: The primary currency of the event
+                              example: USD
+                            quoting_currency:
+                              type: string
+                              description: An accepted quoting currency for this event
+                              example: MXN
+                            conversion_rate:
+                              type: number
+                              format: float
+                              description: Conversion rate from quoting_currency to event_currency
+                              example: 20.5
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                event:
+                  id: 118996
+                  name: ERF013338 200007902
+                  description: Template - Commodity Buys
+                  external_id: ERF013338
+                  status: draft
+                  created_at: '2025-03-26T17:11:11.000Z'
+                  currency: USD
+                  exchange_rates:
+                  - event_currency: USD
+                    quoting_currency: MXN
+                    conversion_rate: 20.5
+                  - event_currency: USD
+                    quoting_currency: EUR
+                    conversion_rate: 0.85
+                  tags:
+                  - finance
+                  - procurement
+                  config:
+                    supplier_quantity_enabled: true
+                  business_unit:
+                    id: 334
+                    name: Research & Development
+                    unique_name: RND
+                  source_event:
+                    id: 58513
+                  creator:
+                    id: 501
+                    email: jane.doe@acme.com
+                  supplier_contacts:
+                  - id: 5994
+                    email: shawn@xyz.com
+                  - id: 4983
+                    email: supplier@abc.com
+                  custom_value_fields:
+                  - id: 1
+                    type_text: Site ID
+                    value_text: CSD-1053
+                  lots:
+                  - id: 188194
+                    name: Lot For RFQLine# 10_0_1
+                    description: Lot For RFQLine# 10_0_1
+                    sno: 1
+                    adder_custom_column_headers:
+                    - id: 44210
+                      name: Freight Charges
+                      column_order_index: 0
+                      taxonomy: freight_logistics
+                      scope: per_line
+                    line_items:
+                    - id: 2391408
+                      name: FWG-103K34014XXSB
+                      description: FLG,RFWN,A105N,34IN,75#,B
+                      descriptive_attributes:
+                        External Line Item ID: '10_0_1'
+                        Description: FLG,RFWN,A105N,34IN,75#,B
+                        Extended Description: ''
+                        Required Date: '2024-09-07'
+                        Ship-to Location: ''
+                        AML/COO Restriction: ''
+                      is_required: false
+                      price: 0.0
+                      sno: 1
+                  - id: 188195
+                    name: Lot For RFQLine# 20_0_1
+                    description: Lot For RFQLine# 10_0_1
+                    sno: 2
+                    adder_custom_column_headers: []
+                    line_items:
+                    - id: 2391409
+                      name: FWN-304G32001SB
+                      description: FLG,RFWN,304SS,32IN,150#,B
+                      descriptive_attributes:
+                        External Line Item ID: '20_0_1'
+                        Description: FLG,RFWN,304SS,32IN,150#,B
+                        Extended Description: FLG,RFWN,304SS,32IN,150#,B
+                        Required Date: '2024-09-21'
+                        Ship-to Location: ''
+                        AML/COO Restriction: ''
+                      is_required: false
+                      price: 0.0
+                      sno: 2
+                  schedule:
+                    id: 115455
+                    start_at: '2026-04-01T19:07:00.000Z'
+                    end_at: '2026-04-08T19:07:00.000Z'
+                    round_count: 2
+                    round_length: 2
+                    round_unit: days
+                    has_price_guidance_round: false
+                    should_skip_weekends: true
+                    event_format: rounds
+                    rounds:
+                    - id: 272749
+                      name: Round 1
+                      description: null
+                      round_type: pricing
+                      start_time: '2026-04-01T19:07:00.000Z'
+                      end_time: '2026-04-06T19:07:00.000Z'
+                      number: 1
+                      length_unit: days
+                      length_value: 5
+                    - id: 272750
+                      name: Round 2
+                      description: null
+                      round_type: pricing
+                      start_time: '2026-04-06T19:07:00.000Z'
+                      end_time: '2026-04-08T19:07:00.000Z'
+                      number: 2
+                      length_unit: days
+                      length_value: 2
+                    multi_round: true
+                    started: false
+                    ended: false
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    patch:
+      summary: update event
+      tags:
+      - events
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - title: Pre Supplier Submissions
+                type: object
+                properties:
+                  event:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      currency:
+                        type: string
+                      external_id:
+                        type: string
+                      descriptive_columns_handler:
+                        type: string
+                        enum:
+                        - match
+                        - replace
+                        - union
+                      automated:
+                        type: boolean
+                      business_unit:
+                        type: object
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: integer
+                      source_event:
+                        type: object
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: integer
+                      creator:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          email:
+                            type: string
+                      tags:
+                        type: array
+                        description: Optional list of tags to apply. Replaces all existing tags. Pass empty array to clear tags.
+                        items:
+                          type: string
+                        example:
+                        - finance
+                        - procurement
+                      config:
+                        type: object
+                        properties:
+                          supplier_quantity_enabled:
+                            type: boolean
+                        additionalProperties: false
+                      accepted_currencies:
+                        type: array
+                        description: Optional array of accepted currencies with conversion rates. Replaces all existing exchange rates. Pass empty array to clear.
+                        items:
+                          type: object
+                          required:
+                          - quoting_currency
+                          - conversion_rate
+                          properties:
+                            quoting_currency:
+                              type: string
+                              example: MXN
+                            conversion_rate:
+                              type: number
+                              format: float
+                              example: 20.5
+                      supplier_contacts:
+                        type: array
+                        description: Replaces the entire event shortlist. Every entry in the array becomes a member of the new shortlist; any existing shortlisted supplier not listed is removed. Pass an empty array to clear the shortlist.
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              description: Supplier Contact ID to include in the event shortlist.
+                            email:
+                              type: string
+                              deprecated: true
+                              description: Deprecated field. Use 'id' to include a supplier_contact in the event shortlist instead.
+                      custom_value_fields:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties:
+                            type: string
+                      lots:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - name
+                          - sno
+                          properties:
+                            name:
+                              type: string
+                            description:
+                              type: string
+                            sno:
+                              type: integer
+                            adder_custom_column_headers:
+                              type: array
+                              description: 'Adder columns to configure on this lot. Implicit-replace semantics — if provided, the incoming array replaces the lot-scoped adder columns on this lot.
+
+                                '
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                  name:
+                                    type: string
+                                  taxonomy:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  scope:
+                                    type: string
+                                    enum:
+                                    - per_line
+                                additionalProperties: false
+                            line_items:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - sno
+                                - name
+                                - quantity
+                                - extended_quantity
+                                - price
+                                - units
+                                properties:
+                                  sno:
+                                    type: integer
+                                  name:
+                                    type: string
+                                  quantity:
+                                    type: integer
+                                  extended_quantity:
+                                    type: integer
+                                  price:
+                                    type: number
+                                    format: float
+                                  negotiation_starting_price:
+                                    type:
+                                    - number
+                                    - 'null'
+                                  units:
+                                    type: string
+                                  descriptive_attributes:
+                                    type: object
+                                    additionalProperties:
+                                      type: string
+                                  descriptive_elements:
+                                    type: array
+                                    items:
+                                      type: object
+                                      required:
+                                      - name
+                                      - value
+                                      properties:
+                                        name:
+                                          type: string
+                                        value:
+                                          type: string
+                                      additionalProperties: false
+                                additionalProperties: false
+                          additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+                example:
+                  event:
+                    name: Updated Event Name
+                    description: Updated description for the event
+                    tags:
+                    - finance
+                    - procurement
+                    business_unit:
+                      id: 15
+                    supplier_contacts:
+                    - id: 5994
+                    lots:
+                    - name: Updated Lot
+                      description: Updated lot description
+                      sno: 1
+                      line_items:
+                      - sno: 1
+                        name: Updated Line Item
+                        quantity: 1
+                        extended_quantity: 1
+                        price: 0
+                        units: EA
+                        descriptive_attributes:
+                          External Line Item ID: 10_0_1-Updated
+              - title: Post Supplier Submissions
+                description: "Restricted update payload for events that have received supplier submissions. Only tags, line item prices, and hidden (buyer-only) descriptive custom columns can be modified. Custom column changes are UPDATE-ONLY: every custom column header and item must be referenced by `id`. Creates and destroys are not supported by this endpoint. Any header or item that is visible to suppliers is rejected. Only descriptive columns are supported.\nServer-owned rules post-submission:\n  * `is_supplier_visible` is silently stripped from update payloads —\n    visibility cannot change either direction after submission.\n  * `column_order_index` is silently stripped from update payloads —\n    bid responses snapshot the value at submission time, so mutating it\n    would cause supplier-facing drift.\n"
+                type: object
+                properties:
+                  event:
+                    type: object
+                    properties:
+                      tags:
+                        type: array
+                        description: Optional list of tags to apply. Replaces all existing tags. Pass empty array to clear tags.
+                        items:
+                          type: string
+                      lots:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          properties:
+                            id:
+                              type: integer
+                              description: Lot ID
+                            custom_column_headers:
+                              type: array
+                              description: 'Updates to existing descriptive custom column headers. Every entry must have `id`. Non-descriptive column types and supplier-visible headers are rejected.
+
+                                '
+                              items:
+                                type: object
+                                required:
+                                - id
+                                properties:
+                                  id:
+                                    type: integer
+                                    description: Custom column header ID
+                                  display_text:
+                                    type: string
+                                  column_type:
+                                    type: string
+                                    enum:
+                                    - description
+                                  data_type:
+                                    type: string
+                                    enum:
+                                    - text
+                                    - numeric
+                                  is_supplier_visible:
+                                    type: boolean
+                                    description: Silently stripped post-submission.
+                                  character_limit:
+                                    type: integer
+                                additionalProperties: false
+                            line_items:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - id
+                                properties:
+                                  id:
+                                    type: integer
+                                    description: Line item ID
+                                  price:
+                                    type: number
+                                    format: float
+                                  custom_column_items:
+                                    type: array
+                                    description: 'Updates to existing descriptive custom column items. Every entry must have `id`. Items whose parent header is visible to suppliers are rejected.
+
+                                      '
+                                    items:
+                                      type: object
+                                      required:
+                                      - id
+                                      properties:
+                                        id:
+                                          type: integer
+                                          description: Custom column item ID
+                                        display_text:
+                                          type: string
+                                        column_type:
+                                          type: string
+                                          enum:
+                                          - description
+                                        is_supplier_visible:
+                                          type: boolean
+                                          description: Silently stripped post-submission.
+                                      additionalProperties: false
+                                additionalProperties: false
+                          additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+                example:
+                  event:
+                    tags:
+                    - finance
+                    - procurement
+                    lots:
+                    - id: 2443
+                      custom_column_headers:
+                      - id: 555
+                        display_text: Renamed Internal Notes
+                      line_items:
+                      - id: 7311
+                        custom_column_items:
+                        - id: 9001
+                          display_text: ACME Internal Notes
+            examples:
+              standard_update:
+                summary: Standard update (pre-submission)
+                description: 'Full update payload supported before any supplier submissions have been received. Any of the top-level `event` fields may be omitted.
+
+
+                  **Replace semantics — `lots`:** sending `lots` **destroys and recreates every lot on the event**. Any existing lot not present in the payload will be deleted (along with its line items). Include every lot the event should end up with, or omit the `lots` key entirely to leave lots untouched. `tags`, `accepted_currencies`, and `supplier_contacts` follow the same replace-all semantics documented on their fields.
+
+
+                  **Do not send lot or line item `id` values pre-submission.** The endpoint always deletes the previously-existing lots after the payload is materialised, so an incoming lot `id` matches an existing lot and marks it for destruction — the lot is silently dropped from the event rather than recreated. Line item `id`s behave the same way via their parent lot. Omit both entirely and let the response supply the newly-assigned ids.'
+                value:
+                  event:
+                    name: Updated Event Name
+                    description: Updated description for the event
+                    currency: EUR
+                    accepted_currencies:
+                    - quoting_currency: MXN
+                      conversion_rate: 20.5
+                    - quoting_currency: GBP
+                      conversion_rate: 0.85
+                    external_id: ERF013339
+                    tags:
+                    - finance
+                    - procurement
+                    config:
+                      supplier_quantity_enabled: false
+                    business_unit:
+                      id: 15
+                    supplier_contacts:
+                    - id: 5994
+                    - email: supplier@abc.com
+                    - email: another-supplier@best-parts.com
+                    custom_value_fields:
+                    - type_text: Updated Site ID
+                      value_text: CSD-2054
+                    lots:
+                    - name: Updated Lot For RFQLine# 10_0_1
+                      description: Updated description for Lot For RFQLine# 10_0_1
+                      sno: 1
+                      adder_custom_column_headers:
+                      - name: Freight Charges
+                        taxonomy: freight_logistics
+                        scope: per_line
+                      line_items:
+                      - sno: 1
+                        name: Updated FWG-103K34014XXSB
+                        quantity: 1
+                        extended_quantity: 1
+                        price: 0
+                        units: EA
+                        descriptive_attributes:
+                          External Line Item ID: 10_0_1-Updated
+                          Description: Updated FLG,RFWN,A105N,34IN,75#,B
+                          Extended Description: Updated extended description
+                          Required Date: '2024-10-01'
+                          Ship-to Location: Updated location
+                          AML/COO Restriction: Updated restriction
+                    - name: Updated Lot For RFQLine# 20_0_1
+                      description: Updated description for Lot For RFQLine# 20_0_1
+                      sno: 2
+                      line_items:
+                      - sno: 2
+                        name: Updated FWN-304G32001SB
+                        quantity: 1
+                        extended_quantity: 1
+                        price: 0
+                        units: EA
+                        descriptive_attributes:
+                          External Line Item ID: 20_0_1-Updated
+                          Description: Updated FLG,RFWN,304SS,32IN,150#,B
+                          Extended Description: Updated extended description
+                          Required Date: '2024-10-15'
+                          Ship-to Location: Updated location
+                          AML/COO Restriction: Updated restriction
+              post_submission_update:
+                summary: Post-submission update (restricted)
+                description: 'Restricted payload accepted after suppliers have submitted quotes. Only tags and buyer-only (hidden) descriptive custom columns can be modified by default; line item `price` updates are additionally gated behind the `use-split-baselines-phase-one` feature flag (requests including `price` return 422 on tenants without the flag).
+
+
+                  Custom column headers and items must be referenced by `id` — no creates or destroys. Lots and line items must also be referenced by `id`; any lot or line item not in the payload is left unchanged (unlike the pre-submission shape).'
+                value:
+                  event:
+                    tags:
+                    - finance
+                    - procurement
+                    lots:
+                    - id: 2443
+                      custom_column_headers:
+                      - id: 555
+                        display_text: Renamed Internal Notes
+                      line_items:
+                      - id: 7311
+                        custom_column_items:
+                        - id: 9001
+                          display_text: ACME Internal Notes
+                      - id: 7292
+                        price: 500000.0
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  event:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - description
+                    - external_id
+                    - status
+                    - created_at
+                    - currency
+                    - business_unit
+                    - source_event
+                    - creator
+                    - team_members
+                    - supplier_contacts
+                    - custom_value_fields
+                    - lots
+                    - schedule
+                    - exchange_rates
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                      currency:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                        - draft
+                        - open_for_bidding
+                        - closed
+                        - awarded
+                        - open_for_questions
+                        - ready_to_award
+                        - unawarded
+                      created_at:
+                        type: string
+                        format: date-time
+                      tags:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                        - finance
+                        - procurement
+                      config:
+                        type: object
+                        required:
+                        - supplier_quantity_enabled
+                        properties:
+                          supplier_quantity_enabled:
+                            type: boolean
+                        additionalProperties: false
+                      business_unit:
+                        type: object
+                        required:
+                        - id
+                        - name
+                        - unique_name
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          unique_name:
+                            type:
+                            - string
+                            - 'null'
+                      source_event:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: integer
+                      creator:
+                        type: object
+                        required:
+                        - id
+                        - email
+                        properties:
+                          id:
+                            type: integer
+                          email:
+                            type:
+                            - string
+                            - 'null'
+                      team_members:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - email
+                          - role
+                          properties:
+                            id:
+                              type: integer
+                            email:
+                              type:
+                              - string
+                              - 'null'
+                            role:
+                              type: string
+                              enum:
+                              - collaborator
+                              - owner
+                              - viewer
+                      supplier_contacts:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - email
+                          - status
+                          properties:
+                            email:
+                              type:
+                              - string
+                              - 'null'
+                            status:
+                              type: string
+                              enum:
+                              - shortlisted
+                              - not_answered
+                              - bounced
+                              - accepted
+                              - rejected
+                      custom_value_fields:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - type_text
+                          - value_text
+                          properties:
+                            id:
+                              type: integer
+                            type_text:
+                              type: string
+                            value_text:
+                              type: string
+                          additionalProperties: false
+                      lots:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          - description
+                          - sno
+                          - line_items
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                            sno:
+                              type: integer
+                            custom_column_headers:
+                              type: array
+                              description: 'Only descriptive headers are exposed.
+
+                                '
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - display_text
+                                - column_type
+                                - data_type
+                                - is_supplier_visible
+                                - column_order_index
+                                properties:
+                                  id:
+                                    type: integer
+                                  display_text:
+                                    type: string
+                                  column_type:
+                                    type: string
+                                  data_type:
+                                    type: string
+                                  is_supplier_visible:
+                                    type: boolean
+                                  column_order_index:
+                                    type: integer
+                                  character_limit:
+                                    type:
+                                    - integer
+                                    - 'null'
+                                additionalProperties: false
+                            adder_custom_column_headers:
+                              type: array
+                              description: 'Adder columns configured on this lot. An "adder" is a numeric pricing column (e.g. Freight, Duties, Tariffs) that suppliers fill in when submitting a quote and whose values are added to the line-item price to produce the total landed cost. Lot Assignment is implicit: an adder column applies to the lot it appears under. Event-wide adder columns created via the buyer UI surface as an entry on every lot.
+
+                                '
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - name
+                                - column_order_index
+                                - taxonomy
+                                - scope
+                                properties:
+                                  id:
+                                    type: integer
+                                  name:
+                                    type: string
+                                    description: Column Name (buyer-defined display text)
+                                  column_order_index:
+                                    type: integer
+                                  taxonomy:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: Cost Category key
+                                  scope:
+                                    type: string
+                                    description: Cost Calculation (currently only 'per_line')
+                                    enum:
+                                    - per_line
+                                additionalProperties: false
+                            line_items:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - name
+                                - is_required
+                                - sno
+                                - descriptive_attributes
+                                properties:
+                                  id:
+                                    type: integer
+                                  name:
+                                    type: string
+                                  sno:
+                                    type: integer
+                                  is_required:
+                                    type: boolean
+                                  price:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  negotiation_starting_price:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  descriptive_attributes:
+                                    type: object
+                                    additionalProperties:
+                                      type: string
+                                  custom_column_items:
+                                    type: array
+                                    description: 'Only descriptive items are exposed.
+
+                                      '
+                                    items:
+                                      type: object
+                                      required:
+                                      - id
+                                      - custom_column_header_id
+                                      - column_type
+                                      - is_supplier_visible
+                                      properties:
+                                        id:
+                                          type: integer
+                                        custom_column_header_id:
+                                          type: integer
+                                        display_text:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        column_type:
+                                          type: string
+                                        is_supplier_visible:
+                                          type: boolean
+                                      additionalProperties: false
+                                additionalProperties: false
+                          additionalProperties: false
+                      schedule:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - start_at
+                        - end_at
+                        - round_count
+                        - round_length
+                        - round_unit
+                        - has_price_guidance_round
+                        - should_skip_weekends
+                        - event_format
+                        - rounds
+                        - multi_round
+                        - started
+                        - ended
+                        properties:
+                          id:
+                            type: integer
+                          start_at:
+                            type: string
+                            format: date-time
+                          end_at:
+                            type: string
+                            format: date-time
+                          round_count:
+                            type:
+                            - integer
+                            - 'null'
+                          round_length:
+                            type:
+                            - number
+                            - 'null'
+                            format: float
+                          round_unit:
+                            type:
+                            - string
+                            - 'null'
+                          has_price_guidance_round:
+                            type:
+                            - boolean
+                            - 'null'
+                          should_skip_weekends:
+                            type:
+                            - boolean
+                            - 'null'
+                          event_format:
+                            type: string
+                          rounds:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - id
+                              - name
+                              - description
+                              - round_type
+                              - start_time
+                              - end_time
+                              - number
+                              - length_unit
+                              - length_value
+                              properties:
+                                id:
+                                  type: integer
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                                round_type:
+                                  type: string
+                                start_time:
+                                  type: string
+                                  format: date-time
+                                end_time:
+                                  type: string
+                                  format: date-time
+                                number:
+                                  type: integer
+                                length_unit:
+                                  type: string
+                                length_value:
+                                  type: number
+                                  format: float
+                          multi_round:
+                            type: boolean
+                          started:
+                            type: boolean
+                          ended:
+                            type: boolean
+                        additionalProperties: false
+                      exchange_rates:
+                        type: array
+                        description: Accepted currencies with conversion rates to the event currency
+                        items:
+                          type: object
+                          required:
+                          - event_currency
+                          - quoting_currency
+                          - conversion_rate
+                          properties:
+                            event_currency:
+                              type: string
+                              description: The primary currency of the event
+                              example: USD
+                            quoting_currency:
+                              type: string
+                              description: An accepted quoting currency for this event
+                              example: MXN
+                            conversion_rate:
+                              type: number
+                              format: float
+                              description: Conversion rate from quoting_currency to event_currency
+                              example: 20.5
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                event:
+                  id: 118996
+                  name: Updated Event Name
+                  description: Updated description for the event
+                  currency: EUR
+                  exchange_rates:
+                  - event_currency: EUR
+                    quoting_currency: MXN
+                    conversion_rate: 20.5
+                  - event_currency: EUR
+                    quoting_currency: GBP
+                    conversion_rate: 0.85
+                  external_id: ERF013339
+                  status: open_for_bidding
+                  created_at: '2025-03-26T17:11:11.000Z'
+                  tags:
+                  - finance
+                  - procurement
+                  config:
+                    supplier_quantity_enabled: false
+                  business_unit:
+                    id: 15
+                    name: Advanced Manufacturing
+                    unique_name: adv_mfg
+                  creator:
+                    id: 501
+                    email: jane.doe@acme.com
+                  custom_value_fields:
+                  - id: 1
+                    type_text: Updated Site ID
+                    value_text: CSD-2054
+                  supplier_contacts:
+                  - id: 5994
+                    email: shawn@xyz.com
+                  - id: 4983
+                    email: supplier@abc.com
+                  - id: 3311
+                    email: another-supplier@best-parts.com
+                  lots:
+                  - id: 188194
+                    name: Updated Lot For RFQLine# 10_0_1
+                    description: Updated description for Lot For RFQLine# 10_0_1
+                    sno: 1
+                    adder_custom_column_headers:
+                    - id: 44210
+                      name: Freight Charges
+                      column_order_index: 0
+                      taxonomy: freight_logistics
+                      scope: per_line
+                    line_items:
+                    - id: 2391408
+                      name: Updated FWG-103K34014XXSB
+                      description: Updated FLG,RFWN,A105N,34IN,75#,B
+                      descriptive_attributes:
+                        External Line Item ID: 10_0_1-Updated
+                        Description: Updated FLG,RFWN,A105N,34IN,75#,B
+                        Extended Description: Updated extended description
+                        Required Date: '2024-10-01'
+                        Ship-to Location: Updated location
+                        AML/COO Restriction: Updated restriction
+                      is_required: true
+                      price: 0.0
+                      sno: 1
+                  - id: 188195
+                    name: Updated Lot For RFQLine# 20_0_1
+                    description: Updated description for Lot For RFQLine# 20_0_1
+                    sno: 2
+                    adder_custom_column_headers: []
+                    line_items:
+                    - id: 2391409
+                      name: Updated FWN-304G32001SB
+                      description: Updated FLG,RFWN,304SS,32IN,150#,B
+                      descriptive_attributes:
+                        External Line Item ID: 20_0_1-Updated
+                        Description: Updated FLG,RFWN,304SS,32IN,150#,B
+                        Extended Description: Updated extended description
+                        Required Date: '2024-10-15'
+                        Ship-to Location: Updated location
+                        AML/COO Restriction: Updated restriction
+                      is_required: true
+                      price: 0.0
+                      sno: 2
+                  schedule:
+                    id: 115455
+                    start_at: '2026-04-02T19:07:00.000Z'
+                    end_at: '2026-04-10T19:07:00.000Z'
+                    round_count: 3
+                    round_length: 3
+                    round_unit: days
+                    has_price_guidance_round: true
+                    should_skip_weekends: false
+                    event_format: rounds
+                    rounds:
+                    - id: 272749
+                      name: Updated Round 1
+                      description: Updated description for Round 1
+                      round_type: pricing
+                      start_time: '2026-04-02T19:07:00.000Z'
+                      end_time: '2026-04-06T19:07:00.000Z'
+                      number: 1
+                      length_unit: days
+                      length_value: 4
+                    - id: 272750
+                      name: Updated Round 2
+                      description: Updated description for Round 2
+                      round_type: pricing
+                      start_time: '2026-04-06T19:07:00.000Z'
+                      end_time: '2026-04-09T19:07:00.000Z'
+                      number: 2
+                      length_unit: days
+                      length_value: 3
+                    - id: 272751
+                      name: New Round 3
+                      description: Description for new round
+                      round_type: final
+                      start_time: '2026-04-09T19:07:00.000Z'
+                      end_time: '2026-04-10T19:07:00.000Z'
+                      number: 3
+                      length_unit: days
+                      length_value: 1
+                    multi_round: true
+                    started: true
+                    ended: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    delete:
+      summary: delete event
+      tags:
+      - events
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The resource was deleted successfully.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

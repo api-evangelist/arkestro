@@ -1,0 +1,360 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 event analytics API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "event analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.arkestro.com/api/v2/event_analytics/metrics/export_task",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Metrics"
+        },
+        {
+          "info": {
+            "name": "Rounds",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.arkestro.com/api/v2/event_analytics/rounds/export_task",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rounds"
+        },
+        {
+          "info": {
+            "name": "Buyer Leaderboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/event_analytics/buyer_leaderboards",
+            "params": [
+              {
+                "name": "business_unit_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.\n"
+              },
+              {
+                "name": "creator_user_full_name",
+                "value": "",
+                "type": "query",
+                "description": "One or more full names (first + last) of the user who created the resource. Accepts multiple values. Pass them as repeated query params `?creator_user_full_name[]=John%20Doe&creator_user_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Defaults to `1`, Max `1000`."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort the items by which can be any value from the data field."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+              }
+            ]
+          },
+          "docs": "Retrieve buyer leaderboards data"
+        },
+        {
+          "info": {
+            "name": "Quotes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/event_analytics/quotes",
+            "params": [
+              {
+                "name": "business_unit_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.\n"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+              },
+              {
+                "name": "owner_full_name",
+                "value": "",
+                "type": "query",
+                "description": "One or more full names (first + last) of the user who owns the event. Accepts multiple values. Pass them as repeated query params `?owner_full_name[]=John%20Doe&owner_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language."
+              },
+              {
+                "name": "supplier_org_name",
+                "value": "",
+                "type": "query",
+                "description": "One or more names of the organizations supplying the resource. Accepts multiple values. Pass them as repeated query params `?supplier_org_name[]=Acme 20Corp&supplier_org_name[]=Globex 20Corp`."
+              },
+              {
+                "name": "event_state",
+                "value": "",
+                "type": "query",
+                "description": "The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.\n"
+              },
+              {
+                "name": "event_tag_names",
+                "value": "",
+                "type": "query",
+                "description": "AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.\n"
+              },
+              {
+                "name": "refreshed_after",
+                "value": "",
+                "type": "query",
+                "description": "The date and time after which the resource was last refreshed, in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Defaults to `1`, Max `1000`."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort the items by which can be any value from the data field."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+              }
+            ]
+          },
+          "docs": "Retrieve quotes data"
+        },
+        {
+          "info": {
+            "name": "Supplier Invitation Statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/event_analytics/supplier_invitation_statuses",
+            "params": [
+              {
+                "name": "business_unit_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.\n"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+              },
+              {
+                "name": "owner_full_name",
+                "value": "",
+                "type": "query",
+                "description": "One or more full names (first + last) of the user who owns the event. Accepts multiple values. Pass them as repeated query params `?owner_full_name[]=John%20Doe&owner_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language."
+              },
+              {
+                "name": "supplier_org_name",
+                "value": "",
+                "type": "query",
+                "description": "One or more names of the organizations supplying the resource. Accepts multiple values. Pass them as repeated query params `?supplier_org_name[]=Acme 20Corp&supplier_org_name[]=Globex 20Corp`."
+              },
+              {
+                "name": "event_state",
+                "value": "",
+                "type": "query",
+                "description": "The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.\n"
+              },
+              {
+                "name": "event_tag_names",
+                "value": "",
+                "type": "query",
+                "description": "AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.\n"
+              },
+              {
+                "name": "refreshed_after",
+                "value": "",
+                "type": "query",
+                "description": "The date and time after which the resource was last refreshed, in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Defaults to `1`, Max `1000`."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort the items by which can be any value from the data field."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+              }
+            ]
+          },
+          "docs": "Retrieve supplier invitation statuses"
+        },
+        {
+          "info": {
+            "name": "Survey Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/event_analytics/survey_results",
+            "params": [
+              {
+                "name": "business_unit_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more business unit IDs to filter by. Accepts multiple values. Pass them as repeated query params: `?business_unit_id[]=1&business_unit_id[]=2`.\n"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date to filter events by, in ISO 8601 format (YYYY-MM-DD)."
+              },
+              {
+                "name": "owner_full_name",
+                "value": "",
+                "type": "query",
+                "description": "One or more full names (first + last) of the user who owns the event. Accepts multiple values. Pass them as repeated query params `?owner_full_name[]=John%20Doe&owner_full_name[]=Jane%20Smith`. Please note, URL encoding may be handled automatically depending on your language."
+              },
+              {
+                "name": "supplier_org_name",
+                "value": "",
+                "type": "query",
+                "description": "One or more names of the organizations supplying the resource. Accepts multiple values. Pass them as repeated query params `?supplier_org_name[]=Acme 20Corp&supplier_org_name[]=Globex 20Corp`."
+              },
+              {
+                "name": "event_state",
+                "value": "",
+                "type": "query",
+                "description": "The state of the event (e.g., `draft`). Accepts multiple values. Pass them either as repeated query params: `?event_state[]=draft&event_state[]=awarded`.\n"
+              },
+              {
+                "name": "event_tag_names",
+                "value": "",
+                "type": "query",
+                "description": "AND filter — only events that have ALL specified tags are returned. Accepts multiple values. Pass them as repeated query params: `?event_tag_names[]=tag1&event_tag_names[]=tag2`.\n"
+              },
+              {
+                "name": "refreshed_after",
+                "value": "",
+                "type": "query",
+                "description": "The date and time after which the resource was last refreshed, in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Defaults to `1`, Max `1000`."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort the items by which can be any value from the data field."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+              }
+            ]
+          },
+          "docs": "Retrieve survey results"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

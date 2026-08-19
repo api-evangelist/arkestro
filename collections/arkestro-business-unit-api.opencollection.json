@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 business unit API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "business unit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list business units",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/business_units"
+          },
+          "docs": "List all of the business units under an organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

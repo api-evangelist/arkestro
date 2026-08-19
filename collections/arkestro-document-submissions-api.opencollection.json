@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 document submissions API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "document submissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list document submissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/events/:event_id/document_submissions",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return. Defaults to `20`, max `200`."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. Defaults to `created_at`."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+              }
+            ]
+          },
+          "docs": "list document submissions"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

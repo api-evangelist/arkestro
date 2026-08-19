@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 supplier contacts API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "supplier contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/supplier_contacts",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more `external_id` values to filter by. To pass multiple values, use repeated query params: `?external_id[]=EXT-001&external_id[]=EXT-002`.\n"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort results by. Defaults to `created_at`."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return. Defaults to `20`, max `200`."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+              }
+            ]
+          },
+          "docs": "List all of the supplier contacts under an organization"
+        },
+        {
+          "info": {
+            "name": "create supplier contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.arkestro.com/api/v2/supplier_contacts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new supplier contact"
+        },
+        {
+          "info": {
+            "name": "show contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/supplier_contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ]
+          },
+          "docs": "Get a supplier contact by id"
+        },
+        {
+          "info": {
+            "name": "update supplier contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.arkestro.com/api/v2/supplier_contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a supplier contact by id"
+        },
+        {
+          "info": {
+            "name": "delete contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.arkestro.com/api/v2/supplier_contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ]
+          },
+          "docs": "Delete a supplier contact by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

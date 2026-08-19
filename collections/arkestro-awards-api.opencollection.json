@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "V2 Awards API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Token",
+      "value": "{{X-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "awards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "show awarded event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.arkestro.com/api/v2/events/:id/award",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id"
+              }
+            ]
+          },
+          "docs": "show awarded event"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

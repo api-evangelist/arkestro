@@ -1,0 +1,19 @@
+[
+  {
+    "repo": "arkestro",
+    "captured_at": "2026-08-07T161720",
+    "source_url": "https://developer.arkestro.com/",
+    "source_type": "DeveloperPortal",
+    "file": "arkestro-2026-08-07T161720.png",
+    "bytes": 134259
+  },
+  {
+    "repo": "arkestro",
+    "captured_at": "2026-08-17T122406",
+    "source_url": "https://arkestro.com",
+    "source_type": "root-domain",
+    "file": "arkestro-2026-08-17T122406.png",
+    "bytes": 1069476,
+    "capture": "playwright-local"
+  }
+]

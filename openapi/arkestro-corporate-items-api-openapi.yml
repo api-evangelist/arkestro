@@ -1,0 +1,847 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 corporate items API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: corporate items
+  description: Items represent goods or services under agreement in Arkestro.
+paths:
+  /api/v2/corporate/items:
+    get:
+      summary: list items
+      description: List all of the Items under an organization
+      tags:
+      - corporate items
+      parameters:
+      - name: sort_by
+        in: query
+        description: The field to sort results by. Defaults to `created_at`.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - created_at
+          - updated_at
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      - name: limit
+        in: query
+        description: The maximum number of results to return. Defaults to `20`, max `200`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 20
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - name
+                      - description
+                      - sku
+                      properties:
+                        id:
+                          type: integer
+                          description: The Arkestro ID of the item
+                        sku:
+                          type: string
+                          description: The external id of the item
+                        description:
+                          type:
+                          - string
+                          - 'null'
+                          description: The description of the item
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                          description: The name of the item
+                        category:
+                          type:
+                          - object
+                          - 'null'
+                          description: Category object, referenced by code (optional)
+                          required:
+                          - id
+                          - code
+                          - description
+                          - name
+                          properties:
+                            id:
+                              type: integer
+                              description: The Arkestro ID of the category
+                            code:
+                              type: string
+                              description: The Unique ID of the category
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              description: The description of the category
+                            name:
+                              type:
+                              - string
+                              - 'null'
+                              description: The name of the category
+                          additionalProperties: false
+                      additionalProperties: false
+                  pagination:
+                    type: object
+                    properties:
+                      limit:
+                        type: integer
+                        description: The number of records requested.
+                      offset:
+                        type: integer
+                        description: The number of records skipped after filtering and sorting.
+                      total:
+                        type: integer
+                        description: The total number of records available after filtering.
+                      returned_count:
+                        type: integer
+                        description: The number of records returned in the current response.
+                additionalProperties: false
+              example:
+                items:
+                - id: 1
+                  sku: paper-500
+                  name: Premium A4 Paper
+                  description: High-quality A4 paper for professional printing
+                  category:
+                    id: 101
+                    code: office-supplies
+                    name: Office Supplies
+                    description: Supplies used for daily office operations
+                - id: 2
+                  sku: pens-blue-50
+                  name: Blue Ballpoint Pens
+                  description: Durable ballpoint pens with smooth ink flow
+                  category:
+                    id: 102
+                    code: stationery
+                    name: Stationery
+                    description: Essential writing tools and office accessories
+                pagination:
+                  limit: 20
+                  offset: 10
+                  total: 122
+                  returned_count: 20
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: create item
+      description: Create a new item
+      tags:
+      - corporate items
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                item:
+                  type: object
+                  required:
+                  - sku
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the item
+                    description:
+                      type: string
+                      description: The description of the item
+                    sku:
+                      type: string
+                      description: The external id of the item
+                    category:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: The category code of the item
+                        name:
+                          type: string
+                          description: The name of the category of the item
+                        description:
+                          type: string
+                          description: The description of the category of the item
+                      additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            example:
+              item:
+                sku: paper-500
+                name: Premium A4 Paper
+                description: High-quality A4 paper for professional printing
+                category:
+                  code: office-supplies
+                  name: Office Supplies
+                  description: Supplies used for daily office operations
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  item:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - description
+                    - sku
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the item
+                      sku:
+                        type: string
+                        description: The external id of the item
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: The description of the item
+                      name:
+                        type:
+                        - string
+                        - 'null'
+                        description: The name of the item
+                      category:
+                        type:
+                        - object
+                        - 'null'
+                        description: Category object, referenced by code (optional)
+                        required:
+                        - id
+                        - code
+                        - description
+                        - name
+                        properties:
+                          id:
+                            type: integer
+                            description: The Arkestro ID of the category
+                          code:
+                            type: string
+                            description: The Unique ID of the category
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            description: The description of the category
+                          name:
+                            type:
+                            - string
+                            - 'null'
+                            description: The name of the category
+                        additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                item:
+                  id: 1
+                  sku: paper-500
+                  name: Premium A4 Paper
+                  description: High-quality A4 paper for professional printing
+                  category:
+                    id: 101
+                    code: office-supplies
+                    name: Office Supplies
+                    description: Supplies used for daily office operations
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/corporate/items/{id}:
+    get:
+      summary: show item
+      description: Get an item by id
+      tags:
+      - corporate items
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  item:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - description
+                    - sku
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the item
+                      sku:
+                        type: string
+                        description: The external id of the item
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: The description of the item
+                      name:
+                        type:
+                        - string
+                        - 'null'
+                        description: The name of the item
+                      category:
+                        type:
+                        - object
+                        - 'null'
+                        description: Category object, referenced by code (optional)
+                        required:
+                        - id
+                        - code
+                        - description
+                        - name
+                        properties:
+                          id:
+                            type: integer
+                            description: The Arkestro ID of the category
+                          code:
+                            type: string
+                            description: The Unique ID of the category
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            description: The description of the category
+                          name:
+                            type:
+                            - string
+                            - 'null'
+                            description: The name of the category
+                        additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                item:
+                  id: 1
+                  sku: paper-500
+                  name: Premium A4 Paper
+                  description: High-quality A4 paper for professional printing
+                  category:
+                    id: 101
+                    code: office-supplies
+                    name: Office Supplies
+                    description: Supplies used for daily office operations
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    patch:
+      summary: update item
+      description: Update an item by id
+      tags:
+      - corporate items
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                item:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the item
+                    description:
+                      type: string
+                      description: The description of the item
+                    sku:
+                      type: string
+                      description: The external id of the item
+                    category:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: The category code of the item
+                        name:
+                          type: string
+                          description: The name of the category of the item
+                        description:
+                          type: string
+                          description: The description of the category of the item
+                      additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            example:
+              item:
+                sku: updated-paper-500
+                name: Updated Paper Name
+                description: Updated Paper Description
+                category:
+                  code: updated-office-supplies
+                  name: Updated Office Supplies Name
+                  description: Updated Supplies Description
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  item:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - description
+                    - sku
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the item
+                      sku:
+                        type: string
+                        description: The external id of the item
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: The description of the item
+                      name:
+                        type:
+                        - string
+                        - 'null'
+                        description: The name of the item
+                      category:
+                        type:
+                        - object
+                        - 'null'
+                        description: Category object, referenced by code (optional)
+                        required:
+                        - id
+                        - code
+                        - description
+                        - name
+                        properties:
+                          id:
+                            type: integer
+                            description: The Arkestro ID of the category
+                          code:
+                            type: string
+                            description: The Unique ID of the category
+                          description:
+                            type:
+                            - string
+                            - 'null'
+                            description: The description of the category
+                          name:
+                            type:
+                            - string
+                            - 'null'
+                            description: The name of the category
+                        additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                item:
+                  id: 1
+                  sku: updated-paper-500
+                  name: Updated Paper Name
+                  description: Updated Paper Description
+                  category:
+                    id: 101
+                    code: updated-office-supplies
+                    name: Updated Office Supplies Name
+                    description: Updated Supplies Description
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    delete:
+      summary: delete item
+      description: Delete an item by id
+      tags:
+      - corporate items
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The resource was deleted successfully.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

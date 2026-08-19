@@ -1,0 +1,1000 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 supplier organizations API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: supplier organizations
+  description: Supplier organizations represent external companies that supply goods or services
+paths:
+  /api/v2/supplier_organizations:
+    get:
+      summary: list supplier organizations
+      description: Returns a paginated list of supplier organizations scoped to the authenticated user's company.
+      tags:
+      - supplier organizations
+      parameters:
+      - name: external_id
+        in: query
+        description: 'One or more `external_id` values to filter by. To pass multiple values, use repeated query params: `?external_id[]=EXT-001&external_id[]=EXT-002`.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: sort_by
+        in: query
+        description: The field to sort results by. Defaults to `created_at`.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - created_at
+          - updated_at
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      - name: limit
+        in: query
+        description: The maximum number of results to return. Defaults to `20`, max `200`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 20
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  supplier_organizations:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: false
+                      required:
+                      - id
+                      - name
+                      - external_id
+                      - status
+                      - firm
+                      - address
+                      - created_at
+                      - updated_at
+                      properties:
+                        id:
+                          type: integer
+                          description: Unique identifier for the supplier organization
+                        name:
+                          type: string
+                          description: Name of the supplier organization
+                        external_id:
+                          type:
+                          - string
+                          - 'null'
+                          description: External identifier for the supplier organization
+                        status:
+                          type: string
+                          description: Status of the supplier organization
+                          enum:
+                          - pending
+                          - approved
+                          - rejected
+                          - preferred
+                          - exists
+                        firm:
+                          type:
+                          - object
+                          - 'null'
+                          description: Firm associated with the supplier organization. Null for newly created organizations.
+                          additionalProperties: false
+                          properties:
+                            domain:
+                              type:
+                              - string
+                              - 'null'
+                              description: Domain of the firm
+                        address:
+                          type:
+                          - object
+                          - 'null'
+                          description: Physical address of the supplier organization
+                          additionalProperties: false
+                          properties:
+                            line_one:
+                              type:
+                              - string
+                              - 'null'
+                              description: First line of the address
+                            line_two:
+                              type:
+                              - string
+                              - 'null'
+                              description: Second line of the address
+                            city:
+                              type:
+                              - string
+                              - 'null'
+                              description: City
+                            state:
+                              type:
+                              - string
+                              - 'null'
+                              description: State or province
+                            country:
+                              type:
+                              - string
+                              - 'null'
+                              description: Country
+                            postal_code:
+                              type:
+                              - string
+                              - 'null'
+                              description: Postal or ZIP code
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the supplier organization was created
+                        updated_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the supplier organization was last updated
+                  pagination:
+                    type: object
+                    properties:
+                      limit:
+                        type: integer
+                        description: The number of records requested.
+                      offset:
+                        type: integer
+                        description: The number of records skipped after filtering and sorting.
+                      total:
+                        type: integer
+                        description: The total number of records available after filtering.
+                      returned_count:
+                        type: integer
+                        description: The number of records returned in the current response.
+              examples:
+                basic:
+                  summary: Single result with address
+                  value:
+                    supplier_organizations:
+                    - id: 4821
+                      name: Meridian Industrial Supply
+                      external_id: SUP-00423
+                      status: approved
+                      firm: null
+                      address:
+                        line_one: 880 Harbour Way
+                        line_two: Suite 400
+                        city: Richmond
+                        state: CA
+                        country: US
+                        postal_code: '94804'
+                      created_at: '2026-02-18T20:10:11.000Z'
+                      updated_at: '2026-03-01T09:22:41.000Z'
+                    pagination:
+                      limit: 20
+                      offset: 0
+                      total: 1
+                      returned_count: 1
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: create supplier organization
+      description: Create a new supplier organization scoped to the authenticated user's company
+      tags:
+      - supplier organizations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - supplier_organization
+              properties:
+                supplier_organization:
+                  type: object
+                  required:
+                  - name
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the supplier organization. Must be unique within your company.
+                    external_id:
+                      type: string
+                      description: Optional external identifier for the supplier organization. Must be unique within your company.
+                    status:
+                      type: string
+                      description: Status of the supplier organization. Defaults to `pending` if not provided.
+                      enum:
+                      - pending
+                      - approved
+                      - rejected
+                      - preferred
+                      - exists
+                    address:
+                      type: object
+                      description: Optional physical address for the supplier organization. All fields are optional.
+                      properties:
+                        line_one:
+                          type: string
+                          description: First line of the address
+                        line_two:
+                          type: string
+                          description: Second line of the address
+                        city:
+                          type: string
+                          description: City
+                        state:
+                          type: string
+                          description: State or province
+                        country:
+                          type: string
+                          description: Country
+                        postal_code:
+                          type: string
+                          description: Postal or ZIP code
+                      additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            examples:
+              basic:
+                summary: Name only
+                value:
+                  supplier_organization:
+                    name: Meridian Industrial Supply
+              full:
+                summary: With status, external ID, and address
+                value:
+                  supplier_organization:
+                    name: Meridian Industrial Supply
+                    external_id: SUP-00423
+                    status: approved
+                    address:
+                      line_one: 880 Harbour Way
+                      line_two: Suite 400
+                      city: Richmond
+                      state: CA
+                      country: US
+                      postal_code: '94804'
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  supplier_organization:
+                    type: object
+                    additionalProperties: false
+                    required:
+                    - id
+                    - name
+                    - external_id
+                    - status
+                    - firm
+                    - address
+                    - created_at
+                    - updated_at
+                    properties:
+                      id:
+                        type: integer
+                        description: Unique identifier for the supplier organization
+                      name:
+                        type: string
+                        description: Name of the supplier organization
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: External identifier for the supplier organization
+                      status:
+                        type: string
+                        description: Status of the supplier organization
+                        enum:
+                        - pending
+                        - approved
+                        - rejected
+                        - preferred
+                        - exists
+                      firm:
+                        type:
+                        - object
+                        - 'null'
+                        description: Firm associated with the supplier organization. Null for newly created organizations.
+                        additionalProperties: false
+                        properties:
+                          domain:
+                            type:
+                            - string
+                            - 'null'
+                            description: Domain of the firm
+                      address:
+                        type:
+                        - object
+                        - 'null'
+                        description: Physical address of the supplier organization
+                        additionalProperties: false
+                        properties:
+                          line_one:
+                            type:
+                            - string
+                            - 'null'
+                            description: First line of the address
+                          line_two:
+                            type:
+                            - string
+                            - 'null'
+                            description: Second line of the address
+                          city:
+                            type:
+                            - string
+                            - 'null'
+                            description: City
+                          state:
+                            type:
+                            - string
+                            - 'null'
+                            description: State or province
+                          country:
+                            type:
+                            - string
+                            - 'null'
+                            description: Country
+                          postal_code:
+                            type:
+                            - string
+                            - 'null'
+                            description: Postal or ZIP code
+                      created_at:
+                        type: string
+                        format: date-time
+                        description: Timestamp when the supplier organization was created
+                      updated_at:
+                        type: string
+                        format: date-time
+                        description: Timestamp when the supplier organization was last updated
+              examples:
+                created:
+                  summary: Created with status and address
+                  value:
+                    supplier_organization:
+                      id: 4821
+                      name: Meridian Industrial Supply
+                      external_id: SUP-00423
+                      status: approved
+                      firm: null
+                      address:
+                        line_one: 880 Harbour Way
+                        line_two: Suite 400
+                        city: Richmond
+                        state: CA
+                        country: US
+                        postal_code: '94804'
+                      created_at: '2026-02-18T20:10:11.000Z'
+                      updated_at: '2026-02-18T20:10:11.000Z'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+              examples:
+                name_blank:
+                  summary: Name is missing
+                  value:
+                    error: Name can't be blank
+                name_taken:
+                  summary: Name already taken within your company
+                  value:
+                    error: Name has already been taken
+                external_id_taken:
+                  summary: External ID already taken within your company
+                  value:
+                    error: External ID is already taken for your organization
+                status_invalid:
+                  summary: Invalid status value
+                  value:
+                    error: Status is not included in the list
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/supplier_organizations/{id}:
+    get:
+      summary: get supplier organization
+      description: Returns a single supplier organization belonging to the authenticated buyer company.
+      tags:
+      - supplier organizations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Supplier organization ID
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  supplier_organization:
+                    type: object
+                    additionalProperties: false
+                    required:
+                    - id
+                    - name
+                    - external_id
+                    - status
+                    - firm
+                    - address
+                    - created_at
+                    - updated_at
+                    properties:
+                      id:
+                        type: integer
+                        description: Unique identifier for the supplier organization
+                      name:
+                        type: string
+                        description: Name of the supplier organization
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: External identifier for the supplier organization
+                      status:
+                        type: string
+                        description: Status of the supplier organization
+                        enum:
+                        - pending
+                        - approved
+                        - rejected
+                        - preferred
+                        - exists
+                      firm:
+                        type:
+                        - object
+                        - 'null'
+                        description: Firm associated with the supplier organization. Null for newly created organizations.
+                        additionalProperties: false
+                        properties:
+                          domain:
+                            type:
+                            - string
+                            - 'null'
+                            description: Domain of the firm
+                      address:
+                        type:
+                        - object
+                        - 'null'
+                        description: Physical address of the supplier organization
+                        additionalProperties: false
+                        properties:
+                          line_one:
+                            type:
+                            - string
+                            - 'null'
+                            description: First line of the address
+                          line_two:
+                            type:
+                            - string
+                            - 'null'
+                            description: Second line of the address
+                          city:
+                            type:
+                            - string
+                            - 'null'
+                            description: City
+                          state:
+                            type:
+                            - string
+                            - 'null'
+                            description: State or province
+                          country:
+                            type:
+                            - string
+                            - 'null'
+                            description: Country
+                          postal_code:
+                            type:
+                            - string
+                            - 'null'
+                            description: Postal or ZIP code
+                      created_at:
+                        type: string
+                        format: date-time
+                        description: Timestamp when the supplier organization was created
+                      updated_at:
+                        type: string
+                        format: date-time
+                        description: Timestamp when the supplier organization was last updated
+              examples:
+                basic:
+                  summary: With address
+                  value:
+                    supplier_organization:
+                      id: 456
+                      name: Acme Industrial Supply
+                      external_id: SUP-000123
+                      status: pending
+                      firm:
+                        domain: example.com
+                      address:
+                        line_one: 123 Market St
+                        line_two: Suite 600
+                        city: San Francisco
+                        state: CA
+                        country: US
+                        postal_code: '94105'
+                      created_at: '2026-02-18T20:10:11.000Z'
+                      updated_at: '2026-03-01T09:22:41.000Z'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    patch:
+      summary: update supplier organization
+      description: Updates an existing supplier organization belonging to the authenticated buyer company. Only provided fields are updated.
+      tags:
+      - supplier organizations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Supplier organization ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - supplier_organization
+              additionalProperties: false
+              properties:
+                supplier_organization:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the supplier organization. Must be unique within your company.
+                    external_id:
+                      type: string
+                      description: External identifier for the supplier organization. Must be unique within your company.
+                    status:
+                      type: string
+                      description: Status of the supplier organization.
+                      enum:
+                      - pending
+                      - approved
+                      - rejected
+                      - preferred
+                      - exists
+                    address:
+                      type: object
+                      description: Physical address for the supplier organization. All fields are optional.
+                      additionalProperties: false
+                      properties:
+                        line_one:
+                          type: string
+                        line_two:
+                          type: string
+                        city:
+                          type: string
+                        state:
+                          type: string
+                        country:
+                          type: string
+                        postal_code:
+                          type: string
+            examples:
+              name_only:
+                summary: Update name only
+                value:
+                  supplier_organization:
+                    name: New Supplier Name
+              full:
+                summary: Update multiple fields
+                value:
+                  supplier_organization:
+                    name: Meridian Industrial Supply
+                    external_id: SUP-00423
+                    status: approved
+                    address:
+                      line_one: 880 Harbour Way
+                      city: Richmond
+                      state: CA
+                      country: US
+                      postal_code: '94804'
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  supplier_organization:
+                    type: object
+                    additionalProperties: false
+                    required:
+                    - id
+                    - name
+                    - external_id
+                    - status
+                    - firm
+                    - address
+                    - created_at
+                    - updated_at
+                    properties:
+                      id:
+                        type: integer
+                        description: Unique identifier for the supplier organization
+                      name:
+                        type: string
+                        description: Name of the supplier organization
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: External identifier for the supplier organization
+                      status:
+                        type: string
+                        description: Status of the supplier organization
+                        enum:
+                        - pending
+                        - approved
+                        - rejected
+                        - preferred
+                        - exists
+                      firm:
+                        type:
+                        - object
+                        - 'null'
+                        description: Firm associated with the supplier organization. Null for newly created organizations.
+                        additionalProperties: false
+                        properties:
+                          domain:
+                            type:
+                            - string
+                            - 'null'
+                            description: Domain of the firm
+                      address:
+                        type:
+                        - object
+                        - 'null'
+                        description: Physical address of the supplier organization
+                        additionalProperties: false
+                        properties:
+                          line_one:
+                            type:
+                            - string
+                            - 'null'
+                            description: First line of the address
+                          line_two:
+                            type:
+                            - string
+                            - 'null'
+                            description: Second line of the address
+                          city:
+                            type:
+                            - string
+                            - 'null'
+                            description: City
+                          state:
+                            type:
+                            - string
+                            - 'null'
+                            description: State or province
+                          country:
+                            type:
+                            - string
+                            - 'null'
+                            description: Country
+                          postal_code:
+                            type:
+                            - string
+                            - 'null'
+                            description: Postal or ZIP code
+                      created_at:
+                        type: string
+                        format: date-time
+                        description: Timestamp when the supplier organization was created
+                      updated_at:
+                        type: string
+                        format: date-time
+                        description: Timestamp when the supplier organization was last updated
+              examples:
+                updated:
+                  summary: Updated supplier organization
+                  value:
+                    supplier_organization:
+                      id: 4821
+                      name: Meridian Industrial Supply
+                      external_id: SUP-00423
+                      status: approved
+                      firm: null
+                      address:
+                        line_one: 880 Harbour Way
+                        line_two: null
+                        city: Richmond
+                        state: CA
+                        country: US
+                        postal_code: '94804'
+                      created_at: '2026-02-18T20:10:11.000Z'
+                      updated_at: '2026-03-27T14:00:00.000Z'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+              examples:
+                name_taken:
+                  summary: Name already taken within your company
+                  value:
+                    error: Name has already been taken
+                external_id_taken:
+                  summary: External ID already taken within your company
+                  value:
+                    error: External ID is already taken for your organization
+                status_invalid:
+                  summary: Invalid status value
+                  value:
+                    error: Status is not included in the list
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

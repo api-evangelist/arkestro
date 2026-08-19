@@ -1,0 +1,936 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 event documents API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: event documents
+  description: Documents attached to an event for supplier review or submission
+paths:
+  /api/v2/events/{event_id}/documents:
+    get:
+      summary: list documents
+      tags:
+      - event documents
+      parameters:
+      - name: event_id
+        in: path
+        description: The ID of the event
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documents:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - name
+                      - description
+                      - filename
+                      - approval_required
+                      - blocks_access
+                      - consent_required
+                      - submission_required
+                      - will_accept_submissions
+                      properties:
+                        id:
+                          type: integer
+                          description: The Arkestro ID of the document
+                        external_id:
+                          type:
+                          - string
+                          - 'null'
+                          description: An optional external identifier for the document, unique within the event
+                        name:
+                          type: string
+                          description: The name of the document
+                        description:
+                          type:
+                          - string
+                          - 'null'
+                          description: An optional description of the document
+                        filename:
+                          type:
+                          - string
+                          - 'null'
+                          description: The filename of the attached file, if one has been uploaded
+                        will_accept_submissions:
+                          type:
+                          - boolean
+                          - 'null'
+                          description: Whether suppliers are requested to submit a document. Set to false when uploading a document for supplier review only.
+                        submission_required:
+                          type: boolean
+                          description: Whether suppliers must submit a document in order to participate in this event.
+                        approval_required:
+                          type: boolean
+                          description: Whether each supplier's submission must be reviewed and approved by a buyer before the supplier is granted access to event details.
+                        blocks_access:
+                          type: boolean
+                          description: Whether a supplier's submission must be approved by a buyer before the supplier can access other documents uploaded for this event.
+                        consent_required:
+                          type: boolean
+                          description: Whether suppliers must consent to this document before they can access other documents uploaded for this event.
+                      additionalProperties: false
+                additionalProperties: false
+              example:
+                documents:
+                - id: 1
+                  external_id: ext-123
+                  name: Supplier Agreement
+                  description: Please review and sign the attached agreement.
+                  filename: supplier_agreement.pdf
+                  will_accept_submissions: true
+                  submission_required: true
+                  approval_required: true
+                  blocks_access: true
+                  consent_required: false
+                - id: 2
+                  external_id: null
+                  name: NDA
+                  description: null
+                  filename: null
+                  will_accept_submissions: false
+                  submission_required: false
+                  approval_required: false
+                  blocks_access: false
+                  consent_required: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: create document
+      tags:
+      - event documents
+      parameters:
+      - name: event_id
+        in: path
+        description: The ID of the event
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - document
+              properties:
+                document:
+                  type: object
+                  required:
+                  - name
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the document
+                    external_id:
+                      type: string
+                      description: An optional external identifier for the document, unique within the event
+                    description:
+                      type: string
+                      description: An optional description of the document
+                    will_accept_submissions:
+                      type: boolean
+                      description: Whether suppliers are requested to submit a document. Set to false when uploading a document for supplier review only. Cannot be true when `consent_required` is true — a document either collects a supplier file submission or requires consent acknowledgement, not both. Required to be true when `submission_required` is true.
+                    submission_required:
+                      type: boolean
+                      description: Whether suppliers must submit a document in order to participate in this event. Requires `will_accept_submissions` to be true — there must be a mechanism for the supplier to fulfill the requirement. Required to be true when `approval_required` is true.
+                    approval_required:
+                      type: boolean
+                      description: Whether each supplier's submission must be reviewed and approved by a buyer before the supplier is granted access to event details. Requires `submission_required` to be true — there must be a submission for the buyer to approve.
+                    blocks_access:
+                      type: boolean
+                      description: Whether a supplier must complete this document's requirement before they can access other documents uploaded for this event. Requires at least one of `consent_required` or `approval_required` to be true — the supplier must have a mechanism to unblock themselves.
+                    consent_required:
+                      type: boolean
+                      description: Whether suppliers must consent to this document before they can access other documents uploaded for this event. Cannot be true when `will_accept_submissions` is true — consent and file submission are mutually exclusive flows.
+                    file:
+                      type: object
+                      description: 'Optional file metadata for direct upload to S3. When provided, all sub-fields are required. On success, the response includes a presigned `upload_url` to PUT the file directly to S3.
+
+                        '
+                      required:
+                      - filename
+                      - content_type
+                      - byte_size
+                      - checksum
+                      properties:
+                        filename:
+                          type: string
+                          description: Filename to assign to the uploaded file, including its extension.
+                          example: supplier_agreement.pdf
+                        content_type:
+                          type: string
+                          description: MIME type. Executable content types (e.g. application/x-msdownload) are not permitted.
+                          example: application/pdf
+                        byte_size:
+                          type: integer
+                          description: File size in bytes. Maximum 5 GiB (5,368,709,120 bytes).
+                          example: 204800
+                        checksum:
+                          type: string
+                          description: "Base64-encoded MD5 digest of the raw file contents. Used by S3 to\nverify data integrity on upload.\n\n**Ruby:**\n```ruby\nrequire 'digest'\nrequire 'base64'\ndigest = Digest::MD5.digest(File.binread('your_file.pdf'))\nBase64.strict_encode64(digest)\n```\n\n**Shell (openssl):**\n```bash\nopenssl dgst -md5 -binary your_file.pdf | base64\n```\n\n**Python:**\n```python\nimport hashlib, base64\ndigest = hashlib.md5(open('your_file.pdf', 'rb').read()).digest()\nbase64.b64encode(digest).decode()\n```\n\n**TypeScript (Node.js):**\n```typescript\nimport { createHash } from 'crypto';\nimport { readFileSync } from 'fs';\n\nconst checksum = createHash('md5')\n  .update(readFileSync('your_file.pdf'))\n  .digest('base64');\n```\n"
+                          example: rL0Y20zC+Fzt72VPzMSk2A==
+                      additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            examples:
+              without_file:
+                summary: Document without a file attachment
+                value:
+                  document:
+                    name: Supplier Agreement
+                    description: Please review and sign the attached agreement.
+                    will_accept_submissions: true
+                    submission_required: true
+                    approval_required: true
+                    blocks_access: true
+                    consent_required: false
+              with_file:
+                summary: Document with a file for direct upload
+                value:
+                  document:
+                    name: Supplier Agreement
+                    description: Please review and sign the attached agreement.
+                    will_accept_submissions: true
+                    submission_required: true
+                    approval_required: true
+                    blocks_access: true
+                    consent_required: false
+                    file:
+                      filename: supplier_agreement.pdf
+                      content_type: application/pdf
+                      byte_size: 204800
+                      checksum: rL0Y20zC+Fzt72VPzMSk2A==
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - description
+                    - filename
+                    - approval_required
+                    - blocks_access
+                    - consent_required
+                    - submission_required
+                    - will_accept_submissions
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the document
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: An optional external identifier for the document, unique within the event
+                      name:
+                        type: string
+                        description: The name of the document
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: An optional description of the document
+                      filename:
+                        type:
+                        - string
+                        - 'null'
+                        description: The filename of the attached file, if one has been uploaded
+                      will_accept_submissions:
+                        type:
+                        - boolean
+                        - 'null'
+                        description: Whether suppliers are requested to submit a document. Set to false when uploading a document for supplier review only.
+                      submission_required:
+                        type: boolean
+                        description: Whether suppliers must submit a document in order to participate in this event.
+                      approval_required:
+                        type: boolean
+                        description: Whether each supplier's submission must be reviewed and approved by a buyer before the supplier is granted access to event details.
+                      blocks_access:
+                        type: boolean
+                        description: Whether a supplier's submission must be approved by a buyer before the supplier can access other documents uploaded for this event.
+                      consent_required:
+                        type: boolean
+                        description: Whether suppliers must consent to this document before they can access other documents uploaded for this event.
+                      upload_url:
+                        type: string
+                        description: Presigned S3 PUT URL. Only present when `file` metadata was supplied in the request. Upload the file with a PUT request to this URL; if the document already has an attached file, the uploaded file replaces it. The signed URL enforces that the uploaded Content-MD5 matches the checksum provided in the request.
+                        example: https://your-bucket.s3.amazonaws.com/uploads/...
+                    additionalProperties: false
+                additionalProperties: false
+              examples:
+                without_file:
+                  summary: Document created without a file attachment
+                  value:
+                    document:
+                      id: 1
+                      external_id: ext-123
+                      name: Supplier Agreement
+                      description: Please review and sign the attached agreement.
+                      filename: null
+                      will_accept_submissions: true
+                      submission_required: true
+                      approval_required: true
+                      blocks_access: true
+                      consent_required: false
+                with_file:
+                  summary: Document created with a file — includes presigned upload URL
+                  value:
+                    document:
+                      id: 1
+                      external_id: ext-123
+                      name: Supplier Agreement
+                      description: Please review and sign the attached agreement.
+                      filename: supplier_agreement.pdf
+                      will_accept_submissions: true
+                      submission_required: true
+                      approval_required: true
+                      blocks_access: true
+                      consent_required: false
+                      upload_url: https://your-bucket.s3.amazonaws.com/uploads/abc123?X-Amz-Signature=...
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/events/{event_id}/documents/{id}:
+    get:
+      summary: show document
+      tags:
+      - event documents
+      parameters:
+      - name: event_id
+        in: path
+        description: The ID of the event
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - description
+                    - filename
+                    - approval_required
+                    - blocks_access
+                    - consent_required
+                    - submission_required
+                    - will_accept_submissions
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the document
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: An optional external identifier for the document, unique within the event
+                      name:
+                        type: string
+                        description: The name of the document
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: An optional description of the document
+                      filename:
+                        type:
+                        - string
+                        - 'null'
+                        description: The filename of the attached file, if one has been uploaded
+                      will_accept_submissions:
+                        type:
+                        - boolean
+                        - 'null'
+                        description: Whether suppliers are requested to submit a document. Set to false when uploading a document for supplier review only.
+                      submission_required:
+                        type: boolean
+                        description: Whether suppliers must submit a document in order to participate in this event.
+                      approval_required:
+                        type: boolean
+                        description: Whether each supplier's submission must be reviewed and approved by a buyer before the supplier is granted access to event details.
+                      blocks_access:
+                        type: boolean
+                        description: Whether a supplier's submission must be approved by a buyer before the supplier can access other documents uploaded for this event.
+                      consent_required:
+                        type: boolean
+                        description: Whether suppliers must consent to this document before they can access other documents uploaded for this event.
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                document:
+                  id: 1
+                  external_id: ext-123
+                  name: Supplier Agreement
+                  description: Please review and sign the attached agreement.
+                  filename: supplier_agreement.pdf
+                  will_accept_submissions: true
+                  submission_required: true
+                  approval_required: true
+                  blocks_access: true
+                  consent_required: false
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    patch:
+      summary: update document
+      tags:
+      - event documents
+      parameters:
+      - name: event_id
+        in: path
+        description: The ID of the event
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Any combination of configuration fields and `file` metadata may be provided. When `file` is provided, the response includes a presigned `upload_url`; once the file is uploaded it replaces the currently attached file. Replacing the file does not reset supplier consents or submissions already collected for this document.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - document
+              properties:
+                document:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the document
+                    external_id:
+                      type:
+                      - string
+                      - 'null'
+                      description: An optional external identifier for the document, unique within the event. Pass null to clear a previously set value.
+                    description:
+                      type: string
+                      description: An optional description of the document
+                    will_accept_submissions:
+                      type: boolean
+                      description: Whether suppliers are requested to submit a document. Set to false when uploading a document for supplier review only. Cannot be true when `consent_required` is true — a document either collects a supplier file submission or requires consent acknowledgement, not both. Required to be true when `submission_required` is true.
+                    submission_required:
+                      type: boolean
+                      description: Whether suppliers must submit a document in order to participate in this event. Requires `will_accept_submissions` to be true — there must be a mechanism for the supplier to fulfill the requirement. Required to be true when `approval_required` is true.
+                    approval_required:
+                      type: boolean
+                      description: Whether each supplier's submission must be reviewed and approved by a buyer before the supplier is granted access to event details. Requires `submission_required` to be true — there must be a submission for the buyer to approve.
+                    blocks_access:
+                      type: boolean
+                      description: Whether a supplier must complete this document's requirement before they can access other documents uploaded for this event. Requires at least one of `consent_required` or `approval_required` to be true — the supplier must have a mechanism to unblock themselves.
+                    consent_required:
+                      type: boolean
+                      description: Whether suppliers must consent to this document before they can access other documents uploaded for this event. Cannot be true when `will_accept_submissions` is true — consent and file submission are mutually exclusive flows.
+                    file:
+                      type: object
+                      description: 'Optional file metadata for direct upload to S3. When provided, all sub-fields are required. On success, the response includes a presigned `upload_url` to PUT the file directly to S3.
+
+                        '
+                      required:
+                      - filename
+                      - content_type
+                      - byte_size
+                      - checksum
+                      properties:
+                        filename:
+                          type: string
+                          description: Filename to assign to the uploaded file, including its extension.
+                          example: supplier_agreement.pdf
+                        content_type:
+                          type: string
+                          description: MIME type. Executable content types (e.g. application/x-msdownload) are not permitted.
+                          example: application/pdf
+                        byte_size:
+                          type: integer
+                          description: File size in bytes. Maximum 5 GiB (5,368,709,120 bytes).
+                          example: 204800
+                        checksum:
+                          type: string
+                          description: "Base64-encoded MD5 digest of the raw file contents. Used by S3 to\nverify data integrity on upload.\n\n**Ruby:**\n```ruby\nrequire 'digest'\nrequire 'base64'\ndigest = Digest::MD5.digest(File.binread('your_file.pdf'))\nBase64.strict_encode64(digest)\n```\n\n**Shell (openssl):**\n```bash\nopenssl dgst -md5 -binary your_file.pdf | base64\n```\n\n**Python:**\n```python\nimport hashlib, base64\ndigest = hashlib.md5(open('your_file.pdf', 'rb').read()).digest()\nbase64.b64encode(digest).decode()\n```\n\n**TypeScript (Node.js):**\n```typescript\nimport { createHash } from 'crypto';\nimport { readFileSync } from 'fs';\n\nconst checksum = createHash('md5')\n  .update(readFileSync('your_file.pdf'))\n  .digest('base64');\n```\n"
+                          example: rL0Y20zC+Fzt72VPzMSk2A==
+                      additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            example:
+              document:
+                name: Updated Supplier Agreement
+                approval_required: false
+                file:
+                  filename: updated_supplier_agreement.pdf
+                  content_type: application/pdf
+                  byte_size: 204800
+                  checksum: rL0Y20zC+Fzt72VPzMSk2A==
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document:
+                    type: object
+                    required:
+                    - id
+                    - name
+                    - description
+                    - filename
+                    - approval_required
+                    - blocks_access
+                    - consent_required
+                    - submission_required
+                    - will_accept_submissions
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the document
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: An optional external identifier for the document, unique within the event
+                      name:
+                        type: string
+                        description: The name of the document
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: An optional description of the document
+                      filename:
+                        type:
+                        - string
+                        - 'null'
+                        description: The filename of the attached file, if one has been uploaded
+                      will_accept_submissions:
+                        type:
+                        - boolean
+                        - 'null'
+                        description: Whether suppliers are requested to submit a document. Set to false when uploading a document for supplier review only.
+                      submission_required:
+                        type: boolean
+                        description: Whether suppliers must submit a document in order to participate in this event.
+                      approval_required:
+                        type: boolean
+                        description: Whether each supplier's submission must be reviewed and approved by a buyer before the supplier is granted access to event details.
+                      blocks_access:
+                        type: boolean
+                        description: Whether a supplier's submission must be approved by a buyer before the supplier can access other documents uploaded for this event.
+                      consent_required:
+                        type: boolean
+                        description: Whether suppliers must consent to this document before they can access other documents uploaded for this event.
+                      upload_url:
+                        type: string
+                        description: Presigned S3 PUT URL. Only present when `file` metadata was supplied in the request. Upload the file with a PUT request to this URL; if the document already has an attached file, the uploaded file replaces it. The signed URL enforces that the uploaded Content-MD5 matches the checksum provided in the request.
+                        example: https://your-bucket.s3.amazonaws.com/uploads/...
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                document:
+                  id: 1
+                  external_id: ext-123
+                  name: Updated Supplier Agreement
+                  description: Please review and sign the attached agreement.
+                  filename: supplier_agreement.pdf
+                  will_accept_submissions: true
+                  submission_required: true
+                  approval_required: false
+                  blocks_access: true
+                  consent_required: false
+                  upload_url: https://your-bucket.s3.amazonaws.com/uploads/...
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    delete:
+      summary: delete document
+      tags:
+      - event documents
+      parameters:
+      - name: event_id
+        in: path
+        description: The ID of the event
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The document was deleted successfully.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

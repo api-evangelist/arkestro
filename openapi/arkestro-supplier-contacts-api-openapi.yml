@@ -1,0 +1,1344 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 supplier contacts API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: supplier contacts
+  description: Contacts represent an individual at a supplier organization
+paths:
+  /api/v2/supplier_contacts:
+    get:
+      summary: list contacts
+      description: List all of the supplier contacts under an organization
+      tags:
+      - supplier contacts
+      parameters:
+      - name: external_id
+        in: query
+        description: 'One or more `external_id` values to filter by. To pass multiple values, use repeated query params: `?external_id[]=EXT-001&external_id[]=EXT-002`.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: sort_by
+        in: query
+        description: The field to sort results by. Defaults to `created_at`.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - created_at
+          - updated_at
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      - name: limit
+        in: query
+        description: The maximum number of results to return. Defaults to `20`, max `200`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 20
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  supplier_contacts:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - first_name
+                      - last_name
+                      - phone
+                      - email
+                      - title
+                      - status
+                      - external_id
+                      - supplier_organization
+                      properties:
+                        id:
+                          type: integer
+                          description: The Arkestro ID of the contact
+                        first_name:
+                          type:
+                          - string
+                          - 'null'
+                          description: First Name of the contact
+                        last_name:
+                          type:
+                          - string
+                          - 'null'
+                          description: Last Name of the contact
+                        phone:
+                          type:
+                          - string
+                          - 'null'
+                          description: Phone Number of the contact
+                        email:
+                          type:
+                          - string
+                          - 'null'
+                          description: Email Address of the contact
+                        title:
+                          type:
+                          - string
+                          - 'null'
+                          description: Professional Title of contact
+                        status:
+                          type:
+                          - string
+                          - 'null'
+                          description: Entity Status of contact
+                          enum:
+                          - pending
+                          - approved
+                          - rejected
+                          - preferred
+                          - exists
+                        external_id:
+                          type:
+                          - string
+                          - 'null'
+                          description: ID of the contact in an external system
+                        supplier_organization:
+                          type:
+                          - object
+                          - 'null'
+                          required:
+                          - id
+                          - name
+                          - external_id
+                          - status
+                          - firm
+                          - address
+                          properties:
+                            id:
+                              type: integer
+                              description: The Arkestro ID of the supplier organization
+                            name:
+                              type: string
+                              description: The name of the supplier organization
+                            external_id:
+                              type:
+                              - string
+                              - 'null'
+                              description: The External ID of the supplier organization
+                            status:
+                              type: string
+                              description: Status of the supplier organization
+                              enum:
+                              - pending
+                              - approved
+                              - rejected
+                              - preferred
+                              - exists
+                            firm:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - domain
+                              properties:
+                                domain:
+                                  type: string
+                                  description: Domain of the firm
+                            address:
+                              type:
+                              - object
+                              - 'null'
+                              description: Physical address of the supplier organization
+                              required:
+                              - line_one
+                              - line_two
+                              - city
+                              - state
+                              - country
+                              - postal_code
+                              properties:
+                                line_one:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: First line of the address
+                                line_two:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: Second line of the address
+                                city:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: City
+                                state:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: State or province
+                                country:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: Country
+                                postal_code:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: Postal or ZIP code
+                          additionalProperties: false
+                      additionalProperties: false
+                  pagination:
+                    type: object
+                    properties:
+                      limit:
+                        type: integer
+                        description: The number of records requested.
+                      offset:
+                        type: integer
+                        description: The number of records skipped after filtering and sorting.
+                      total:
+                        type: integer
+                        description: The total number of records available after filtering.
+                      returned_count:
+                        type: integer
+                        description: The number of records returned in the current response.
+                additionalProperties: false
+              examples:
+                basic:
+                  value:
+                    supplier_contacts:
+                    - id: 123
+                      first_name: Sherry
+                      last_name: Sedgwick
+                      phone: 303-555-5678
+                      email: sherry@example.com
+                      title: Director of Procurement
+                      status: pending
+                      external_id: '123456789'
+                      supplier_organization:
+                        id: 4821
+                        name: Sedgwick's Supplies
+                        external_id: '987654321'
+                        status: approved
+                        firm:
+                          domain: sedgwick-supplies.com
+                        address:
+                          line_one: 1234 1st St.
+                          line_two: Suite 201
+                          city: Denver
+                          state: CO
+                          country: USA
+                          postal_code: '80123'
+                    pagination:
+                      limit: 1
+                      offset: 10
+                      total: 122
+                      returned_count: 1
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: create supplier contact
+      description: Create a new supplier contact
+      tags:
+      - supplier contacts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - supplier_contact
+              properties:
+                supplier_contact:
+                  type: object
+                  required:
+                  - email
+                  - supplier_organization
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      description: Email address of the contact
+                    first_name:
+                      type: string
+                      description: First name of the contact
+                    last_name:
+                      type: string
+                      description: Last name of the contact
+                    phone:
+                      type: string
+                      description: Phone number of the contact
+                    title:
+                      type: string
+                      description: Job title of the contact
+                    status:
+                      type: string
+                      description: Status of the contact
+                      enum:
+                      - pending
+                      - approved
+                      - rejected
+                      - preferred
+                      - exists
+                    external_id:
+                      type: string
+                      description: External identifier for the contact
+                    supplier_organization:
+                      type: object
+                      description: 'By ID: Assign the contact to an existing supplier organization by its Arkestro ID.
+
+
+                        By Name (Deprecated): Will upsert a supplier organization with the provided fields and assign the contact to it.
+
+                        '
+                      oneOf:
+                      - title: By ID
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: integer
+                            description: Arkestro ID of an existing supplier organization
+                        additionalProperties: false
+                      - title: By Name
+                        deprecated: true
+                        required:
+                        - name
+                        properties:
+                          name:
+                            type: string
+                            description: Name of the supplier organization
+                          external_id:
+                            type: string
+                            description: External identifier for the supplier organization
+                          firm:
+                            type: object
+                            properties:
+                              url:
+                                type: string
+                                description: URL of the firm associated with the supplier organization
+                          address:
+                            type: object
+                            description: Physical address of the supplier organization
+                            properties:
+                              line_one:
+                                type: string
+                                description: First line of the address
+                              line_two:
+                                type: string
+                                description: Second line of the address
+                              city:
+                                type: string
+                                description: City of the address
+                              state:
+                                type: string
+                                description: State of the address
+                              country:
+                                type: string
+                                description: Country of the address
+                              postal_code:
+                                type: string
+                                description: Postal code of the address
+                            additionalProperties: false
+                        additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            examples:
+              basic:
+                value:
+                  supplier_contact:
+                    first_name: Sherry
+                    last_name: Sedgwick
+                    phone: 303-555-5678
+                    email: sherry@example.com
+                    title: Director of Procurement
+                    status: pending
+                    external_id: '123456789'
+                    supplier_organization:
+                      id: 4821
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  supplier_contact:
+                    type: object
+                    required:
+                    - id
+                    - first_name
+                    - last_name
+                    - phone
+                    - email
+                    - title
+                    - status
+                    - external_id
+                    - supplier_organization
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the contact
+                      first_name:
+                        type:
+                        - string
+                        - 'null'
+                        description: First Name of the contact
+                      last_name:
+                        type:
+                        - string
+                        - 'null'
+                        description: Last Name of the contact
+                      phone:
+                        type:
+                        - string
+                        - 'null'
+                        description: Phone Number of the contact
+                      email:
+                        type:
+                        - string
+                        - 'null'
+                        description: Email Address of the contact
+                      title:
+                        type:
+                        - string
+                        - 'null'
+                        description: Professional Title of contact
+                      status:
+                        type:
+                        - string
+                        - 'null'
+                        description: Entity Status of contact
+                        enum:
+                        - pending
+                        - approved
+                        - rejected
+                        - preferred
+                        - exists
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: ID of the contact in an external system
+                      supplier_organization:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - name
+                        - external_id
+                        - status
+                        - firm
+                        - address
+                        properties:
+                          id:
+                            type: integer
+                            description: The Arkestro ID of the supplier organization
+                          name:
+                            type: string
+                            description: The name of the supplier organization
+                          external_id:
+                            type:
+                            - string
+                            - 'null'
+                            description: The External ID of the supplier organization
+                          status:
+                            type: string
+                            description: Status of the supplier organization
+                            enum:
+                            - pending
+                            - approved
+                            - rejected
+                            - preferred
+                            - exists
+                          firm:
+                            type:
+                            - object
+                            - 'null'
+                            required:
+                            - domain
+                            properties:
+                              domain:
+                                type: string
+                                description: Domain of the firm
+                          address:
+                            type:
+                            - object
+                            - 'null'
+                            description: Physical address of the supplier organization
+                            required:
+                            - line_one
+                            - line_two
+                            - city
+                            - state
+                            - country
+                            - postal_code
+                            properties:
+                              line_one:
+                                type:
+                                - string
+                                - 'null'
+                                description: First line of the address
+                              line_two:
+                                type:
+                                - string
+                                - 'null'
+                                description: Second line of the address
+                              city:
+                                type:
+                                - string
+                                - 'null'
+                                description: City
+                              state:
+                                type:
+                                - string
+                                - 'null'
+                                description: State or province
+                              country:
+                                type:
+                                - string
+                                - 'null'
+                                description: Country
+                              postal_code:
+                                type:
+                                - string
+                                - 'null'
+                                description: Postal or ZIP code
+                        additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+              examples:
+                basic:
+                  value:
+                    supplier_contact:
+                      id: 123
+                      first_name: Sherry
+                      last_name: Sedgwick
+                      phone: 303-555-5678
+                      email: sherry@example.com
+                      title: Director of Procurement
+                      status: pending
+                      external_id: '123456789'
+                      supplier_organization:
+                        id: 4821
+                        name: Sedgwick's Supplies
+                        external_id: '987654321'
+                        status: approved
+                        firm:
+                          domain: sedgwick-supplies.com
+                        address:
+                          line_one: 1234 1st St.
+                          line_two: Suite 201
+                          city: Denver
+                          state: CO
+                          country: USA
+                          postal_code: '80123'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/supplier_contacts/{id}:
+    get:
+      summary: show contact
+      description: Get a supplier contact by id
+      tags:
+      - supplier contacts
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  supplier_contact:
+                    type: object
+                    required:
+                    - id
+                    - first_name
+                    - last_name
+                    - phone
+                    - email
+                    - title
+                    - status
+                    - external_id
+                    - supplier_organization
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the contact
+                      first_name:
+                        type:
+                        - string
+                        - 'null'
+                        description: First Name of the contact
+                      last_name:
+                        type:
+                        - string
+                        - 'null'
+                        description: Last Name of the contact
+                      phone:
+                        type:
+                        - string
+                        - 'null'
+                        description: Phone Number of the contact
+                      email:
+                        type:
+                        - string
+                        - 'null'
+                        description: Email Address of the contact
+                      title:
+                        type:
+                        - string
+                        - 'null'
+                        description: Professional Title of contact
+                      status:
+                        type:
+                        - string
+                        - 'null'
+                        description: Entity Status of contact
+                        enum:
+                        - pending
+                        - approved
+                        - rejected
+                        - preferred
+                        - exists
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: ID of the contact in an external system
+                      supplier_organization:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - name
+                        - external_id
+                        - status
+                        - firm
+                        - address
+                        properties:
+                          id:
+                            type: integer
+                            description: The Arkestro ID of the supplier organization
+                          name:
+                            type: string
+                            description: The name of the supplier organization
+                          external_id:
+                            type:
+                            - string
+                            - 'null'
+                            description: The External ID of the supplier organization
+                          status:
+                            type: string
+                            description: Status of the supplier organization
+                            enum:
+                            - pending
+                            - approved
+                            - rejected
+                            - preferred
+                            - exists
+                          firm:
+                            type:
+                            - object
+                            - 'null'
+                            required:
+                            - domain
+                            properties:
+                              domain:
+                                type: string
+                                description: Domain of the firm
+                          address:
+                            type:
+                            - object
+                            - 'null'
+                            description: Physical address of the supplier organization
+                            required:
+                            - line_one
+                            - line_two
+                            - city
+                            - state
+                            - country
+                            - postal_code
+                            properties:
+                              line_one:
+                                type:
+                                - string
+                                - 'null'
+                                description: First line of the address
+                              line_two:
+                                type:
+                                - string
+                                - 'null'
+                                description: Second line of the address
+                              city:
+                                type:
+                                - string
+                                - 'null'
+                                description: City
+                              state:
+                                type:
+                                - string
+                                - 'null'
+                                description: State or province
+                              country:
+                                type:
+                                - string
+                                - 'null'
+                                description: Country
+                              postal_code:
+                                type:
+                                - string
+                                - 'null'
+                                description: Postal or ZIP code
+                        additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+              examples:
+                basic:
+                  value:
+                    supplier_contact:
+                      id: 123
+                      first_name: Sherry
+                      last_name: Sedgwick
+                      phone: 303-555-5678
+                      email: sherry@example.com
+                      title: Director of Procurement
+                      status: pending
+                      external_id: '123456789'
+                      supplier_organization:
+                        id: 4821
+                        name: Sedgwick's Supplies
+                        external_id: '987654321'
+                        status: approved
+                        firm:
+                          domain: sedgwick-supplies.com
+                        address:
+                          line_one: 1234 1st St.
+                          line_two: Suite 201
+                          city: Denver
+                          state: CO
+                          country: USA
+                          postal_code: '80123'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    patch:
+      summary: update supplier contact
+      description: Update a supplier contact by id
+      tags:
+      - supplier contacts
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - supplier_contact
+              properties:
+                supplier_contact:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                      description: First name of the contact
+                    last_name:
+                      type: string
+                      description: Last name of the contact
+                    phone:
+                      type: string
+                      description: Phone number of the contact
+                    title:
+                      type: string
+                      description: Job title of the contact
+                    external_id:
+                      type: string
+                      description: External identifier for the contact
+                    supplier_organization:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: Arkestro ID of the supplier organization to assign the contact to
+                      additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            examples:
+              basic:
+                value:
+                  supplier_contact:
+                    first_name: John
+                    last_name: Doe
+                    phone: 555-777-9999
+                    title: Director of Operations
+                    external_id: '345'
+                    supplier_organization:
+                      id: 4821
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  supplier_contact:
+                    type: object
+                    required:
+                    - id
+                    - first_name
+                    - last_name
+                    - phone
+                    - email
+                    - title
+                    - status
+                    - external_id
+                    - supplier_organization
+                    properties:
+                      id:
+                        type: integer
+                        description: The Arkestro ID of the contact
+                      first_name:
+                        type:
+                        - string
+                        - 'null'
+                        description: First Name of the contact
+                      last_name:
+                        type:
+                        - string
+                        - 'null'
+                        description: Last Name of the contact
+                      phone:
+                        type:
+                        - string
+                        - 'null'
+                        description: Phone Number of the contact
+                      email:
+                        type:
+                        - string
+                        - 'null'
+                        description: Email Address of the contact
+                      title:
+                        type:
+                        - string
+                        - 'null'
+                        description: Professional Title of contact
+                      status:
+                        type:
+                        - string
+                        - 'null'
+                        description: Entity Status of contact
+                        enum:
+                        - pending
+                        - approved
+                        - rejected
+                        - preferred
+                        - exists
+                      external_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: ID of the contact in an external system
+                      supplier_organization:
+                        type:
+                        - object
+                        - 'null'
+                        required:
+                        - id
+                        - name
+                        - external_id
+                        - status
+                        - firm
+                        - address
+                        properties:
+                          id:
+                            type: integer
+                            description: The Arkestro ID of the supplier organization
+                          name:
+                            type: string
+                            description: The name of the supplier organization
+                          external_id:
+                            type:
+                            - string
+                            - 'null'
+                            description: The External ID of the supplier organization
+                          status:
+                            type: string
+                            description: Status of the supplier organization
+                            enum:
+                            - pending
+                            - approved
+                            - rejected
+                            - preferred
+                            - exists
+                          firm:
+                            type:
+                            - object
+                            - 'null'
+                            required:
+                            - domain
+                            properties:
+                              domain:
+                                type: string
+                                description: Domain of the firm
+                          address:
+                            type:
+                            - object
+                            - 'null'
+                            description: Physical address of the supplier organization
+                            required:
+                            - line_one
+                            - line_two
+                            - city
+                            - state
+                            - country
+                            - postal_code
+                            properties:
+                              line_one:
+                                type:
+                                - string
+                                - 'null'
+                                description: First line of the address
+                              line_two:
+                                type:
+                                - string
+                                - 'null'
+                                description: Second line of the address
+                              city:
+                                type:
+                                - string
+                                - 'null'
+                                description: City
+                              state:
+                                type:
+                                - string
+                                - 'null'
+                                description: State or province
+                              country:
+                                type:
+                                - string
+                                - 'null'
+                                description: Country
+                              postal_code:
+                                type:
+                                - string
+                                - 'null'
+                                description: Postal or ZIP code
+                        additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+              examples:
+                basic:
+                  value:
+                    supplier_contact:
+                      id: 123
+                      first_name: John
+                      last_name: Doe
+                      phone: 555-777-9999
+                      email: contact@acmecorp.com
+                      title: Director of Operations
+                      status: pending
+                      external_id: '345'
+                      supplier_organization:
+                        id: 4821
+                        name: Acme Corporation
+                        external_id: '987654321'
+                        status: approved
+                        firm:
+                          domain: acmecorp.com
+                        address:
+                          line_one: 123 Main Street
+                          line_two: Suite 400
+                          city: Metropolis
+                          state: NY
+                          country: USA
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    delete:
+      summary: delete contact
+      description: Delete a supplier contact by id
+      tags:
+      - supplier contacts
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The resource was deleted successfully.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

@@ -1,0 +1,949 @@
+{
+  "item": [
+    {
+      "id": "fd0fa098-0c7f-40aa-a389-8635b1ab9ae2",
+      "name": "quote submissions",
+      "description": {
+        "content": "Quote submissions from suppliers on events",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ddf98a49-c096-4b4a-be4f-fc6784542a0a",
+          "name": "list quote submissions",
+          "request": {
+            "name": "list quote submissions",
+            "description": {
+              "content": "Returns a paginated list of quote submissions. Submissions from suppliers that have been excluded from an event are not returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "quote_submissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The maximum number of results to return. Defaults to `20`, max `200`."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "desc",
+                  "description": "Sort order for `submitted_at` (`asc` for ascending, `desc` for descending). Defaults to `desc`."
+                },
+                {
+                  "disabled": false,
+                  "key": "event_id",
+                  "value": "<integer>",
+                  "description": "Filter by one or more event IDs (e.g. `?event_id=123` or `?event_id[]=123&event_id[]=456`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "event_id",
+                  "value": "<integer>",
+                  "description": "Filter by one or more event IDs (e.g. `?event_id=123` or `?event_id[]=123&event_id[]=456`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "active",
+                  "description": "Filter by submission status. `active` returns the most recent submission per supplier (default). `inactive` returns previous-round submissions that have been superseded. Pass both to include all (e.g. `?status=active` or `?status[]=active&status[]=inactive`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "archived",
+                  "value": "false",
+                  "description": "Filter by archived state. Archived submissions are ones that have been removed from consideration in the event by the buyer. Pass both to include all (e.g. `?archived[]=true&archived[]=false`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "submitted_at_gte",
+                  "value": "<dateTime>",
+                  "description": "Filter submissions submitted on or after this date. Accepts ISO 8601 format (`YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "submitted_at_lte",
+                  "value": "<dateTime>",
+                  "description": "Filter submissions submitted on or before this date. Accepts ISO 8601 format (`YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b55666b1-ea80-4500-8d52-f9c8ac1cc9ce",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "false"
+                    },
+                    {
+                      "key": "submitted_at_gte",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "submitted_at_lte",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quote_submissions\": [\n    {\n      \"id\": 5860,\n      \"status\": \"active\",\n      \"archived\": false,\n      \"submitted_at\": \"2002-09-25T03:33:21.821Z\",\n      \"round_number\": 9323,\n      \"total\": \"150000.00\",\n      \"supplier_contact\": {\n        \"id\": 3950,\n        \"external_id\": null,\n        \"first_name\": null,\n        \"last_name\": null,\n        \"email\": null,\n        \"supplier_organization\": {\n          \"id\": 8121,\n          \"external_id\": null,\n          \"name\": \"string\"\n        }\n      },\n      \"event\": {\n        \"id\": 9009,\n        \"external_id\": \"string\",\n        \"name\": \"string\",\n        \"status\": \"open_for_bidding\"\n      }\n    },\n    {\n      \"id\": 7528,\n      \"status\": \"active\",\n      \"archived\": false,\n      \"submitted_at\": \"2021-04-14T17:51:18.137Z\",\n      \"round_number\": 9184,\n      \"total\": \"150000.00\",\n      \"supplier_contact\": {\n        \"id\": 4479,\n        \"external_id\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"supplier_organization\": {\n          \"id\": 4121,\n          \"external_id\": \"string\",\n          \"name\": \"string\"\n        }\n      },\n      \"event\": {\n        \"id\": 3749,\n        \"external_id\": null,\n        \"name\": \"string\",\n        \"status\": \"open_for_bidding\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"limit\": 2757,\n    \"offset\": 4656,\n    \"total\": 3239,\n    \"returned_count\": 9710\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d531bf5-bf7e-4f4f-ba6e-5cbd70295a09",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "false"
+                    },
+                    {
+                      "key": "submitted_at_gte",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "submitted_at_lte",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f85f3f8-92b9-4469-865d-17a5e0498329",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "false"
+                    },
+                    {
+                      "key": "submitted_at_gte",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "submitted_at_lte",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4cfe05d-45d7-4fe3-ae6d-72abe729a45b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "false"
+                    },
+                    {
+                      "key": "submitted_at_gte",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "submitted_at_lte",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f365e2d-2976-46e9-9865-035a5218ee6c",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "false"
+                    },
+                    {
+                      "key": "submitted_at_gte",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "submitted_at_lte",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dac98a9-f7e1-4295-81d7-1cc36b5c32c4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "event_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "archived",
+                      "value": "false"
+                    },
+                    {
+                      "key": "submitted_at_gte",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "submitted_at_lte",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b5bf379-0dbe-4ce0-ad4a-38febaa5d330",
+          "name": "show quote submission",
+          "request": {
+            "name": "show quote submission",
+            "description": {
+              "content": "Get a quote submission by id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "quote_submissions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b2926482-c773-4410-8558-39fbb46db7a3",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quote_submission\": {\n    \"id\": 5007,\n    \"status\": \"active\",\n    \"archived\": false,\n    \"submitted_at\": \"1986-09-08T06:16:00.013Z\",\n    \"round_number\": 5884,\n    \"total\": \"150000.00\",\n    \"quoting_currency\": \"USD\",\n    \"supplier_contact\": {\n      \"id\": 3073,\n      \"external_id\": \"string\",\n      \"first_name\": null,\n      \"last_name\": null,\n      \"email\": \"string\",\n      \"supplier_organization\": {\n        \"id\": 5176,\n        \"external_id\": null,\n        \"name\": \"string\"\n      }\n    },\n    \"event\": {\n      \"id\": 4281,\n      \"external_id\": null,\n      \"name\": \"string\",\n      \"status\": \"open_for_bidding\",\n      \"currency\": \"USD\"\n    },\n    \"quote_submission_lots\": [\n      {\n        \"id\": 6577,\n        \"lot\": {\n          \"id\": 7036,\n          \"name\": null\n        },\n        \"quote_submission_line_items\": [\n          {\n            \"id\": 2451,\n            \"price\": \"1.5\",\n            \"discount\": \"0.1\",\n            \"total\": \"150.0\",\n            \"no_quote\": false,\n            \"line_item\": {\n              \"id\": 1644,\n              \"name\": null,\n              \"quantity\": \"100.0\",\n              \"unit_of_measure\": \"EA\"\n            },\n            \"adder_custom_column_items\": [\n              {\n                \"adder_custom_column_header_id\": 1673,\n                \"display_text\": null,\n                \"value\": \"10.0\",\n                \"supplier_provided_value\": \"10.0\"\n              },\n              {\n                \"adder_custom_column_header_id\": 6969,\n                \"display_text\": null,\n                \"value\": \"10.0\",\n                \"supplier_provided_value\": \"10.0\"\n              }\n            ],\n            \"quoted_quantity\": \"8\"\n          },\n          {\n            \"id\": 6950,\n            \"price\": \"1.5\",\n            \"discount\": \"0.1\",\n            \"total\": \"150.0\",\n            \"no_quote\": false,\n            \"line_item\": {\n              \"id\": 6233,\n              \"name\": \"string\",\n              \"quantity\": \"100.0\",\n              \"unit_of_measure\": \"EA\"\n            },\n            \"adder_custom_column_items\": [\n              {\n                \"adder_custom_column_header_id\": 9643,\n                \"display_text\": null,\n                \"value\": \"10.0\",\n                \"supplier_provided_value\": \"10.0\"\n              },\n              {\n                \"adder_custom_column_header_id\": 9777,\n                \"display_text\": \"string\",\n                \"value\": \"10.0\",\n                \"supplier_provided_value\": \"10.0\"\n              }\n            ],\n            \"quoted_quantity\": \"8\"\n          }\n        ]\n      },\n      {\n        \"id\": 5670,\n        \"lot\": {\n          \"id\": 8827,\n          \"name\": \"string\"\n        },\n        \"quote_submission_line_items\": [\n          {\n            \"id\": 773,\n            \"price\": \"1.5\",\n            \"discount\": \"0.1\",\n            \"total\": \"150.0\",\n            \"no_quote\": false,\n            \"line_item\": {\n              \"id\": 9962,\n              \"name\": null,\n              \"quantity\": \"100.0\",\n              \"unit_of_measure\": \"EA\"\n            },\n            \"adder_custom_column_items\": [\n              {\n                \"adder_custom_column_header_id\": 1301,\n                \"display_text\": null,\n                \"value\": \"10.0\",\n                \"supplier_provided_value\": \"10.0\"\n              },\n              {\n                \"adder_custom_column_header_id\": 3361,\n                \"display_text\": \"string\",\n                \"value\": \"10.0\",\n                \"supplier_provided_value\": \"10.0\"\n              }\n            ],\n            \"quoted_quantity\": \"8\"\n          },\n          {\n            \"id\": 1372,\n            \"price\": \"1.5\",\n            \"discount\": \"0.1\",\n            \"total\": \"150.0\",\n            \"no_quote\": false,\n            \"line_item\": {\n              \"id\": 8397,\n              \"name\": null,\n              \"quantity\": \"100.0\",\n              \"unit_of_measure\": \"EA\"\n            },\n            \"adder_custom_column_items\": [\n              {\n                \"adder_custom_column_header_id\": 6960,\n                \"display_text\": \"string\",\n                \"value\": \"10.0\",\n                \"supplier_provided_value\": \"10.0\"\n              },\n              {\n                \"adder_custom_column_header_id\": 4134,\n                \"display_text\": \"string\",\n                \"value\": \"10.0\",\n                \"supplier_provided_value\": \"10.0\"\n              }\n            ],\n            \"quoted_quantity\": \"8\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "882b531d-fa33-4bb1-98f6-ac29ff17a219",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6429a7c5-578d-43bd-84b4-53f2c833ae16",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c40d708-ccd2-49dc-9fee-4adea8305e6c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "110fe8a5-9549-4c9d-8120-4a5774b8654f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "quote_submissions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.arkestro.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "15ab792e-9fe6-457f-bfd8-85fe2afcb8ba",
+    "name": "V2 quote submissions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.\nOur current API offering features endpoints that allow the creation and execution of an event.\n\nTo get started, please generate an API Token.\nTo generate an API Token your user must be an admin and you must request the feature be made available.\nOnce enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request\nheader as an X-Token.\n\nOnce you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:\ncurl --location --request GET 'https://api.arkestro.com/api/v2/events' --header 'Accept: application/json' --header 'X-Token: <YOUR API TOKEN>'",
+      "type": "text/plain"
+    }
+  }
+}

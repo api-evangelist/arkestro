@@ -1,0 +1,1453 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 corporate purchase orders API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: corporate purchase orders
+  description: Purchase Orders for an organization
+paths:
+  /api/v2/corporate/purchase_orders:
+    get:
+      summary: list purchase_orders
+      description: List all of the purchase orders under an organization
+      tags:
+      - corporate purchase orders
+      parameters:
+      - name: sort_by
+        in: query
+        description: The field to sort results by. Defaults to `created_at`.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - created_at
+          - updated_at
+      - name: sort_order
+        in: query
+        description: The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+      - name: limit
+        in: query
+        description: The maximum number of results to return. Defaults to `20`, max `200`.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 20
+      - name: offset
+        in: query
+        description: The number of results to skip before starting to collect the result set. Defaults to `0`.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  purchase_orders:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - external_id
+                      - status
+                      - purchased_on
+                      - spend_category
+                      - title
+                      - description
+                      - purchasing_org_id
+                      - external_division_id
+                      - order_items
+                      properties:
+                        id:
+                          type: integer
+                        external_id:
+                          type: string
+                          description: The external id of the Purchase Order
+                        status:
+                          type: string
+                          description: The status of the PO
+                          enum:
+                          - paid
+                          - unpaid
+                        purchased_on:
+                          type: string
+                          description: The date the purchase order was created
+                          format: date
+                        spend_category:
+                          type:
+                          - string
+                          - 'null'
+                          description: The category of the Purchase Order
+                        title:
+                          type:
+                          - string
+                          - 'null'
+                          description: The title of the Purchase Order
+                        description:
+                          type:
+                          - string
+                          - 'null'
+                          description: The description of the purchase order
+                        purchasing_org_id:
+                          type:
+                          - string
+                          - 'null'
+                          description: The group who budgets for the PO
+                        external_division_id:
+                          type:
+                          - string
+                          - 'null'
+                          description: The supplier organization ID
+                        order_items:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - id
+                            - description
+                            - price_per_unit
+                            - quantity_of_items
+                            - items_per_unit
+                            - currency
+                            - external_id
+                            - item
+                            - category
+                            properties:
+                              id:
+                                type: integer
+                              description:
+                                type:
+                                - string
+                                - 'null'
+                                description: The description of a line item
+                              price_per_unit:
+                                description: The price per unit of an item
+                                type:
+                                - string
+                                - 'null'
+                              quantity_of_items:
+                                description: The quantity of items being requested
+                                type:
+                                - string
+                                - 'null'
+                              items_per_unit:
+                                type:
+                                - integer
+                                - 'null'
+                                description: The number of items in a unit
+                              currency:
+                                type:
+                                - string
+                                - 'null'
+                                description: The currency of the request, using the standard 3 letter code
+                              external_id:
+                                description: Your ID for an item
+                                type:
+                                - string
+                                - 'null'
+                              item:
+                                type:
+                                - object
+                                - 'null'
+                                required:
+                                - id
+                                - sku
+                                - name
+                                - description
+                                properties:
+                                  id:
+                                    type: integer
+                                  sku:
+                                    type: string
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  description:
+                                    type:
+                                    - string
+                                    - 'null'
+                              category:
+                                type:
+                                - object
+                                - 'null'
+                                required:
+                                - id
+                                - code
+                                - name
+                                - description
+                                properties:
+                                  id:
+                                    type: integer
+                                  code:
+                                    type: string
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  description:
+                                    type:
+                                    - string
+                                    - 'null'
+                            additionalProperties: false
+                      additionalProperties: false
+                  pagination:
+                    type: object
+                    properties:
+                      limit:
+                        type: integer
+                        description: The number of records requested.
+                      offset:
+                        type: integer
+                        description: The number of records skipped after filtering and sorting.
+                      total:
+                        type: integer
+                        description: The total number of records available after filtering.
+                      returned_count:
+                        type: integer
+                        description: The number of records returned in the current response.
+                additionalProperties: false
+              example:
+                purchase_orders:
+                - id: 1
+                  status: paid
+                  purchased_on: '2022-01-20'
+                  spend_category: indirect
+                  external_id: '0171450331'
+                  title: The First Order
+                  description: First Order Description
+                  order_items:
+                  - id: 1
+                    description: Order Item Description 1
+                    price_per_unit: '32.5'
+                    quantity_of_items: '81.65'
+                    items_per_unit: 300
+                    currency: USD
+                    external_id: item_external_id-1
+                    category:
+                      id: 101
+                      code: electronic
+                      name: Electronics
+                      description: Electronic items and accessories
+                    item:
+                      id: 1001
+                      sku: wireless-mouse-1
+                      name: Wireless Mouse
+                      description: Ergonomic wireless mouse with USB receiver
+                - id: 2
+                  status: unpaid
+                  purchased_on: '2022-07-28'
+                  spend_category: indirect
+                  external_id: 0828330662
+                  title: The Second Order
+                  description: Second Order Description
+                  order_items:
+                  - id: 2
+                    description: Order Item Description 2
+                    price_per_unit: '75.25'
+                    quantity_of_items: '300'
+                    items_per_unit: 12
+                    currency: USD
+                    external_id: item_external_id-2
+                    category:
+                      id: 102
+                      code: category-code-2
+                      name: Office Supplies
+                      description: Supplies for daily office use
+                    item:
+                      id: 1002
+                      sku: sku-2
+                      name: Stapler
+                      description: Heavy-duty stapler with 200-sheet capacity
+                  - id: 3
+                    description: Order Item Description 3
+                    price_per_unit: '20.74'
+                    quantity_of_items: '20.5'
+                    items_per_unit: 1
+                    currency: USD
+                    external_id: item_external_id-3
+                    category:
+                      id: 103
+                      code: category-code-3
+                      name: Furniture
+                      description: Office furniture and fixtures
+                    item:
+                      id: 1003
+                      sku: sku-3
+                      name: Office Chair
+                      description: Ergonomic office chair with adjustable height
+                  pagination:
+                    limit: 20
+                    offset: 10
+                    total: 122
+                    returned_count: 20
+                pagination:
+                  limit: 2
+                  offset: 10
+                  total: 122
+                  returned_count: 2
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: create purchase_order
+      description: Create a new purchase order
+      tags:
+      - corporate purchase orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                purchase_order:
+                  type: object
+                  required:
+                  - po_id
+                  - purchase_date
+                  properties:
+                    po_id:
+                      type: string
+                      description: The external id of the Purchase Order
+                    purchase_date:
+                      type: string
+                      description: The date the purchase order was created
+                      format: date
+                    currency:
+                      type: string
+                      description: The currency of the purchase order, in 3 letter code
+                    po_title:
+                      type: string
+                      description: The name of the purchase order
+                    po_description:
+                      type: string
+                      description: The description of the purchase order
+                    purchasing_org_id:
+                      type: string
+                      description: The group who budgets for the PO
+                    status:
+                      type: string
+                      description: The status of the PO
+                      enum:
+                      - paid
+                      - unpaid
+                    external_division_id:
+                      type: string
+                      description: Your supplier org id
+                    requested_by:
+                      type: string
+                      description: The name or email of the requestor
+                    order_items:
+                      type: array
+                      description: The items being requested
+                      items:
+                        type: object
+                        properties:
+                          po_line_item_id:
+                            type: string
+                            description: The ID of the line item
+                          po_line_item_description:
+                            type: string
+                            description: The description of the line item
+                          line_item_id:
+                            type: string
+                            description: The ID of the line item
+                          line_item_name:
+                            type: string
+                            description: The name of the line item
+                          unit_of_measure:
+                            type: string
+                            description: The unit of measure of the line item
+                          items_per_unit:
+                            type: string
+                            description: The number of items per unit of the line item
+                          quantity_of_items:
+                            type: string
+                            description: The quantity of items being requested
+                          price_per_unit:
+                            type: string
+                            description: The price per unit of item being requested
+                          category_id:
+                            type: string
+                            description: The category of the item being requested
+                        additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            example:
+              purchase_order:
+                external_id: '0171450331'
+                purchased_on: '2022-01-20'
+                currency: USD
+                title: The First Order
+                description: First Order Description
+                purchasing_org_id: MY-ORG-123
+                status: paid
+                external_division_id: division-123
+                requested_by: Sarah Smith
+                order_items:
+                - description: Order Item Description 1
+                  price_per_unit: '32.5'
+                  quantity_of_items: '81.65'
+                  items_per_unit: 300
+                  currency: USD
+                  external_id: item_external_id-1
+                  category:
+                    code: category-code-1
+                    name: Electronics
+                    description: Electronic items and accessories
+                  item:
+                    sku: sku-1
+                    name: item name 1
+                    description: High-quality electronic item
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  purchase_order:
+                    type: object
+                    required:
+                    - id
+                    - external_id
+                    - status
+                    - purchased_on
+                    - spend_category
+                    - title
+                    - description
+                    - purchasing_org_id
+                    - external_division_id
+                    - order_items
+                    properties:
+                      id:
+                        type: integer
+                      external_id:
+                        type: string
+                        description: The external id of the Purchase Order
+                      status:
+                        type: string
+                        description: The status of the PO
+                        enum:
+                        - paid
+                        - unpaid
+                      purchased_on:
+                        type: string
+                        description: The date the purchase order was created
+                        format: date
+                      spend_category:
+                        type:
+                        - string
+                        - 'null'
+                        description: The category of the Purchase Order
+                      title:
+                        type:
+                        - string
+                        - 'null'
+                        description: The title of the Purchase Order
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: The description of the purchase order
+                      purchasing_org_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: The group who budgets for the PO
+                      external_division_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: The supplier organization ID
+                      order_items:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - description
+                          - price_per_unit
+                          - quantity_of_items
+                          - items_per_unit
+                          - currency
+                          - external_id
+                          - item
+                          - category
+                          properties:
+                            id:
+                              type: integer
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              description: The description of a line item
+                            price_per_unit:
+                              description: The price per unit of an item
+                              type:
+                              - string
+                              - 'null'
+                            quantity_of_items:
+                              description: The quantity of items being requested
+                              type:
+                              - string
+                              - 'null'
+                            items_per_unit:
+                              type:
+                              - integer
+                              - 'null'
+                              description: The number of items in a unit
+                            currency:
+                              type:
+                              - string
+                              - 'null'
+                              description: The currency of the request, using the standard 3 letter code
+                            external_id:
+                              description: Your ID for an item
+                              type:
+                              - string
+                              - 'null'
+                            item:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - id
+                              - sku
+                              - name
+                              - description
+                              properties:
+                                id:
+                                  type: integer
+                                sku:
+                                  type: string
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                            category:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - id
+                              - code
+                              - name
+                              - description
+                              properties:
+                                id:
+                                  type: integer
+                                code:
+                                  type: string
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                          additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                purchase_order:
+                  external_id: '0171450331'
+                  purchased_on: '2022-01-20'
+                  currency: USD
+                  title: The First Order
+                  description: First Order Description
+                  purchasing_org_id: MY-ORG-123
+                  status: paid
+                  external_division_id: division-123
+                  requested_by: Sarah Smith
+                  order_items:
+                  - id: 1
+                    description: Order Item Description 1
+                    price_per_unit: '32.5'
+                    quantity_of_items: '81.65'
+                    items_per_unit: 300
+                    currency: USD
+                    external_id: item_external_id-1
+                    category:
+                      id: 101
+                      code: category-code-1
+                      name: Electronics
+                      description: Electronic items and accessories
+                    item:
+                      id: 1001
+                      sku: sku-1
+                      name: item name 1
+                      description: High-quality electronic item
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+  /api/v2/corporate/purchase_orders/{id}:
+    get:
+      summary: show purchase_order
+      description: Get a purchase order by id
+      tags:
+      - corporate purchase orders
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  purchase_order:
+                    type: object
+                    required:
+                    - id
+                    - external_id
+                    - status
+                    - purchased_on
+                    - spend_category
+                    - title
+                    - description
+                    - purchasing_org_id
+                    - external_division_id
+                    - order_items
+                    properties:
+                      id:
+                        type: integer
+                      external_id:
+                        type: string
+                        description: The external id of the Purchase Order
+                      status:
+                        type: string
+                        description: The status of the PO
+                        enum:
+                        - paid
+                        - unpaid
+                      purchased_on:
+                        type: string
+                        description: The date the purchase order was created
+                        format: date
+                      spend_category:
+                        type:
+                        - string
+                        - 'null'
+                        description: The category of the Purchase Order
+                      title:
+                        type:
+                        - string
+                        - 'null'
+                        description: The title of the Purchase Order
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: The description of the purchase order
+                      purchasing_org_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: The group who budgets for the PO
+                      external_division_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: The supplier organization ID
+                      order_items:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - description
+                          - price_per_unit
+                          - quantity_of_items
+                          - items_per_unit
+                          - currency
+                          - external_id
+                          - item
+                          - category
+                          properties:
+                            id:
+                              type: integer
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              description: The description of a line item
+                            price_per_unit:
+                              description: The price per unit of an item
+                              type:
+                              - string
+                              - 'null'
+                            quantity_of_items:
+                              description: The quantity of items being requested
+                              type:
+                              - string
+                              - 'null'
+                            items_per_unit:
+                              type:
+                              - integer
+                              - 'null'
+                              description: The number of items in a unit
+                            currency:
+                              type:
+                              - string
+                              - 'null'
+                              description: The currency of the request, using the standard 3 letter code
+                            external_id:
+                              description: Your ID for an item
+                              type:
+                              - string
+                              - 'null'
+                            item:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - id
+                              - sku
+                              - name
+                              - description
+                              properties:
+                                id:
+                                  type: integer
+                                sku:
+                                  type: string
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                            category:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - id
+                              - code
+                              - name
+                              - description
+                              properties:
+                                id:
+                                  type: integer
+                                code:
+                                  type: string
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                          additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                purchase_order:
+                  external_id: '0171450331'
+                  purchased_on: '2022-01-20'
+                  currency: USD
+                  title: The First Order
+                  description: First Order Description
+                  purchasing_org_id: MY-ORG-123
+                  status: paid
+                  external_division_id: division-123
+                  requested_by: Sarah Smith
+                  order_items:
+                  - id: 1
+                    description: Order Item Description 1
+                    price_per_unit: '32.5'
+                    quantity_of_items: '81.65'
+                    items_per_unit: 300
+                    currency: USD
+                    external_id: item_external_id-1
+                    item:
+                      id: 101
+                      sku: paper-500
+                      name: Premium A4 Paper
+                      description: High-quality A4 paper for professional printing
+                    category:
+                      id: 1001
+                      code: office-supplies
+                      name: Office Supplies
+                      description: Supplies used for daily office operations
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    patch:
+      summary: update purchase_order
+      description: Update a purchase order by id
+      tags:
+      - corporate purchase orders
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                purchase_order:
+                  type: object
+                  properties:
+                    po_id:
+                      type: string
+                      description: The external id of the Purchase Order
+                    purchase_date:
+                      type: string
+                      description: The date the purchase order was created
+                      format: date
+                    currency:
+                      type: string
+                      description: The currency of the purchase order, in 3 letter code
+                    po_title:
+                      type: string
+                      description: The name of the purchase order
+                    po_description:
+                      type: string
+                      description: The description of the purchase order
+                    purchasing_org_id:
+                      type: string
+                      description: The group who budgets for the PO
+                    status:
+                      type: string
+                      description: The status of the PO
+                      enum:
+                      - paid
+                      - unpaid
+                    external_division_id:
+                      type: string
+                      description: Your supplier org id
+                    requested_by:
+                      type: string
+                      description: The name or email of the requestor
+                    order_items:
+                      type: array
+                      description: The items being requested
+                      items:
+                        type: object
+                        properties:
+                          po_line_item_id:
+                            type: string
+                            description: The ID of the line item
+                          po_line_item_description:
+                            type: string
+                            description: The description of the line item
+                          line_item_id:
+                            type: string
+                            description: The ID of the line item
+                          line_item_name:
+                            type: string
+                            description: The name of the line item
+                          unit_of_measure:
+                            type: string
+                            description: The unit of measure of the line item
+                          items_per_unit:
+                            type: string
+                            description: The number of items per unit of the line item
+                          quantity_of_items:
+                            type: string
+                            description: The quantity of items being requested
+                          price_per_unit:
+                            type: string
+                            description: The price per unit of item being requested
+                          category_id:
+                            type: string
+                            description: The category of the item being requested
+                        additionalProperties: false
+                  additionalProperties: false
+              additionalProperties: false
+            example:
+              purchase_order:
+                external_id: '0171450331'
+                purchased_on: '2022-02-15'
+                currency: USD
+                title: Updated Order Title
+                description: Updated order description
+                purchasing_org_id: MY-ORG-456
+                status: processing
+                external_division_id: division-456
+                requested_by: John Doe
+                order_items:
+                - description: Updated Item Description 1
+                  price_per_unit: '35.0'
+                  quantity_of_items: '100.0'
+                  items_per_unit: 250
+                  currency: USD
+                  external_id: updated-item-external-id-1
+                  item:
+                    sku: updated-paper-500
+                    name: Updated Paper Name
+                    description: Updated Paper Description
+                  category:
+                    code: updated-office-supplies
+                    name: Updated Office Supplies Name
+                    description: Updated Supplies Description
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  purchase_order:
+                    type: object
+                    required:
+                    - id
+                    - external_id
+                    - status
+                    - purchased_on
+                    - spend_category
+                    - title
+                    - description
+                    - purchasing_org_id
+                    - external_division_id
+                    - order_items
+                    properties:
+                      id:
+                        type: integer
+                      external_id:
+                        type: string
+                        description: The external id of the Purchase Order
+                      status:
+                        type: string
+                        description: The status of the PO
+                        enum:
+                        - paid
+                        - unpaid
+                      purchased_on:
+                        type: string
+                        description: The date the purchase order was created
+                        format: date
+                      spend_category:
+                        type:
+                        - string
+                        - 'null'
+                        description: The category of the Purchase Order
+                      title:
+                        type:
+                        - string
+                        - 'null'
+                        description: The title of the Purchase Order
+                      description:
+                        type:
+                        - string
+                        - 'null'
+                        description: The description of the purchase order
+                      purchasing_org_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: The group who budgets for the PO
+                      external_division_id:
+                        type:
+                        - string
+                        - 'null'
+                        description: The supplier organization ID
+                      order_items:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - description
+                          - price_per_unit
+                          - quantity_of_items
+                          - items_per_unit
+                          - currency
+                          - external_id
+                          - item
+                          - category
+                          properties:
+                            id:
+                              type: integer
+                            description:
+                              type:
+                              - string
+                              - 'null'
+                              description: The description of a line item
+                            price_per_unit:
+                              description: The price per unit of an item
+                              type:
+                              - string
+                              - 'null'
+                            quantity_of_items:
+                              description: The quantity of items being requested
+                              type:
+                              - string
+                              - 'null'
+                            items_per_unit:
+                              type:
+                              - integer
+                              - 'null'
+                              description: The number of items in a unit
+                            currency:
+                              type:
+                              - string
+                              - 'null'
+                              description: The currency of the request, using the standard 3 letter code
+                            external_id:
+                              description: Your ID for an item
+                              type:
+                              - string
+                              - 'null'
+                            item:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - id
+                              - sku
+                              - name
+                              - description
+                              properties:
+                                id:
+                                  type: integer
+                                sku:
+                                  type: string
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                            category:
+                              type:
+                              - object
+                              - 'null'
+                              required:
+                              - id
+                              - code
+                              - name
+                              - description
+                              properties:
+                                id:
+                                  type: integer
+                                code:
+                                  type: string
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                          additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                purchase_order:
+                  id: 1
+                  external_id: '0171450331'
+                  purchased_on: '2022-02-15'
+                  currency: USD
+                  title: Updated Order Title
+                  description: Updated order description
+                  purchasing_org_id: MY-ORG-456
+                  status: processing
+                  external_division_id: division-456
+                  requested_by: John Doe
+                  order_items:
+                  - id: 12
+                    description: Updated Item Description 1
+                    price_per_unit: '35.0'
+                    quantity_of_items: '100.0'
+                    items_per_unit: 250
+                    currency: USD
+                    external_id: updated-item-external-id-1
+                    item:
+                      id: 101
+                      sku: updated-paper-500
+                      name: Updated Paper Name
+                      description: Updated Paper Description
+                    category:
+                      id: 1001
+                      code: updated-office-supplies
+                      name: Updated Office Supplies Name
+                      description: Updated Supplies Description
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+    delete:
+      summary: delete purchase_order
+      description: Delete a purchase order by id
+      tags:
+      - corporate purchase orders
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The resource was deleted successfully.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

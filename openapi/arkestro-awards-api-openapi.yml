@@ -1,0 +1,273 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 Awards API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: awards
+paths:
+  /api/v2/events/{id}/award:
+    get:
+      summary: show awarded event
+      tags:
+      - awards
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  award:
+                    type: object
+                    required:
+                    - awarded_at
+                    - event
+                    - awarded_line_items
+                    properties:
+                      awarded_at:
+                        type: string
+                        format: date-time
+                      event:
+                        type: object
+                        required:
+                        - id
+                        - name
+                        - external_id
+                        - currency
+                        - business_unit
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          external_id:
+                            type:
+                            - string
+                            - 'null'
+                          currency:
+                            type: string
+                          custom_fields:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: object
+                              required:
+                              - id
+                              - type_text
+                              - value_text
+                              properties:
+                                id:
+                                  type: integer
+                                type_text:
+                                  type: string
+                                value_text:
+                                  type: string
+                              additionalProperties: false
+                          business_unit:
+                            oneOf:
+                            - type: 'null'
+                            - type: object
+                              description: Business units of a  company
+                              required:
+                              - id
+                              - name
+                              - unique_name
+                              properties:
+                                id:
+                                  type: integer
+                                  description: The Arkestro ID of the business unit
+                                name:
+                                  type: string
+                                  description: The name of the business unit
+                                unique_name:
+                                  type: string
+                                  description: The internal unique name representing a business unit in the ERP
+                      awarded_line_items:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - name
+                          - total_price
+                          - quoted_price_per_unit
+                          - quantity
+                          - units
+                          - external_contact_id
+                          - descriptive_attributes
+                          - supplier
+                          properties:
+                            name:
+                              type: string
+                            total_price:
+                              type: string
+                            quoted_price_per_unit:
+                              type: string
+                            quantity:
+                              type: string
+                            quoted_quantity:
+                              type:
+                              - string
+                              - 'null'
+                              description: The quoted quantity of units the supplier provided a quote for.
+                            units:
+                              type: string
+                            external_contact_id:
+                              type:
+                              - string
+                              - 'null'
+                            supplier_provided_price:
+                              type:
+                              - string
+                              - 'null'
+                              description: The original price the supplier entered in their quoting currency
+                            supplier_provided_discount:
+                              type:
+                              - string
+                              - 'null'
+                              description: The original discount the supplier entered in their quoting currency
+                            quoting_currency:
+                              type:
+                              - string
+                              - 'null'
+                              description: The currency code the supplier used when quoting (e.g., USD, EUR, MXN)
+                            descriptive_attributes:
+                              type: object
+                              description: Custom field key-value pairs for this line item
+                              additionalProperties: true
+                            supplier:
+                              type:
+                              - object
+                              - 'null'
+                              properties:
+                                name:
+                                  type: string
+                                  description: The name of the awarded supplier
+                                external_id:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: The external id of the awarded supplier
+                    additionalProperties: false
+                additionalProperties: false
+              example:
+                award:
+                  awarded_at: '2026-04-01T19:07:00.000Z'
+                  event:
+                    id: 118996
+                    name: ERF013338 200007902
+                    currency: USD
+                    external_id: ERF013338
+                    business_unit:
+                      id: 1
+                      name: Midwest
+                      unique_name: Midwest Processing Co 123
+                    custom_value_fields:
+                    - id: 1
+                      type_text: Site ID
+                      value_text: CSD-1053
+                  awarded_line_items:
+                  - name: hammers
+                    total_price: '1000.00'
+                    quoted_price_per_unit: '100.00'
+                    quantity: '10'
+                    quoted_quantity: '8'
+                    units: each
+                    external_contact_id: sup123
+                    supplier_provided_price: '2050.00'
+                    supplier_provided_discount: '5.0'
+                    quoting_currency: MXN
+                    descriptive_attributes:
+                      country_of_origin: USA
+                    supplier:
+                      name: Acme Hammers Inc.
+                      external_id: sup123
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - message
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                additionalProperties: false
+                properties:
+                  error:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

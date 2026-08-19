@@ -1,0 +1,1998 @@
+{
+  "item": [
+    {
+      "id": "388bda93-3f6c-44e9-98c4-86145559066a",
+      "name": "corporate purchase orders",
+      "description": {
+        "content": "Purchase Orders for an organization",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "23fae43d-36d3-442c-8fef-f3c70156da9f",
+          "name": "list purchase_orders",
+          "request": {
+            "name": "list purchase_orders",
+            "description": {
+              "content": "List all of the purchase orders under an organization",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "corporate",
+                "purchase_orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created_at",
+                  "description": "The field to sort results by. Defaults to `created_at`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "asc",
+                  "description": "The sorting order (`asc` for ascending, `desc` for descending). Defaults to `asc`."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The maximum number of results to return. Defaults to `20`, max `200`."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before starting to collect the result set. Defaults to `0`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4923351c-e39e-4cc9-bd18-3f8dbaed3df4",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchase_orders\": [\n    {\n      \"id\": 1,\n      \"status\": \"paid\",\n      \"purchased_on\": \"2022-01-20\",\n      \"spend_category\": \"indirect\",\n      \"external_id\": \"0171450331\",\n      \"title\": \"The First Order\",\n      \"description\": \"First Order Description\",\n      \"order_items\": [\n        {\n          \"id\": 1,\n          \"description\": \"Order Item Description 1\",\n          \"price_per_unit\": \"32.5\",\n          \"quantity_of_items\": \"81.65\",\n          \"items_per_unit\": 300,\n          \"currency\": \"USD\",\n          \"external_id\": \"item_external_id-1\",\n          \"category\": {\n            \"id\": 101,\n            \"code\": \"electronic\",\n            \"name\": \"Electronics\",\n            \"description\": \"Electronic items and accessories\"\n          },\n          \"item\": {\n            \"id\": 1001,\n            \"sku\": \"wireless-mouse-1\",\n            \"name\": \"Wireless Mouse\",\n            \"description\": \"Ergonomic wireless mouse with USB receiver\"\n          }\n        }\n      ]\n    },\n    {\n      \"id\": 2,\n      \"status\": \"unpaid\",\n      \"purchased_on\": \"2022-07-28\",\n      \"spend_category\": \"indirect\",\n      \"external_id\": 828330662,\n      \"title\": \"The Second Order\",\n      \"description\": \"Second Order Description\",\n      \"order_items\": [\n        {\n          \"id\": 2,\n          \"description\": \"Order Item Description 2\",\n          \"price_per_unit\": \"75.25\",\n          \"quantity_of_items\": \"300\",\n          \"items_per_unit\": 12,\n          \"currency\": \"USD\",\n          \"external_id\": \"item_external_id-2\",\n          \"category\": {\n            \"id\": 102,\n            \"code\": \"category-code-2\",\n            \"name\": \"Office Supplies\",\n            \"description\": \"Supplies for daily office use\"\n          },\n          \"item\": {\n            \"id\": 1002,\n            \"sku\": \"sku-2\",\n            \"name\": \"Stapler\",\n            \"description\": \"Heavy-duty stapler with 200-sheet capacity\"\n          }\n        },\n        {\n          \"id\": 3,\n          \"description\": \"Order Item Description 3\",\n          \"price_per_unit\": \"20.74\",\n          \"quantity_of_items\": \"20.5\",\n          \"items_per_unit\": 1,\n          \"currency\": \"USD\",\n          \"external_id\": \"item_external_id-3\",\n          \"category\": {\n            \"id\": 103,\n            \"code\": \"category-code-3\",\n            \"name\": \"Furniture\",\n            \"description\": \"Office furniture and fixtures\"\n          },\n          \"item\": {\n            \"id\": 1003,\n            \"sku\": \"sku-3\",\n            \"name\": \"Office Chair\",\n            \"description\": \"Ergonomic office chair with adjustable height\"\n          }\n        }\n      ],\n      \"pagination\": {\n        \"limit\": 20,\n        \"offset\": 10,\n        \"total\": 122,\n        \"returned_count\": 20\n      }\n    }\n  ],\n  \"pagination\": {\n    \"limit\": 2,\n    \"offset\": 10,\n    \"total\": 122,\n    \"returned_count\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2eec1a8-af99-4aac-8bbd-eb83dce2f574",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c26e1bd-4056-439b-9b7c-600875907b32",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70b035dc-2f11-4710-a4ad-8cc2ea541ec8",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d66893c-8c69-4514-b47e-9809e7d60eea",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da7144a0-3efb-4a7b-844b-bce6b3400cce",
+          "name": "create purchase_order",
+          "request": {
+            "name": "create purchase_order",
+            "description": {
+              "content": "Create a new purchase order",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "corporate",
+                "purchase_orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"purchase_order\": {\n    \"po_id\": \"<string>\",\n    \"purchase_date\": \"<date>\",\n    \"currency\": \"<string>\",\n    \"po_title\": \"<string>\",\n    \"po_description\": \"<string>\",\n    \"purchasing_org_id\": \"<string>\",\n    \"status\": \"<string>\",\n    \"external_division_id\": \"<string>\",\n    \"requested_by\": \"<string>\",\n    \"order_items\": [\n      {\n        \"po_line_item_id\": \"<string>\",\n        \"po_line_item_description\": \"<string>\",\n        \"line_item_id\": \"<string>\",\n        \"line_item_name\": \"<string>\",\n        \"unit_of_measure\": \"<string>\",\n        \"items_per_unit\": \"<string>\",\n        \"quantity_of_items\": \"<string>\",\n        \"price_per_unit\": \"<string>\",\n        \"category_id\": \"<string>\"\n      },\n      {\n        \"po_line_item_id\": \"<string>\",\n        \"po_line_item_description\": \"<string>\",\n        \"line_item_id\": \"<string>\",\n        \"line_item_name\": \"<string>\",\n        \"unit_of_measure\": \"<string>\",\n        \"items_per_unit\": \"<string>\",\n        \"quantity_of_items\": \"<string>\",\n        \"price_per_unit\": \"<string>\",\n        \"category_id\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b63f7233-e336-4825-a16f-0bff83b11c00",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-01-20\",\n    \"currency\": \"USD\",\n    \"title\": \"The First Order\",\n    \"description\": \"First Order Description\",\n    \"purchasing_org_id\": \"MY-ORG-123\",\n    \"status\": \"paid\",\n    \"external_division_id\": \"division-123\",\n    \"requested_by\": \"Sarah Smith\",\n    \"order_items\": [\n      {\n        \"description\": \"Order Item Description 1\",\n        \"price_per_unit\": \"32.5\",\n        \"quantity_of_items\": \"81.65\",\n        \"items_per_unit\": 300,\n        \"currency\": \"USD\",\n        \"external_id\": \"item_external_id-1\",\n        \"category\": {\n          \"code\": \"category-code-1\",\n          \"name\": \"Electronics\",\n          \"description\": \"Electronic items and accessories\"\n        },\n        \"item\": {\n          \"sku\": \"sku-1\",\n          \"name\": \"item name 1\",\n          \"description\": \"High-quality electronic item\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-01-20\",\n    \"currency\": \"USD\",\n    \"title\": \"The First Order\",\n    \"description\": \"First Order Description\",\n    \"purchasing_org_id\": \"MY-ORG-123\",\n    \"status\": \"paid\",\n    \"external_division_id\": \"division-123\",\n    \"requested_by\": \"Sarah Smith\",\n    \"order_items\": [\n      {\n        \"id\": 1,\n        \"description\": \"Order Item Description 1\",\n        \"price_per_unit\": \"32.5\",\n        \"quantity_of_items\": \"81.65\",\n        \"items_per_unit\": 300,\n        \"currency\": \"USD\",\n        \"external_id\": \"item_external_id-1\",\n        \"category\": {\n          \"id\": 101,\n          \"code\": \"category-code-1\",\n          \"name\": \"Electronics\",\n          \"description\": \"Electronic items and accessories\"\n        },\n        \"item\": {\n          \"id\": 1001,\n          \"sku\": \"sku-1\",\n          \"name\": \"item name 1\",\n          \"description\": \"High-quality electronic item\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43fd6656-18c1-491c-a170-d3ebae409e13",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-01-20\",\n    \"currency\": \"USD\",\n    \"title\": \"The First Order\",\n    \"description\": \"First Order Description\",\n    \"purchasing_org_id\": \"MY-ORG-123\",\n    \"status\": \"paid\",\n    \"external_division_id\": \"division-123\",\n    \"requested_by\": \"Sarah Smith\",\n    \"order_items\": [\n      {\n        \"description\": \"Order Item Description 1\",\n        \"price_per_unit\": \"32.5\",\n        \"quantity_of_items\": \"81.65\",\n        \"items_per_unit\": 300,\n        \"currency\": \"USD\",\n        \"external_id\": \"item_external_id-1\",\n        \"category\": {\n          \"code\": \"category-code-1\",\n          \"name\": \"Electronics\",\n          \"description\": \"Electronic items and accessories\"\n        },\n        \"item\": {\n          \"sku\": \"sku-1\",\n          \"name\": \"item name 1\",\n          \"description\": \"High-quality electronic item\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3972a28b-6496-4fa5-86d6-77afa9f16842",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-01-20\",\n    \"currency\": \"USD\",\n    \"title\": \"The First Order\",\n    \"description\": \"First Order Description\",\n    \"purchasing_org_id\": \"MY-ORG-123\",\n    \"status\": \"paid\",\n    \"external_division_id\": \"division-123\",\n    \"requested_by\": \"Sarah Smith\",\n    \"order_items\": [\n      {\n        \"description\": \"Order Item Description 1\",\n        \"price_per_unit\": \"32.5\",\n        \"quantity_of_items\": \"81.65\",\n        \"items_per_unit\": 300,\n        \"currency\": \"USD\",\n        \"external_id\": \"item_external_id-1\",\n        \"category\": {\n          \"code\": \"category-code-1\",\n          \"name\": \"Electronics\",\n          \"description\": \"Electronic items and accessories\"\n        },\n        \"item\": {\n          \"sku\": \"sku-1\",\n          \"name\": \"item name 1\",\n          \"description\": \"High-quality electronic item\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f41df26-a084-4727-bfeb-023333b904ae",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-01-20\",\n    \"currency\": \"USD\",\n    \"title\": \"The First Order\",\n    \"description\": \"First Order Description\",\n    \"purchasing_org_id\": \"MY-ORG-123\",\n    \"status\": \"paid\",\n    \"external_division_id\": \"division-123\",\n    \"requested_by\": \"Sarah Smith\",\n    \"order_items\": [\n      {\n        \"description\": \"Order Item Description 1\",\n        \"price_per_unit\": \"32.5\",\n        \"quantity_of_items\": \"81.65\",\n        \"items_per_unit\": 300,\n        \"currency\": \"USD\",\n        \"external_id\": \"item_external_id-1\",\n        \"category\": {\n          \"code\": \"category-code-1\",\n          \"name\": \"Electronics\",\n          \"description\": \"Electronic items and accessories\"\n        },\n        \"item\": {\n          \"sku\": \"sku-1\",\n          \"name\": \"item name 1\",\n          \"description\": \"High-quality electronic item\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5840ee9b-f565-4162-a841-b1ef22f731a8",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-01-20\",\n    \"currency\": \"USD\",\n    \"title\": \"The First Order\",\n    \"description\": \"First Order Description\",\n    \"purchasing_org_id\": \"MY-ORG-123\",\n    \"status\": \"paid\",\n    \"external_division_id\": \"division-123\",\n    \"requested_by\": \"Sarah Smith\",\n    \"order_items\": [\n      {\n        \"description\": \"Order Item Description 1\",\n        \"price_per_unit\": \"32.5\",\n        \"quantity_of_items\": \"81.65\",\n        \"items_per_unit\": 300,\n        \"currency\": \"USD\",\n        \"external_id\": \"item_external_id-1\",\n        \"category\": {\n          \"code\": \"category-code-1\",\n          \"name\": \"Electronics\",\n          \"description\": \"Electronic items and accessories\"\n        },\n        \"item\": {\n          \"sku\": \"sku-1\",\n          \"name\": \"item name 1\",\n          \"description\": \"High-quality electronic item\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c04e78d-c973-4eeb-87db-7296ef209d7f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-01-20\",\n    \"currency\": \"USD\",\n    \"title\": \"The First Order\",\n    \"description\": \"First Order Description\",\n    \"purchasing_org_id\": \"MY-ORG-123\",\n    \"status\": \"paid\",\n    \"external_division_id\": \"division-123\",\n    \"requested_by\": \"Sarah Smith\",\n    \"order_items\": [\n      {\n        \"description\": \"Order Item Description 1\",\n        \"price_per_unit\": \"32.5\",\n        \"quantity_of_items\": \"81.65\",\n        \"items_per_unit\": 300,\n        \"currency\": \"USD\",\n        \"external_id\": \"item_external_id-1\",\n        \"category\": {\n          \"code\": \"category-code-1\",\n          \"name\": \"Electronics\",\n          \"description\": \"Electronic items and accessories\"\n        },\n        \"item\": {\n          \"sku\": \"sku-1\",\n          \"name\": \"item name 1\",\n          \"description\": \"High-quality electronic item\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed2ff175-430d-4cef-a34e-a7e932736532",
+          "name": "show purchase_order",
+          "request": {
+            "name": "show purchase_order",
+            "description": {
+              "content": "Get a purchase order by id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "corporate",
+                "purchase_orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "49015d34-4c58-4e8a-88eb-ed8477507660",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-01-20\",\n    \"currency\": \"USD\",\n    \"title\": \"The First Order\",\n    \"description\": \"First Order Description\",\n    \"purchasing_org_id\": \"MY-ORG-123\",\n    \"status\": \"paid\",\n    \"external_division_id\": \"division-123\",\n    \"requested_by\": \"Sarah Smith\",\n    \"order_items\": [\n      {\n        \"id\": 1,\n        \"description\": \"Order Item Description 1\",\n        \"price_per_unit\": \"32.5\",\n        \"quantity_of_items\": \"81.65\",\n        \"items_per_unit\": 300,\n        \"currency\": \"USD\",\n        \"external_id\": \"item_external_id-1\",\n        \"item\": {\n          \"id\": 101,\n          \"sku\": \"paper-500\",\n          \"name\": \"Premium A4 Paper\",\n          \"description\": \"High-quality A4 paper for professional printing\"\n        },\n        \"category\": {\n          \"id\": 1001,\n          \"code\": \"office-supplies\",\n          \"name\": \"Office Supplies\",\n          \"description\": \"Supplies used for daily office operations\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bca3028c-1b60-45c8-94ba-dea50028caf2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5b3a904-0de4-4ed5-bcb6-aeb494ae612a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a64abaa-a28d-4e06-a75e-5abd2d6f2ae6",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "704479a0-e8cf-457b-9cd1-a7178ec9ac97",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "387fe66d-a898-4178-b5d5-7a5f31beebe0",
+          "name": "update purchase_order",
+          "request": {
+            "name": "update purchase_order",
+            "description": {
+              "content": "Update a purchase order by id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "corporate",
+                "purchase_orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"purchase_order\": {\n    \"po_id\": \"<string>\",\n    \"purchase_date\": \"<date>\",\n    \"currency\": \"<string>\",\n    \"po_title\": \"<string>\",\n    \"po_description\": \"<string>\",\n    \"purchasing_org_id\": \"<string>\",\n    \"status\": \"<string>\",\n    \"external_division_id\": \"<string>\",\n    \"requested_by\": \"<string>\",\n    \"order_items\": [\n      {\n        \"po_line_item_id\": \"<string>\",\n        \"po_line_item_description\": \"<string>\",\n        \"line_item_id\": \"<string>\",\n        \"line_item_name\": \"<string>\",\n        \"unit_of_measure\": \"<string>\",\n        \"items_per_unit\": \"<string>\",\n        \"quantity_of_items\": \"<string>\",\n        \"price_per_unit\": \"<string>\",\n        \"category_id\": \"<string>\"\n      },\n      {\n        \"po_line_item_id\": \"<string>\",\n        \"po_line_item_description\": \"<string>\",\n        \"line_item_id\": \"<string>\",\n        \"line_item_name\": \"<string>\",\n        \"unit_of_measure\": \"<string>\",\n        \"items_per_unit\": \"<string>\",\n        \"quantity_of_items\": \"<string>\",\n        \"price_per_unit\": \"<string>\",\n        \"category_id\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d7f55a9f-4c59-43a2-bcb2-0e9a938ef11f",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-02-15\",\n    \"currency\": \"USD\",\n    \"title\": \"Updated Order Title\",\n    \"description\": \"Updated order description\",\n    \"purchasing_org_id\": \"MY-ORG-456\",\n    \"status\": \"processing\",\n    \"external_division_id\": \"division-456\",\n    \"requested_by\": \"John Doe\",\n    \"order_items\": [\n      {\n        \"description\": \"Updated Item Description 1\",\n        \"price_per_unit\": \"35.0\",\n        \"quantity_of_items\": \"100.0\",\n        \"items_per_unit\": 250,\n        \"currency\": \"USD\",\n        \"external_id\": \"updated-item-external-id-1\",\n        \"item\": {\n          \"sku\": \"updated-paper-500\",\n          \"name\": \"Updated Paper Name\",\n          \"description\": \"Updated Paper Description\"\n        },\n        \"category\": {\n          \"code\": \"updated-office-supplies\",\n          \"name\": \"Updated Office Supplies Name\",\n          \"description\": \"Updated Supplies Description\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"purchase_order\": {\n    \"id\": 1,\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-02-15\",\n    \"currency\": \"USD\",\n    \"title\": \"Updated Order Title\",\n    \"description\": \"Updated order description\",\n    \"purchasing_org_id\": \"MY-ORG-456\",\n    \"status\": \"processing\",\n    \"external_division_id\": \"division-456\",\n    \"requested_by\": \"John Doe\",\n    \"order_items\": [\n      {\n        \"id\": 12,\n        \"description\": \"Updated Item Description 1\",\n        \"price_per_unit\": \"35.0\",\n        \"quantity_of_items\": \"100.0\",\n        \"items_per_unit\": 250,\n        \"currency\": \"USD\",\n        \"external_id\": \"updated-item-external-id-1\",\n        \"item\": {\n          \"id\": 101,\n          \"sku\": \"updated-paper-500\",\n          \"name\": \"Updated Paper Name\",\n          \"description\": \"Updated Paper Description\"\n        },\n        \"category\": {\n          \"id\": 1001,\n          \"code\": \"updated-office-supplies\",\n          \"name\": \"Updated Office Supplies Name\",\n          \"description\": \"Updated Supplies Description\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "438c04ff-d4bc-4c43-9fcb-53258379e316",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-02-15\",\n    \"currency\": \"USD\",\n    \"title\": \"Updated Order Title\",\n    \"description\": \"Updated order description\",\n    \"purchasing_org_id\": \"MY-ORG-456\",\n    \"status\": \"processing\",\n    \"external_division_id\": \"division-456\",\n    \"requested_by\": \"John Doe\",\n    \"order_items\": [\n      {\n        \"description\": \"Updated Item Description 1\",\n        \"price_per_unit\": \"35.0\",\n        \"quantity_of_items\": \"100.0\",\n        \"items_per_unit\": 250,\n        \"currency\": \"USD\",\n        \"external_id\": \"updated-item-external-id-1\",\n        \"item\": {\n          \"sku\": \"updated-paper-500\",\n          \"name\": \"Updated Paper Name\",\n          \"description\": \"Updated Paper Description\"\n        },\n        \"category\": {\n          \"code\": \"updated-office-supplies\",\n          \"name\": \"Updated Office Supplies Name\",\n          \"description\": \"Updated Supplies Description\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ae1f16d-8793-40db-9013-3031f6aa1c6b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-02-15\",\n    \"currency\": \"USD\",\n    \"title\": \"Updated Order Title\",\n    \"description\": \"Updated order description\",\n    \"purchasing_org_id\": \"MY-ORG-456\",\n    \"status\": \"processing\",\n    \"external_division_id\": \"division-456\",\n    \"requested_by\": \"John Doe\",\n    \"order_items\": [\n      {\n        \"description\": \"Updated Item Description 1\",\n        \"price_per_unit\": \"35.0\",\n        \"quantity_of_items\": \"100.0\",\n        \"items_per_unit\": 250,\n        \"currency\": \"USD\",\n        \"external_id\": \"updated-item-external-id-1\",\n        \"item\": {\n          \"sku\": \"updated-paper-500\",\n          \"name\": \"Updated Paper Name\",\n          \"description\": \"Updated Paper Description\"\n        },\n        \"category\": {\n          \"code\": \"updated-office-supplies\",\n          \"name\": \"Updated Office Supplies Name\",\n          \"description\": \"Updated Supplies Description\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70409f74-1b86-4eed-9fe5-760c026d681f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-02-15\",\n    \"currency\": \"USD\",\n    \"title\": \"Updated Order Title\",\n    \"description\": \"Updated order description\",\n    \"purchasing_org_id\": \"MY-ORG-456\",\n    \"status\": \"processing\",\n    \"external_division_id\": \"division-456\",\n    \"requested_by\": \"John Doe\",\n    \"order_items\": [\n      {\n        \"description\": \"Updated Item Description 1\",\n        \"price_per_unit\": \"35.0\",\n        \"quantity_of_items\": \"100.0\",\n        \"items_per_unit\": 250,\n        \"currency\": \"USD\",\n        \"external_id\": \"updated-item-external-id-1\",\n        \"item\": {\n          \"sku\": \"updated-paper-500\",\n          \"name\": \"Updated Paper Name\",\n          \"description\": \"Updated Paper Description\"\n        },\n        \"category\": {\n          \"code\": \"updated-office-supplies\",\n          \"name\": \"Updated Office Supplies Name\",\n          \"description\": \"Updated Supplies Description\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "edeefea2-b599-4e9b-a20b-7a01a807eb7a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-02-15\",\n    \"currency\": \"USD\",\n    \"title\": \"Updated Order Title\",\n    \"description\": \"Updated order description\",\n    \"purchasing_org_id\": \"MY-ORG-456\",\n    \"status\": \"processing\",\n    \"external_division_id\": \"division-456\",\n    \"requested_by\": \"John Doe\",\n    \"order_items\": [\n      {\n        \"description\": \"Updated Item Description 1\",\n        \"price_per_unit\": \"35.0\",\n        \"quantity_of_items\": \"100.0\",\n        \"items_per_unit\": 250,\n        \"currency\": \"USD\",\n        \"external_id\": \"updated-item-external-id-1\",\n        \"item\": {\n          \"sku\": \"updated-paper-500\",\n          \"name\": \"Updated Paper Name\",\n          \"description\": \"Updated Paper Description\"\n        },\n        \"category\": {\n          \"code\": \"updated-office-supplies\",\n          \"name\": \"Updated Office Supplies Name\",\n          \"description\": \"Updated Supplies Description\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3a65782-2d71-4b16-aea8-c0c342c4244f",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-02-15\",\n    \"currency\": \"USD\",\n    \"title\": \"Updated Order Title\",\n    \"description\": \"Updated order description\",\n    \"purchasing_org_id\": \"MY-ORG-456\",\n    \"status\": \"processing\",\n    \"external_division_id\": \"division-456\",\n    \"requested_by\": \"John Doe\",\n    \"order_items\": [\n      {\n        \"description\": \"Updated Item Description 1\",\n        \"price_per_unit\": \"35.0\",\n        \"quantity_of_items\": \"100.0\",\n        \"items_per_unit\": 250,\n        \"currency\": \"USD\",\n        \"external_id\": \"updated-item-external-id-1\",\n        \"item\": {\n          \"sku\": \"updated-paper-500\",\n          \"name\": \"Updated Paper Name\",\n          \"description\": \"Updated Paper Description\"\n        },\n        \"category\": {\n          \"code\": \"updated-office-supplies\",\n          \"name\": \"Updated Office Supplies Name\",\n          \"description\": \"Updated Supplies Description\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "936e6cc2-943e-40e8-9ac1-935dbf84fdb2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"purchase_order\": {\n    \"external_id\": \"0171450331\",\n    \"purchased_on\": \"2022-02-15\",\n    \"currency\": \"USD\",\n    \"title\": \"Updated Order Title\",\n    \"description\": \"Updated order description\",\n    \"purchasing_org_id\": \"MY-ORG-456\",\n    \"status\": \"processing\",\n    \"external_division_id\": \"division-456\",\n    \"requested_by\": \"John Doe\",\n    \"order_items\": [\n      {\n        \"description\": \"Updated Item Description 1\",\n        \"price_per_unit\": \"35.0\",\n        \"quantity_of_items\": \"100.0\",\n        \"items_per_unit\": 250,\n        \"currency\": \"USD\",\n        \"external_id\": \"updated-item-external-id-1\",\n        \"item\": {\n          \"sku\": \"updated-paper-500\",\n          \"name\": \"Updated Paper Name\",\n          \"description\": \"Updated Paper Description\"\n        },\n        \"category\": {\n          \"code\": \"updated-office-supplies\",\n          \"name\": \"Updated Office Supplies Name\",\n          \"description\": \"Updated Supplies Description\"\n        }\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfa56411-7a0e-42b0-afa0-cde753fc0508",
+          "name": "delete purchase_order",
+          "request": {
+            "name": "delete purchase_order",
+            "description": {
+              "content": "Delete a purchase order by id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "corporate",
+                "purchase_orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1695609-7907-438a-af99-124ddd2a2c85",
+              "name": "The resource was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5982a623-bf19-489d-b31d-4a2028c6b76b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51cd9444-dcec-49c3-9839-72fd48d7a099",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a63e9160-3139-4309-92e3-7591c3229fe2",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68a0513c-12a7-44d7-97cc-22e3e61030e8",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a4c55e3-5093-42a6-a148-2431edfd3508",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "corporate",
+                    "purchase_orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.arkestro.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8d36f887-0033-4565-b86d-39c0d87baede",
+    "name": "V2 corporate purchase orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.\nOur current API offering features endpoints that allow the creation and execution of an event.\n\nTo get started, please generate an API Token.\nTo generate an API Token your user must be an admin and you must request the feature be made available.\nOnce enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request\nheader as an X-Token.\n\nOnce you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:\ncurl --location --request GET 'https://api.arkestro.com/api/v2/events' --header 'Accept: application/json' --header 'X-Token: <YOUR API TOKEN>'",
+      "type": "text/plain"
+    }
+  }
+}
