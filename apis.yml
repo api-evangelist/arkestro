@@ -10,6 +10,18 @@ description: >-
   Arkestro publishes a public OpenAPI 3.1.1 contract for its API V2 at api.arkestro.com and
   operates an OAuth 2.1 remote MCP server, though its developer documentation portal sits
   behind a customer sign-in wall.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://arkestro.com/wp-content/uploads/arkestro_logo_featured_default.jpg
 url: https://raw.githubusercontent.com/api-evangelist/arkestro/refs/heads/main/apis.yml
 x-type: company
