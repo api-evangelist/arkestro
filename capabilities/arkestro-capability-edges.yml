@@ -1,0 +1,79 @@
+slug: arkestro
+provider: Arkestro
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: corporate purchase orders
+  spec_file: arkestro-corporate-purchase-orders-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.85
+  evidence: POST /api/v2/corporate/purchase_orders 'create purchase_order'; PATCH '/api/v2/corporate/purchase_orders/{id}'
+    'update purchase_order'
+  reason: Full CRUD lifecycle over purchase orders in a procurement platform is Purchase Order Management.
+- tag: events
+  spec_file: arkestro-events-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.85
+  evidence: 'POST /api/v2/events    create event; vendor: "run competitive sourcing events at scale"'
+  reason: '''Events'' here are sourcing/RFx events, the core object of strategic sourcing on this procurement
+    platform — not telemetry or webhook events.'
+- tag: quote submissions
+  spec_file: arkestro-quote-submissions-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.8
+  evidence: GET /api/v2/quote_submissions    list quote submissions
+  reason: Supplier quote submissions against sourcing events — bid collection in the RFx/supplier selection
+    process, i.e. Sourcing Management (buy-side, not sell-side CPQ).
+- tag: awards
+  spec_file: arkestro-awards-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.75
+  evidence: 'GET /api/v2/events/{id}/award ''show awarded event''; vendor: ''predictive procurement orchestration
+    platform for enterprise sourcing teams ... run competitive sourcing events'''
+  reason: Award of a competitive sourcing event is the supplier-selection outcome of strategic sourcing/RFx.
+- tag: supplier organizations
+  spec_file: arkestro-supplier-organizations-api-openapi.yml
+  capability_id: BC-510.10
+  capability_id_l1: BC-510
+  capability_name: Supplier Onboarding Management
+  confidence: 0.75
+  evidence: POST /api/v2/supplier_organizations    create supplier organization
+  reason: Registration and maintenance of supplier organization records on a procurement platform, matching
+    supplier onboarding/registration.
+- tag: event analytics
+  spec_file: arkestro-event-analytics-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.7
+  evidence: GET /api/v2/event_analytics/buyer_leaderboards, GET /api/v2/event_analytics/quotes, GET /api/v2/event_analytics/supplier_invitation_statuses
+  reason: Analytics over sourcing events (quotes, supplier invitations, buyer leaderboards) on a predictive
+    procurement/sourcing platform — reporting within Sourcing Management. Some ambiguity vs spend analysis,
+    but the objects are sourcing-event artefacts.
+- tag: supplier contacts
+  spec_file: arkestro-supplier-contacts-api-openapi.yml
+  capability_id: BC-510.10
+  capability_id_l1: BC-510
+  capability_name: Supplier Onboarding Management
+  confidence: 0.7
+  evidence: POST /api/v2/supplier_contacts    create supplier contact
+  reason: CRUD over supplier contact records used to invite suppliers to sourcing events — supplier master/registration
+    data. L2 onboarding is a reasonable but not certain read; core L1 Supplier Management is solid.
