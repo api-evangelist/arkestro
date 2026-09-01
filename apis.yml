@@ -31,14 +31,14 @@ created: '2026-08-06'
 modified: '2026-08-06'
 tags:
 - Procurement
-- sourcing
+- Sourcing
 - Supply Chain
-- spend-management
-- e-sourcing
-- supplier-management
-- purchase-orders
+- Spend Management
+- eSourcing
+- Supplier Management
+- Purchase Orders
 - procurement-analytics
-- enterprise-software
+- Enterprise Software
 - predictive-procurement
 - MCP
 - Webhook
@@ -87,7 +87,7 @@ apis:
   humanURL: https://api.arkestro.com/api-docs
   baseURL: https://api.arkestro.com
   tags:
-  - awards
+  - Awards
   tags_raw:
   - awards
   properties:
@@ -113,7 +113,7 @@ apis:
   humanURL: https://api.arkestro.com/api-docs
   baseURL: https://api.arkestro.com
   tags:
-  - business unit
+  - Business Unit
   tags_raw:
   - business unit
   properties:
@@ -211,7 +211,7 @@ apis:
   humanURL: https://api.arkestro.com/api-docs
   baseURL: https://api.arkestro.com
   tags:
-  - document submissions
+  - Document Submissions
   tags_raw:
   - document submissions
   properties:
@@ -237,7 +237,7 @@ apis:
   humanURL: https://api.arkestro.com/api-docs
   baseURL: https://api.arkestro.com
   tags:
-  - event analytics
+  - Event Analytics
   tags_raw:
   - event analytics
   properties:
@@ -313,7 +313,7 @@ apis:
   humanURL: https://api.arkestro.com/api-docs
   baseURL: https://api.arkestro.com
   tags:
-  - quote submissions
+  - Quote Submissions
   tags_raw:
   - quote submissions
   properties:
