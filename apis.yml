@@ -353,7 +353,7 @@ apis:
   humanURL: https://api.arkestro.com/api-docs
   baseURL: https://api.arkestro.com
   tags:
-  - Schedules
+  - Schedule
   tags_raw:
   - schedules
   properties:
