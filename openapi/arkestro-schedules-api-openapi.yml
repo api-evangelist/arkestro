@@ -2,35 +2,19 @@ openapi: 3.2.0
 info:
   version: '2.0'
   title: V2 Schedules API
-  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
-
-    Our current API offering features endpoints that allow the creation and execution of an event.
-
-
-    To get started, please generate an API Token.
-
-    To generate an API Token your user must be an admin and you must request the feature be made available.
-
-    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token.  This API token will be used in your request
-
-    header as an X-Token.
-
-
-    Once you have an API Token you can make your first request.  A good starting point would be to request one of the index endpoints, such as:
-
-    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: <YOUR API TOKEN>'''
+  description: The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
 servers:
 - url: https://api.arkestro.com
 security:
 - ApiKeyAuth: []
 tags:
-- name: schedules
+- name: Schedules
 paths:
   /api/v2/events/{id}/schedule:
     get:
       summary: show schedule
       tags:
-      - schedules
+      - Schedules
       parameters:
       - name: id
         in: path
@@ -231,6 +215,8 @@ paths:
                 properties:
                   error:
                     type: string
+      operationId: getApiV2EventsByIdSchedule
+      x-operation-id-source: derived
 components:
   securitySchemes:
     ApiKeyAuth:
