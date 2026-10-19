@@ -1,0 +1,238 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  title: V2 Webhooks API
+  description: 'The Arkestro API is used to manage aspects of your Arkestro instance without needing to have a user session.
+
+    Our current API offering features endpoints that allow the creation and execution of an event.
+
+
+    To get started, please generate an API Token.
+
+    To generate an API Token your user must be an admin and you must request the feature be made available.
+
+    Once enabled, you can go to your User Settings -> Personal Access Tokens and generate a new API token. This API token will be used in your request
+
+    header as an X-Token.
+
+
+    Once you have an API Token you can make your first request. A good starting point would be to request one of the index endpoints, such as:
+
+    curl --location --request GET ''https://api.arkestro.com/api/v2/events'' --header ''Accept: application/json'' --header ''X-Token: '''
+servers:
+- url: https://api.arkestro.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: Webhooks
+  description: '# Verifying webhook signatures
+
+
+    Arkestro signs **every** outbound webhook with **HMAC-SHA256**. The instructions
+
+    below apply to all webhook events. Before you trust a delivery, verify the
+
+    signature so you can be sure the request came from Arkestro and was not tampered
+
+    with in transit. ## Headers
+
+
+    Every delivery includes these headers:
+
+
+    | Header | Description |
+
+    | --- | --- |
+
+    | `X-Arkestro-Signature` | One or more HMAC-SHA256 signatures of the request, each formatted `sha256=` and joined by commas with no whitespace (e.g. `sha256=5d61...,sha256=9af2...`). Multiple values appear during secret rotation — see below. |
+
+    | `X-Arkestro-Timestamp` | The Unix timestamp (epoch **seconds**, as a string) at which the request was signed, e.g. `1748290800`. This value is part of the signed payload. |
+
+    | `X-Arkestro-Idempotency-Key` | A UUID identifying the delivery **event**. It is generated once when the event fires and stays **constant across all retry attempts** of that delivery, so you can use it to deduplicate retries on your end. Unlike `request_id` in the body, which changes on every attempt, this value does not. It is **not** part of the signed payload. |
+
+
+    ## How the signature is computed
+
+
+    Arkestro builds a **signed payload** by concatenating the timestamp, a literal
+
+    `.`, and the raw request body:
+
+
+    ```text
+
+    signed_payload = "{X-Arkestro-Timestamp}.{raw_request_body}"
+
+    ```
+
+
+    It then computes `HMAC-SHA256(secret, signed_payload)` as a lowercase **hex**
+
+    digest and prefixes it with `sha256=`. Folding the timestamp into the digest
+
+    means a replayed request with a tampered timestamp will fail verification. ## How to verify a delivery
+
+
+    1. Read the `X-Arkestro-Timestamp` and `X-Arkestro-Signature` headers. 2. *(Recommended)* Reject the delivery if the timestamp is outside a tolerance
+
+    window (e.g. ±5 minutes from now) to limit replay attacks. 3. Rebuild the signed payload as `"{timestamp}.{raw_body}"` using the **raw
+
+    request bytes** — not a re-serialized or pretty-printed copy of the JSON. Re-encoding the body will change the bytes and break verification. 4. Compute `sha256=` + the hex HMAC-SHA256 of the signed payload using your
+
+    signing secret. 5. Split `X-Arkestro-Signature` on `,` and check, using a **constant-time**
+
+    comparison, whether your computed value matches any of the provided values. Accept the delivery if at least one matches. ## Secret rotation and multiple signatures
+
+
+    `X-Arkestro-Signature` can contain **more than one** `sha256=` value. Arkestro
+
+    signs each delivery with every secret that is currently active, including a
+
+    previous secret that is still within its rotation grace period. This lets you rotate secrets with zero missed deliveries:
+
+
+    - While both the old and new secret are active, Arkestro sends a signature for
+
+    each. A verifier holding either secret will find a matching value. - Once you have switched to the new secret and the old one expires, only the new
+
+    signature is sent. When verifying, always **split the header on commas and accept if any value
+
+    matches** a digest computed with any secret you currently hold. Never assume a
+
+    single signature. ## Code examples
+
+
+    Each example reads the raw request body, rebuilds the signed payload, splits the
+
+    signature header on commas, and compares each candidate against a locally
+
+    computed digest using a constant-time comparison. `secrets` is the list of
+
+    signing secrets you currently hold (one normally, two during a rotation). ### Node.js
+
+
+    ```js
+
+    const crypto = require(''crypto'');
+
+
+    // rawBody must be the exact bytes received (e.g. a string or Buffer),
+
+    // not JSON.parse''d and re-stringified. function verifyWebhook(rawBody, headers, secrets, toleranceSec = 300) {
+
+    const timestamp = headers[''x-arkestro-timestamp''];
+
+    const signatureHeader = headers[''x-arkestro-signature''];
+
+    if (!timestamp || !signatureHeader) return false;
+
+
+    // Optional replay protection.'
+paths: {}
+webhooks:
+  award.granted:
+    post:
+      summary: award.granted
+      operationId: awardGrantedWebhook
+      security: []
+      tags:
+      - Webhooks
+      description: 'Fired when an award is finalized on an event. The `data.award` payload
+
+        is identical to the award returned by `GET /api/v2/events/{id}/award`,
+
+        so webhook consumers and pollers of that endpoint always see the same
+
+        shape.
+
+
+        Every delivery is signed — see the introduction of this section for how
+
+        to verify the signature headers, how to respond, and the retry
+
+        schedule.'
+      parameters:
+      - name: X-Arkestro-Signature
+        in: header
+        required: true
+        schema:
+          type: string
+        description: One or more HMAC-SHA256 signatures of the request, each formatted `sha256=<hex>` and joined by commas with no whitespace. Multiple values appear during secret rotation.
+        example: sha256=5d61a7b19c1c1b2f9a4408c1a3ee7dcd2f1c5b7e9a0d3f6c8b2e4a1d7c9f0b3a
+      - name: X-Arkestro-Timestamp
+        in: header
+        required: true
+        schema:
+          type: string
+        description: The Unix timestamp (epoch seconds, as a string) at which the request was signed. Part of the signed payload.
+        example: '1748290800'
+      - name: X-Arkestro-Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: A UUID identifying the delivery event. It stays constant across all retry attempts of the delivery (unlike `request_id` in the body, which changes on every attempt), so use it to deduplicate retries.
+        example: 0b8a4f7d-2e61-4c3b-9d05-8f6a1c2e4b7d
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: components/schemas/award_granted_webhook_payload.yaml
+            examples:
+              basic:
+                value:
+                  webhook_event: award.granted
+                  request_id: 6f1c2b6e-9d3a-4f5b-8a90-2c7e4d1b5f03
+                  data:
+                    award:
+                      id: 501
+                      award_format: by_line_item
+                      awarded_at: '2026-04-01T19:07:00Z'
+                      event:
+                        id: 118996
+                        name: ERF013338 200007902
+                        currency: USD
+                        external_id: ERF013338
+                        business_unit:
+                          id: 1
+                          name: Midwest
+                          unique_name: Midwest Processing Co 123
+                        custom_value_fields:
+                        - id: 1
+                          type_text: Site ID
+                          value_text: CSD-1053
+                      awarded_line_items:
+                      - line_item_id: 7734
+                        quote_submission_id: 9821
+                        quote_submission_lot_id: 3307
+                        quote_submission_line_item_id: 44120
+                        name: hammers
+                        total: '1000.00'
+                        quoted_price_per_unit: '100.00'
+                        awarded_quantity_of_units: '10'
+                        quoted_quantity_of_units: '10'
+                        unit_of_measure: each
+                        supplier_provided_price: '2050.00'
+                        supplier_provided_discount: '5.0'
+                        quoting_currency: MXN
+                        supplier_contact:
+                          id: 3301
+                          first_name: Hank
+                          last_name: Hammersmith
+                          email: hank@acmehammers.com
+                          external_id: contact-77
+                          supplier_organization:
+                            id: 205
+                            name: Acme Hammers Inc.
+                            external_id: sup123
+      responses:
+        2XX:
+          description: Acknowledge the delivery with any `2xx` status code within 10 seconds; the response body is ignored. `429` and `5xx` responses, timeouts, and connection errors are retried with exponential backoff; any other non-`2xx` response discards the delivery permanently.
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Token

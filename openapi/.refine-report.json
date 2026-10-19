@@ -1,44 +1,18 @@
 {
   "provider": "arkestro",
   "sources": [
-    "_original/arkestro-api-v2-openapi.yml"
+    "_original/arkestro-openapi.yml"
   ],
   "outputs": [
-    "arkestro-awards-api-openapi.yml",
-    "arkestro-business-unit-api-openapi.yml",
-    "arkestro-corporate-categories-api-openapi.yml",
-    "arkestro-corporate-items-api-openapi.yml",
-    "arkestro-corporate-purchase-orders-api-openapi.yml",
-    "arkestro-document-submissions-api-openapi.yml",
-    "arkestro-event-analytics-api-openapi.yml",
-    "arkestro-event-documents-api-openapi.yml",
-    "arkestro-events-api-openapi.yml",
-    "arkestro-quote-submissions-api-openapi.yml",
-    "arkestro-schedules-api-openapi.yml",
-    "arkestro-supplier-contacts-api-openapi.yml",
-    "arkestro-supplier-organizations-api-openapi.yml"
+    "arkestro-webhooks-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "arkestro-api-v2-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "arkestro-openapi.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+1 apis, 2 total)"
   ],
-  "skipped": [
-    "arkestro-awards-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-business-unit-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-corporate-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-corporate-items-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-corporate-purchase-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-document-submissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-event-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-event-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-quote-submissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-schedules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-supplier-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "arkestro-supplier-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }
