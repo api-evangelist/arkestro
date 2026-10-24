@@ -364,6 +364,8 @@ apis:
   humanURL: https://api.arkestro.com/.well-known/oauth-authorization-server
   baseURL: https://api.arkestro.com/api/v2/mcp
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
